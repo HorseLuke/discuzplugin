@@ -1,0 +1,48 @@
+{subtemplate header}
+		<div id="nav"><a href="$indexname">$bbname</a> $navigation &raquo; 更改发帖人为指定用户</div>
+
+		<div class="ajaxform">
+			<form method="post" action="changeposter.php?pid={$postdetail['pid']}">
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<input type="hidden"  name="changepostersubmit" value="yes" />
+				<input type="hidden" name="referer" value="$referer" />
+
+				<table summary="changeposter" cellspacing="0" cellpadding="0">
+
+					<thead>
+						<tr>
+							<th>更改发帖人为指定用户</th>
+							<td align="right">&nbsp;</td>
+						</tr>
+					</thead>
+
+					<tr>
+						<th>你想把:</th>
+						<td>发帖pid为<a href="redirect.php?goto=findpost&pid={$postdetail['pid']}" target="_blank">{$postdetail['pid']}</a>，发帖人为<a href="space.php?uid={$postdetail['authorid']}" target="_blank"><!--{if $postdetail['authorid']  == '0'}-->游客<!--{else}-->{$postdetail['author']}<!--{/if}--></a>(IP:{$postdetail['useip']})的帖子</td>
+					</tr>
+                    
+					<tr>
+						<th>更改到:</th>
+						<td>                  <label>
+                    <select name="searchkey" id="searchkey">
+                      <option value="uid">用户编号(uid)</option>
+                      <option value="username" selected="selected">用户名称</option>
+                    </select>
+                    为
+                    <input name="keyword" type="text" id="keyword" size="10"/>的用户下面
+                  </label>
+                  </td>
+					</tr>
+
+					<tr class="btns">
+						<th>&nbsp;</th>
+						<td>
+							<button class="submit" type="submit" value="true" id="changepostersubmit">开始更改</button>
+						</td>
+					</tr>
+
+				</table>
+			</form>
+		</div>
+
+{subtemplate footer}

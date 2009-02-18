@@ -1,0 +1,65 @@
+{subtemplate header}
+
+<div id="nav">
+	 <a href="$indexname">$bbname</a> $navigation &raquo; 更改发帖人为指定用户
+</div>
+<div id="wrap" class="wrap with_side s_clear">
+	<div class="main">
+		<div class="content">
+			<div class="itemtitle s_clear">
+					<h1>更改发帖人为指定用户</h1>
+			</div>
+ 			<div class="changeposter datalist">
+			<form method="post" action="changeposter.php?pid={$postdetail['pid']}"  id="postform">
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<input type="hidden"  name="changepostersubmit" value="yes" />
+				<input type="hidden" name="referer" value="$referer" />
+			<div class="mainbox datalist">
+				<table summary="changeposter" cellspacing="0" cellpadding="0">
+					<thead>
+						<tr>
+							<th>你想把:</th>
+							<td>发帖pid为<strong><a href="redirect.php?goto=findpost&pid={$postdetail['pid']}" target="_blank">{$postdetail['pid']}</a></strong>，发帖人为<strong><a href="space.php?uid={$postdetail['authorid']}" target="_blank"><!--{if $postdetail['authorid']  == '0'}-->游客<!--{else}-->{$postdetail['author']}<!--{/if}--></a></strong>(IP:{$postdetail['useip']})的帖子</td>
+						</tr>
+					</thead>
+					<tr>
+						<th>更改到:</th>
+						<td>
+                    <select name="searchkey" id="searchkey">
+                      <option value="uid">用户编号(uid)</option>
+                      <option value="username" selected="selected">用户名称</option>
+                    </select>
+                    为
+                    <input name="keyword" type="text" id="keyword" size="10"/>的用户下面
+                  </label>
+                        </td>
+					</tr>
+
+					<tr class="btns">
+						<th>&nbsp;</th>
+						<td>
+                            <button class="submit" type="submit" value="true" id="changepostersubmit">开始更改</button>{lang post_submit_hotkey}
+						</td>
+					</tr>
+				</table>
+		 	</div>
+	    	</form>
+			</div>
+		</div>
+	</div>
+ 
+    
+	<div class="side">
+        <div class="sideinner">
+      	   <ul class="tabs">
+		       <h4 class="tabs">版本信息</h4>
+		          <li>
+    <span style="font: normal 9px Verdana; display:block;">
+    <b>Change Poster</b> Ver 0.1 Build 20090125 For Discuz! 7<br />[kernel PHP File Version:V0.1 Build 20081015]<br /><a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" title="第一原作者：Horse Luke">Licensed Under the Apache License, Version 2.0,&nbsp;Automatically Licensed to {$sitename}</a></span>
+                  </li>
+	       </ul>      
+</div>
+	</div>
+
+</div>
+{subtemplate footer}
