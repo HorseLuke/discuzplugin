@@ -1,4 +1,4 @@
-#评分记录查看器－ratelogviewer下载地址
+#summary 评分记录查看器－ratelogviewer及旧版本旧版本“我的评分记录－myrateview”下载地址
 
 
 = Details =
