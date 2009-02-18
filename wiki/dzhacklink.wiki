@@ -18,3 +18,7 @@
 5、在版块查询/列出高亮的主题/关闭的主题/已评分主题For DZ6.X[含1个Q&A] ：http://www.discuz.net/viewthread.php?tid=1063772
 
 6、折叠评分记录Hack For Discuz6.0/6.1/6.1F：http://www.discuz.net/viewthread.php?tid=1040622
+
+
+==其它链接==
+一个插件作者的困惑（开发半年的插件感受/关于官方、站长、插件作者）：http://www.discuz.net/viewthread.php?tid=1193703
