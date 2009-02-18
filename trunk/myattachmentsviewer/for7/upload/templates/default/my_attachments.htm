@@ -1,0 +1,136 @@
+{subtemplate header}
+
+<!--{if $filetype=='onlyimage'}-->
+
+<style type="text/css">
+<!--
+.imagedisplay img { border: none; max-width: 120px; max-height: 120px; width: expression(this.width > 120 && this.height < this.width ? 120: true); height: expression(this.height > 120 ? 120: true); vertical-align: middle; font-size: 1px; }
+-->
+</style>
+
+<script src="include/js/viewthread.js" type="text/javascript"></script>
+<!--{/if}-->
+
+<div id="nav">
+	<a href="$indexname">$bbname</a> &raquo; 我的附件
+</div>
+<div id="wrap" class="wrap with_side s_clear">
+	<div class="main">
+		<div class="content">
+        
+			<div class="itemtitle s_clear">
+					<h1>我的附件</h1>
+					<ul>
+						<li<!--{if empty($filetype) || $filetype == 'alltype'}--> class="current"<!--{/if}-->><a href="myattachments.php" hidefocus="true"><span>所有类型</span></a></li>
+						<li class="pipe">|</li>
+						<li<!--{if $filetype == 'onlyimage'}--> class="current"<!--{/if}-->><a href="myattachments.php?filetype=onlyimage" hidefocus="true"><span>仅图像附件</span></a></li>
+						<li class="pipe">|</li>
+						<li<!--{if $filetype == 'notimage'}--> class="current"<!--{/if}-->><a href="myattachments.php?filetype=notimage" hidefocus="true"><span>非图像附件</span></a></li>
+					</ul>
+			</div>
+            
+			<div class="attachmentslist datalist">
+                    <table cellspacing="0" cellpadding="0" summary="我的附件">     
+                          <!--{if $attachmentscount}-->
+                             <!--{if $filetype=='onlyimage'}-->
+                         <thead class="colplural">
+                            <tr>
+                                <td>图片预览</td>
+                                <td>所在主题及图片描述</td>
+                                <td>其他信息</td>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          <!--{loop $attachmentslist $attachments}-->
+                            <tr>
+                                <td class="imagedisplay"><a href="redirect.php?goto=findpost&pid=$attachments['pid']" target="_blank"><img src="attachments/$attachments['attachment']" onclick="zoom(this, this.src)" alt="$attachments['filename']" /></a></td>
+                                <td>
+                                文件名：<a href="attachment.php?aid=$attachments['aid']" target="_blank">$attachments['filename']</a>
+                                <br />所在主题：<a href="redirect.php?goto=findpost&pid=$attachments['pid']" target="_blank">$attachments['subject']</a>
+                                <br />上传时间：$attachments['dateline']
+                                <!--{if $attachments['description']}--><br />附件描述：$attachments['description']<!--{/if}-->
+                                </td>
+                                <td>
+                                文件大小：$attachments['filesize']
+                                <br />下载次数：$attachments['downloads']次
+                                <!--{if $attachments['readperm']}--><br /> 阅读权限：$attachments['readperm']<!--{/if}-->
+                                <!--{if $attachments['price']}--><br /> 附件售价：$attachments['price']（<a href="misc.php?action=viewattachpayments&aid=$attachments['aid']" onclick="floatwin('open_attachpay', this.href, 600, 410);return false;" target="_blank">查看购买记录</a>）<!--{/if}-->
+                                <!--{if $attachments['remote']}--><br />远程附件<!--{/if}-->
+                            </tr>
+                          <!--{/loop}-->
+                            
+                          </tbody>
+                          
+                          
+                          
+                             <!--{else}-->
+                             
+                             
+                             
+                             
+                             
+                             
+                         <thead class="colplural">
+                            <tr>
+                                <td>类型</td>
+                                <th>文件名</th>
+                                <td class="forum">所在主题</td>
+                                <td>大小</td>
+                                <td>下载次数</td>
+                                <td class="forum">其它备注</td>
+                            </tr>
+                          </thead>
+                          
+                          <tbody>
+                          <!--{loop $attachmentslist $attachments}-->
+                              <tr>
+                                <td>$attachments['filetype']</td>
+                                <th><a href="attachment.php?aid=$attachments['aid']" target="_blank">$attachments['filename']</a>
+                                <br /><em>上传时间：$attachments['dateline']</em>
+                                <!--{if $attachments['description']}--><br /><em>附件描述：$attachments['description']</em><!--{/if}-->
+                                </th>
+                                <td class="forum"><a href="redirect.php?goto=findpost&pid=$attachments['pid']" target="_blank">$attachments['subject']</a></td>
+                                <td>$attachments['filesize']</td>
+                                <td>$attachments['downloads']次</td>
+                                <td class="lastpost">
+                                    <!--{if $attachments['readperm']}-->阅读权限：$attachments['readperm']。<!--{/if}-->
+                                    <!--{if $attachments['price']}-->附件售价：$attachments['price']（<a href="misc.php?action=viewattachpayments&aid=$attachments['aid']" onclick="floatwin('open_attachpay', this.href, 600, 410);return false;" target="_blank">查看购买记录</a>）。<!--{/if}-->
+                                    <!--{if $attachments['remote']}-->远程附件。<!--{/if}-->
+                                </td>
+                               </tr>
+                          <!--{/loop}-->
+                          </tbody>
+                               
+                             <!--{/if}-->
+                               
+                          <!--{else}-->
+                               <tr><th colspan="5"><p class="nodata">暂无数据</p></th></tr>
+                          <!--{/if}-->
+                    </table> 
+			</div>
+            <div class="forumcontrol s_clear">
+            <!--{if $attachmentscount}-->此次查询共有{$attachmentscount}个附件。
+            $multipage<!--{/if}-->
+            </div>
+
+		</div>
+	</div>
+    
+    
+	<div class="side">
+		{subtemplate personal_navbar}
+        <hr class="shadowline" />
+        <div class="sideinner">
+      	   <ul class="tabs">
+		       <h4 class="tabs">版本信息</h4>
+		          <li>
+                     <a href="http://www.discuz.net/thread-1111536-1-1.html" title="插件名称：我的附件查询（My Attachments Viewer）。第一原作者: Horse Luke（中文名称：竹节虚）。该插件原模型来源于国外著名论坛程序phpBB的一个子功能：我的附件管理（User Control Panel - Manage attachments）。本插件仅抽取其核心功能——列出我所发表的附件。" target="_blank"><span style="font: bold 14px Verdana; color: Blue;">My Attachments Viewer</span><span style="font: bold 12px Arial; color: #fbb040;">(H.L.)</span></a>
+                     <span style="font: normal 9px Verdana; display:block;">Ver 0.0.2 Beta Build 20081115<br />For Discuz! 7.0.0 Beta</span>
+                     <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">第一原作者基于Apache License协议授权开源</a>
+                  </li>
+	       </ul>
+        </div>
+	</div>
+
+</div>
+{subtemplate footer}

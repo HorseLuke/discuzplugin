@@ -1,0 +1,21 @@
+# Discuz! Plugin Dump
+# Version: Discuz! 6.1.0F
+# Time: 2008-11-16 01:10  
+# From: 华南高校车协联盟 (http://127.0.0.1/bbsother/ubikeu/) 
+#
+# Discuz! Community: http://www.Discuz.net
+# Please visit our website for latest news about Discuz!
+# --------------------------------------------------------
+
+
+YToyOntzOjY6InBsdWdpbiI7YTo5OntzOjk6ImF2YWlsYWJsZSI7czoxOiIx
+IjtzOjc6ImFkbWluaWQiO3M6MToiMCI7czo0OiJuYW1lIjtzOjEyOiLO0rXE
+uL28/rLp0a8iO3M6MTA6ImlkZW50aWZpZXIiO3M6MTI6Im15YXR0YWNodmll
+dyI7czoxMToiZGVzY3JpcHRpb24iO3M6MDoiIjtzOjEwOiJkYXRhdGFibGVz
+IjtzOjA6IiI7czo5OiJkaXJlY3RvcnkiO3M6MDoiIjtzOjk6ImNvcHlyaWdo
+dCI7czowOiIiO3M6NzoibW9kdWxlcyI7czoxNzg6ImE6MTp7aTowO2E6Njp7
+czo0OiJuYW1lIjtzOjEyOiJteWF0dGFjaHZpZXciO3M6NDoibWVudSI7czox
+MjoiztK1xLi9vP6y6dGvIjtzOjM6InVybCI7czoxNzoibXlhdHRhY2htZW50
+cy5waHAiO3M6NDoidHlwZSI7czoxOiI1IjtzOjc6ImFkbWluaWQiO3M6MToi
+MCI7czoxMjoiZGlzcGxheW9yZGVyIjtpOjA7fX0iO31zOjc6InZlcnNpb24i
+O3M6NjoiNi4xLjBGIjt9
