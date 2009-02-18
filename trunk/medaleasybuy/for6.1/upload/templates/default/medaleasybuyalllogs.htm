@@ -1,0 +1,52 @@
+{subtemplate header}
+
+	<div id="nav"><a href="$indexname">$bbname</a> &raquo; 勋章购买易[后台管理] &raquo; 查看指定的购买记录</div>
+	<div class="container">
+		<div class="side">
+			{template medaleasybuy_navbar}
+		</div>
+		<div class="content">
+                
+               <div class="popupmenu_popup headermenu_popup" id="helpinadmincp_menu" style="display: none;">
+                    <b>关于购买记录的查看技巧</b><br />
+                        1、通过点击勋章名称，您可单独查看购买了该勋章的所有记录。（或通过“http://你的论坛地址/medaleasybuyadmincp.php?action=alllogs&medalid=勋章的id”来直接进入查看）<br />
+                        2、通过点击“购买者”的名字，您可单独查看该会员的购买记录。（或者通过“http://你的论坛地址/medaleasybuyadmincp.php?action=alllogs&uid=会员的uid”来直接进入查看）<br />
+                        3、通过点击“查看所有购买记录”可返回查看所有的记录（<a href="medaleasybuyadmincp.php?action=alllogs">或点击此处返回</a>)<br />
+                        4、注意：对于已删除的勋章，该查看系统将不显示。
+               </div>
+               <span class="msgtabs"><strong><a href="#" id="helpinadmincp" onmouseover="showMenu(this.id)"><img id="help_and_tip" src="./images/default/faq.gif" /> 查看技巧</a></strong></span>
+                
+				<div class="mainbox">
+					<h1>共 {$logstotalnum} 条 <!--{if !empty($uid)}-->{$username}<!--{elseif !empty($medalid)}-->{$medalname}<!--{else}-->所有成员<!--{/if}--> 的购买记录</h1>
+					<table summary="medaleasybuyalllogs" cellspacing="0" cellpadding="0">
+					<thead><tr><td>{lang medals}</td><td>购买者</td><td>购买时间</td><td>过期时间</td><td>购买时的ip</td><td>购买价格</td></tr></thead>
+					<!--{if $logstotalnum}-->
+						<!--{loop $medallogs $medallog}-->
+							<tr>
+							<td width="20%" class="attriblist">
+							<dl>
+								<dt><img src="images/common/$medallog[image]" alt="$medallog[name]" /></dt>
+								<dd class="name"><a href="medaleasybuyadmincp.php?action=alllogs&medalid={$medallog[medalid]}">$medallog[name]</a></dd>
+							</dl>
+							</td>
+                            <td>
+                            <a href="medaleasybuyadmincp.php?action=alllogs&uid={$medallog[uid]}">$medallog[username]</a>
+                            </td>
+							<td>$medallog[buytime]</td>
+							<td><!--{if $medallog[expiration]}-->$medallog[expiration]<!--{else}-->{lang medals_noexpire}<!--{/if}--></td>
+							<td>$medallog[buyip]</td>
+							<td>$extcredits[$medallog[extcreditsid]]['title'] $medallog[moneyamount]</td>
+							</tr>
+						<!--{/loop}-->
+					<!--{else}-->
+						<tr><td colspan="3">暂无数据</td></tr>
+					<!--{/if}-->
+					</table>
+				</div>
+				<!--{if !empty($multipage)}--><div class="pages_btns">$multipage</div><!--{/if}-->
+				
+		</div>
+	</div>
+
+
+{subtemplate footer}

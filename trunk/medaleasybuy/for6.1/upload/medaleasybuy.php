@@ -1,8 +1,7 @@
 <?php
 
 /*
-medaleasybuy主要解决以相同价格购买多个勋章的功能。功能较为简单。
-for dz6.1/6.1f 0.0.1 hotfix1 build 20081224
+Medal EasyBuy Ver 0.0.2 Build 20090119 For Discuz! 6.1/6.1F - Frontpage
 
   Copyright 2008 Horse Luke（竹节虚）.
 
@@ -20,20 +19,28 @@ for dz6.1/6.1f 0.0.1 hotfix1 build 20081224
 
 */
 
-$closed=1;                    //是否关闭插件？0为否。管理员不受限制
-$medalcanbuyid=array(1,7,8,9);     //可购买的medalid
-$medalcanbuyprice=10;         //统一购买价格
-$medalcanbuyextcreditsid=1;        //购买积分单位id
+
 
 
 require_once './include/common.inc.php';
 
 if(!$discuz_uid) {
-	showmessage('not_loggedin', NULL, 'HALTED');
+	showmessage('not_loggedin', NULL, 'NOPERM');
+}
+@include_once './forumdata/cache/cache_medaleasybuy.php';
+$open=empty($medaleasybuy_basicsettings['open']) ? 0 : $medaleasybuy_basicsettings['open'];
+$medalcanbuyextcreditsid=empty($medaleasybuy_basicsettings['buyextcreditsid']) ? 2 : $medaleasybuy_basicsettings['buyextcreditsid'];
+$medalcanbuyid = empty($medaleasybuy_medallist['medalcanbuylistidcache']) ? array() : $medaleasybuy_medallist['medalcanbuylistidcache'];
+//$medalcanbuyprice=10;         //统一购买价格
+
+$navtitle = "勋章购买易 - ";
+
+if((!$open) && ($adminid != 1)){
+	showmessage('插件关闭中，稍候再来吧 ^_^');
 }
 
-if($closed && ($adminid != 1)){
-	showmessage('插件关闭中，稍候再来吧 ^_^');
+if ((!file_exists('./forumdata/cache/cache_medaleasybuy.php'))  &&  $adminid == 1 ) {
+      echo '<script>alert(\'插件的缓存文件丢失，请进入进入后台重新刷新缓存！\n（当前登录权限：管理员）\');</script> ';
 }
 
 
@@ -43,10 +50,16 @@ if(empty($action)) {
 	while($medal = $db->fetch_array($query)) {
 	  if(in_array($medal['medalid'],$medalcanbuyid)){
 		$medal['permission'] = formulaperm($medal['permission'], 2);
-		$medallist[] = $medal;
+		$medal['medalcanbuyprice'] = empty($medaleasybuy_medallist['medalcanbuylist'][$medal['medalid']]['moneyamount']) ? 0 : $medaleasybuy_medallist['medalcanbuylist'][$medal['medalid']]['moneyamount'];
+		if ($medal['medalcanbuyprice'] > 0){
+	    	$medal['noticesentense']='购买需花费'.$extcredits[$medalcanbuyextcreditsid]['title'].$medal['medalcanbuyprice'].'。';
+		}else{
+		    $medal['noticesentense']='在免费获取此勋章同时，将赠送'.$extcredits[$medalcanbuyextcreditsid]['title'].-($medal['medalcanbuyprice']).'。';
+		}
+		$medallist[$medal['medalid']] = $medal;
 	  }
 	}
-	$noticesentense='购买需花费'.$extcredits[$medalcanbuyextcreditsid]['title'].$medalcanbuyprice.'。';
+	
 
 } elseif($action == 'log') {
 
@@ -74,24 +87,35 @@ if(empty($action)) {
 		showmessage('这个勋章是不能购买的 ^_^','javascript:history.back()');
 	}
 	formulaperm($medal['permission'], 1) && $medal['permission'] = formulaperm($medal['permission'], 2);
-	$noticesentense='一旦点击，将扣除'.$extcredits[$medalcanbuyextcreditsid]['title'].$medalcanbuyprice.'。点击开始。';
+	$medalcanbuyprice = empty($medaleasybuy_medallist['medalcanbuylist'][$medal['medalid']]['moneyamount']) ? 0 : $medaleasybuy_medallist['medalcanbuylist'][$medal['medalid']]['moneyamount'];
+	if ($medalcanbuyprice > 0){
+	    	$noticesentense='购买需花费'.$extcredits[$medalcanbuyextcreditsid]['title'].$medalcanbuyprice.'。点击开始。';
+	}else{
+		    $noticesentense='在免费获取此勋章同时，将增送'.$extcredits[$medalcanbuyextcreditsid]['title'].-($medalcanbuyprice).'。点击开始。';
+	}
+	//$noticesentense='一旦点击，将扣除'.$extcredits[$medalcanbuyextcreditsid]['title'].$medalcanbuyprice.'。点击开始。';
 	if(submitcheck('medalsubmit')) {
-	    if ($GLOBALS['extcredits'.$medalcanbuyextcreditsid] < $medalcanbuyprice){
+	    if ( ($medalcanbuyprice > 0) && ($GLOBALS['extcredits'.$medalcanbuyextcreditsid] < $medalcanbuyprice)){
 		    showmessage('不够银子了，先去提款机那里吧 ^_^','javascript:history.back()');
 		}
-		$medaldetail = $db->fetch_first("SELECT medalid FROM {$tablepre}medallog WHERE uid='$discuz_uid' AND medalid='$medalid' AND type!='3'");
-		if($medaldetail['medalid']) {
-			showmessage('medal_apply_existence', 'medaleasybuy.php');
+		$medaldetail = $db->fetch_first("SELECT medalid FROM {$tablepre}medallog WHERE uid='$discuz_uid' AND medalid='$medalid' AND type ='2'");    //type==2,审核中，type==3，审核不通过，type==1，审核通过。type==0，人工授予。
+		$hasmedal = $db->result_first("SELECT medals FROM {$tablepre}memberfields WHERE uid='$discuz_uid'");
+		$hasmedalarray = explode("\t",$hasmedal);
+		if(in_array($medalid,$hasmedalarray)){
+			showmessage('你已经拥有这个勋章啦！', 'medaleasybuy.php');
+		}
+		elseif($medaldetail['medalid']) {
+			showmessage('你曾经申请过该勋章，请等待管理员后台审核。', 'medaleasybuy.php');
 		} else {		
 			$userip=dhtmlspecialchars($_SERVER['REMOTE_ADDR']);
 			$expiration = empty($medal['expiration'])? 0 : $timestamp + $medal['expiration'] * 86400;
 			$status= empty($medal['expiration'])? 0 : 1;
 			$db->query("INSERT INTO {$tablepre}medaleasybuylog (uid,medalid,buytime,expiration,buyip,moneyamount,extcreditsid) VALUES ('$discuz_uid', '$medalid', '$timestamp', '$expiration', '$userip','$medalcanbuyprice', '$medalcanbuyextcreditsid')");
 			$db->query("INSERT INTO {$tablepre}medallog (uid, medalid, type, dateline, expiration, status) VALUES ('$discuz_uid', '$medalid', '1', '$timestamp', '$expiration', '$status')");
-            $db->query("UPDATE {$tablepre}members SET extcredits{$medalcanbuyextcreditsid}=extcredits{$medalcanbuyextcreditsid}-$medalcanbuyprice WHERE uid='$discuz_uid'");
+            $db->query("UPDATE {$tablepre}members SET extcredits{$medalcanbuyextcreditsid}=extcredits{$medalcanbuyextcreditsid}-($medalcanbuyprice) WHERE uid='$discuz_uid'");
 			$usermedallist = $db->result_first("SELECT medals FROM {$tablepre}memberfields WHERE uid='$discuz_uid'");
 			$newmedal = empty($medal['expiration']) ? $medalid : $medalid.'|'.$medal['expiration'];
-			$medalsnew= empty($usermedallist) ? $newmedal : $usermedallist.'\t'.$newmedal;
+			$medalsnew= empty($usermedallist) ? $newmedal : $usermedallist."\t".$newmedal;
             $db->query("UPDATE {$tablepre}memberfields SET medals='$medalsnew' WHERE uid='$discuz_uid'");			
 			showmessage('购买成功！', 'medaleasybuy.php');	
 		}

@@ -1,0 +1,33 @@
+{subtemplate header}
+
+	<div id="nav"><a href="$indexname">$bbname</a> &raquo; 勋章购买易[后台管理] &raquo; 插件设置&raquo; 首页</div>
+	<div class="container">
+		<div class="side">
+			{template medaleasybuy_navbar}
+		</div>
+		<div class="content">
+                                
+				<div class="mainbox">
+					<h1>请选择一项设置任务</h1>
+					<table summary="{medals}" cellspacing="0" cellpadding="0">
+					<thead><tr><td>设置链接和设置简要说明</td></tr></thead>
+							<tr>
+						    	<td><a href="medaleasybuyadmincp.php?action=set&amp;op=basicsettings" onclick="ajaxget(this.href, 'basicsettingsdiv');doane(event);"><b>1、插件基本设置</b></a><br />包括：控制插件开启状态；设置购买勋章的交易积分代号。
+                                <div id="basicsettingsdiv" style="display: none; margin-top: 10px;"></div>
+                                </td>
+							</tr>
+							<tr>
+						    	<td><a href="medaleasybuyadmincp.php?action=set&op=medalcanbuysettings&set=list" onclick="ajaxget(this.href, 'medalcanbuylistdiv');doane(event);"><b>2、可购买勋章列表设置</b></a><br />包括：增加/删除某个可购买的勋章；设置勋章的购买积分价格。
+                                <div id="medalcanbuylistdiv" style="display: none; margin-top: 10px;"></div></td>
+							</tr>
+							<tr>
+						    	<td><a href="medaleasybuyadmincp.php?action=set&op=refreshcache"><b>3、重新刷新缓存</b></a><br />该设置主要用于插件无法正常运行的情况下，所进行的重新刷新缓存修复。（注意：一旦点击将立即启动该修复工作。）</td>
+							</tr>
+					</table>
+				</div>
+				
+		</div>
+	</div>
+
+
+{subtemplate footer}

@@ -1,0 +1,57 @@
+{template header}
+
+	<!--{if !($inajax)}--><div id="nav"><a href="$indexname">$bbname</a> &raquo; 勋章购买易[后台管理] &raquo; 插件设置&raquo; 1、插件基本设置</div><!--{/if}-->
+	<div class="container">
+        <!--{if !($inajax)}-->
+		<div class="side">
+			{template medaleasybuy_navbar}
+		</div>
+
+		<div class="content">
+        <!--{/if}-->   
+                                     
+				<div class="mainbox">
+				<h1>1、插件基本设置</h1>
+            	<form method="post" action="medaleasybuyadmincp.php?action=set&op=basicsettings">
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<input type="hidden" name="action" value="medalcanbuysettings" />
+					<table summary="medalsbasicsettings" cellspacing="0" cellpadding="0">
+							<tr>
+						    	<td><b>1、插件状态：</b>
+                                   <label><input class="radio" type="radio" name="opennew" value="1" <!--{if ($medaleasybuy_basicsettings['open']==1)}-->checked="checked" <!--{/if}--> /> 开放（会员登录后即可使用） &nbsp;</label>
+                                   <label><input class="radio" type="radio" name="opennew" value="0" <!--{if ($medaleasybuy_basicsettings['open']==0)}-->checked="checked" <!--{/if}--> /> 关闭（除管理员外均无法进入） &nbsp;</label>
+                                </td>
+							</tr>
+							<tr>
+						    	<td><b>2、购买勋章的交易积分：</b>
+                                  <select id="medalcanbuyextcreditsidnew" name="medalcanbuyextcreditsidnew">
+                                     <!--{loop $extcredits $id $credit}-->
+				                     <option value="{$id}" <!--{if ($medaleasybuy_basicsettings['buyextcreditsid']  == $id)}-->selected="selected" <!--{/if}-->>extcredits{$id}（{$credit['title']}）</option>
+                                     <!--{/loop}-->
+                                  </select>
+                                </td>
+							</tr>
+							<tr>
+                                <td>
+                                <button class="submit" type="submit" name="basicsettingssubmit" id="basicsettingssubmit" value="true">确认无误，开始修改</button>
+                                <!--{if !($inajax)}-->
+                                    <button type="button" onclick="location.href='medaleasybuyadmincp.php?action=set'">放弃修改，返回</button>
+                                <!--{else}-->
+                                    <button type="button" onclick="basicsettingsdiv.style.display = 'none'">放弃修改，返回</button>
+                                <!--{/if}-->
+                                </td>
+							</tr>
+					</table>
+            	</form>
+				</div>
+                
+             
+<!--{if debuginfo() && $inajax}--><div class="notice"><p id="debuginfo">用时{$debuginfo[time]}秒，查询{$debuginfo[queries]}次。</p></div><!--{/if}-->
+		     
+		<!--{if !($inajax)}-->		
+		</div>
+        <!--{/if}-->
+	</div>
+
+
+{template footer}

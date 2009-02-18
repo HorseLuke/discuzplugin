@@ -1,6 +1,6 @@
 {subtemplate header}
 
-	<div id="nav"><a href="$indexname">$bbname</a> &raquo; <!--{if empty($action)}-->可购买勋章列表<!--{elseif $action == 'log'}-->查看购买记录<!--{elseif $action == 'apply'}-->确认购买页面<!--{/if}--></div>
+	<div id="nav"><a href="$indexname">$bbname</a>  &raquo; <a href="medaleasybuy.php">勋章购买易</a> &raquo; <!--{if empty($action)}-->可购买勋章列表<!--{elseif $action == 'log'}-->查看购买记录<!--{elseif $action == 'apply'}-->确认购买页面<!--{/if}--></div>
 	<div class="container">
 		<div class="side">
         
@@ -28,7 +28,7 @@
 								<!--{if $medal[permission]}-->{lang medals_draw_condition} $medal[permission]<!--{/if}-->
 							</td>
 							<td>                            
-                            <!--{if $medal['type']}--><a href="medal.php?action=apply&medalid=$medal[medalid]">[此勋章为用户自助申请，后台管理员审核，无须付费。点击这里跳转到相应页面]</a><!--{elseif $GLOBALS['extcredits'.$medalcanbuyextcreditsid] < $medalcanbuyprice}--><a href="#">[{$noticesentense}<b>你的条件不够，无法申请</b>]</a><!--{else}--><a href="medaleasybuy.php?action=apply&medalid=$medal[medalid]">[{$noticesentense}点此开始购买。]</a><!--{/if}-->
+                            <!--{if $medal['type']}--><a href="medal.php?action=apply&medalid=$medal[medalid]">[此勋章免费但为用户自助申请、后台管理员审核。点击这里跳转到相应页面]</a><!--{elseif ($medal['medalcanbuyprice'] > 0) && ($GLOBALS['extcredits'.$medalcanbuyextcreditsid] < $medal['medalcanbuyprice'])}-->[{$medal['noticesentense']}<b>你的条件不够，无法申请</b>]<!--{else}--><a href="medaleasybuy.php?action=apply&medalid=$medal[medalid]">[{$medal['noticesentense']}点此开始。]</a><!--{/if}-->
 							</td>
 							</tr>
 							<!--{/loop}-->
@@ -39,7 +39,7 @@
 				</div>
 			<!--{elseif $action == 'log'}-->
 				<div class="mainbox">
-					<h1>查看购买记录</h1>
+					<h1>查看购买记录 （共{$logstotalnum}条）</h1>
 					<table summary="{medals}" cellspacing="0" cellpadding="0">
 					<thead><tr><td>{lang medals}</td><td>购买时间</td><td>过期时间</td><td>购买时的ip</td><td>购买价格</td></tr></thead>
 					<!--{if $medallogs}-->
