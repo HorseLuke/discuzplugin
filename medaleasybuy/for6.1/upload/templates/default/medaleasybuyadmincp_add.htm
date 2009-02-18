@@ -1,0 +1,55 @@
+{template header}
+
+	<!--{if !($inajax)}--><div id="nav"><a href="$indexname">$bbname</a> &raquo; 勋章购买易[后台管理] &raquo; 插件设置&raquo; 添加勋章</div><!--{/if}-->
+	<div class="container">
+        <!--{if !($inajax)}-->
+		<div class="side">
+			{template medaleasybuy_navbar}
+		</div>
+
+		<div class="content">
+        <!--{/if}-->   
+                                     
+				<div class="mainbox">
+				<h1>添加勋章</h1>
+            	<form method="post" action="medaleasybuyadmincp.php?action=set&op=medalcanbuysettings&set=add">
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<input type="hidden" name="action" value="addmedalsubmit" />
+					<table summary="medalsbasicsettings" cellspacing="0" cellpadding="0">
+							<tr>
+						    	<td><b>第一步、请选择一个勋章：</b>
+                                  <select id="medalidnew" name="medalidnew">
+                                     <!--{loop $medallist $medal}-->
+				                     <option value="{$medal[medalid]}">{$medal[medalid]}：{$medal[name]}<!--{if $medal[expiration]}-->&nbsp;&nbsp;{lang medals_expiration} $medal[expiration] {lang medals_days} &nbsp; <!--{/if}--><!--{if $medal[permission]}-->{lang medals_draw_condition} $medal[permission]<!--{/if}--></option>
+                                     <!--{/loop}-->
+                                  </select>
+                                </td>
+							</tr>
+							<tr>
+						    	<td><b>第二步、请输入要购买该勋章的价格数值：</b><input type="text" name="moneyamountnew" size="10" value="" /><br />当价格为负值时，则表示反加回相应的积分数给购买者。
+                                </td>
+							</tr>
+							<tr>
+                                <td>
+                                <button class="submit" type="submit" name="addmedalsubmit" id="addmedalsubmit" value="true">确认无误，开始增加</button>
+                                <!--{if !($inajax)}-->
+                                    <button type="button" onclick="location.href='medaleasybuyadmincp.php?action=set&op=medalcanbuysettings&set=list'">放弃修改，返回</button>
+                                <!--{else}-->
+                                    <button type="button" onclick="addmedal.style.display = 'none'">放弃添加，返回</button>
+                                <!--{/if}-->
+                                </td>
+							</tr>
+					</table>
+            	</form>
+				</div>
+                
+             
+<div class="notice"><b>请注意：</b>只有当勋章设置为“可用”状态并且为“手动发放”时，才能为该勋章出售。否则，将无法添加；已经添加的则自动转为不可购买状态。<!--{if debuginfo() && $inajax}--><p id="debuginfo">用时{$debuginfo[time]}秒，查询{$debuginfo[queries]}次。</p><!--{/if}--></div>
+		     
+		<!--{if !($inajax)}-->		
+		</div>
+        <!--{/if}-->
+	</div>
+
+
+{template footer}

@@ -4,8 +4,8 @@ $installpassword='';      //请在此处填入安装启动密码！
 
 $installuser='Install_medaleasybuy';
 $thisfilename='medaleasybuy_install.php';
-$thisfileauthor='Horse Luke(竹节虚)[2008]';
-$thisfileversion='0.0.1 build 20081223';
+$thisfileauthor='Horse Luke(竹节虚)[2009]';
+$thisfileversion='0.0.2 build 20090119';
 $title='勋章购买易安装程序';
 
 
@@ -24,9 +24,15 @@ if($adminid!=1) {
 
 $fileList = <<<EOT
 ./medaleasybuy.php
+./medaleasybuyadmincp.php
 ./APACHELICENSE2.txt
 ./templates/default/medaleasybuy_navbar.htm
 ./templates/default/medaleasybuy.htm
+./templates/default/medaleasybuyadmincp_add.htm
+./templates/default/medaleasybuyadmincp_basicsettings.htm
+./templates/default/medaleasybuyadmincp_index.htm
+./templates/default/medaleasybuyadmincp_medallist.htm
+./templates/default/medaleasybuyalllogs.htm
 EOT;
 
 $installSQL = <<<EOT
@@ -43,12 +49,21 @@ CREATE TABLE `{$tablepre}medaleasybuylog` (
                 PRIMARY KEY (eventid),
                 INDEX (uid)
 ) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+DROP TABLE IF EXISTS `{$tablepre}medaleasybuymedals`;
+CREATE TABLE `{$tablepre}medaleasybuymedals` (
+                `medalid` smallint(6) unsigned NOT NULL DEFAULT '0' PRIMARY KEY,
+                `moneyamount` int(10) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=gbk;
+REPLACE INTO `{$tablepre}caches` (`cachename` ,`type` ,`dateline` ,`expiration` ,`data` )VALUES ('medaleasybuy_basicsettings', '1', '$timestamp', '0', '\$medaleasybuy_basicsettings=array(\'open\'=> 0,\'buyextcreditsid\'=> 2,);');
+REPLACE INTO `{$tablepre}caches` (`cachename` ,`type` ,`dateline` ,`expiration` ,`data` )VALUES ('medaleasybuy_medallist', '1', '$timestamp', '0', '\$medaleasybuy_medallist=array(\'medalcanbuylistidcache\'=> array(),\'medalcanbuylist\'=> array(),);');
 EOT;
 
 $uninstallSQL = <<<EOT
 DROP TABLE IF EXISTS `{$tablepre}medaleasybuylog`;
+DROP TABLE IF EXISTS `{$tablepre}medaleasybuymedals`;
+DELETE FROM `{$tablepre}caches` WHERE cachename='medaleasybuy_basicsettings';
+DELETE FROM `{$tablepre}caches` WHERE cachename='medaleasybuy_medallist';
 EOT;
-
 
 
 @$action = $_GET['action'];
@@ -57,8 +72,6 @@ $action = (isset($action) && in_array($action,$actionlist)) ? $action : 'login';
 
 $mtime = explode(' ', microtime());
 $starttime = $mtime[1] + $mtime[0];            //取得当前时间数组,以便统计运行时间
-
-
 
 session_start();
 $expired = FALSE;
@@ -248,6 +261,23 @@ if ($action=='logout'){
                      PRIMARY KEY (eventid),
                      INDEX (uid)
                  ) ENGINE=MyISAM DEFAULT CHARSET=gbk;");
+	      $db->query("DROP TABLE IF EXISTS `{$tablepre}medaleasybuymedals`");
+	      $db->query("CREATE TABLE `{$tablepre}medaleasybuymedals` (
+                `medalid` smallint(6) unsigned NOT NULL DEFAULT '0' PRIMARY KEY,
+                `moneyamount` int(10) NOT NULL DEFAULT '0'
+	      ) ENGINE=MyISAM DEFAULT CHARSET=gbk;");
+	      $medaleasybuy_basicsettings=array(
+						     'open'=> 0,
+							 'buyextcreditsid'=> 2,
+		  );
+	      $medaleasybuy_medallist=array(
+						     'medalcanbuylistidcache'=> array(),
+							 'medalcanbuylist'=> array(),
+          );
+          $db->query("REPLACE INTO `{$tablepre}caches` (`cachename` ,`type` ,`dateline` ,`expiration` ,`data` )VALUES ('medaleasybuy_basicsettings', '1', '$timestamp', '0', '\$medaleasybuy_basicsettings=".daddslashes(var_export($medaleasybuy_basicsettings,true))."');");
+          $db->query("REPLACE INTO `{$tablepre}caches` (`cachename` ,`type` ,`dateline` ,`expiration` ,`data` )VALUES ('medaleasybuy_medallist', '1', '$timestamp', '0', '\$medaleasybuy_medallist=".daddslashes(var_export($medaleasybuy_medallist,true))."');");
+
+				 
 
 	      showmsg("执行SQL语句成功!",$thisfilename.'?action=install&amp;step=5','如果浏览器无法跳转请点击这里',TRUE);
 	  }elseif ($step==5){     //第5步,完成.
@@ -276,11 +306,7 @@ if ($action=='logout'){
 		  <li>现在将开始卸载数据库工作。</li>
           <li>为以防万一请先备份论坛数据。<a href="admincp.php?action=database&operation=export" target="_blank">点击这里进入论坛数据备份</a></li>
           <li><font color="red">注意：一旦卸载将清空原来本插件的所有数据库数据，无法恢复。请慎重。</font></li>
-          <li>卸载完毕后，记得删除如下插件文件：
-		  <br />./medaleasybuy.php 
-		  <br />./APACHELICENSE2.txt
-		  <br />./templates/default/medaleasybuy_navbar.htm
-		  <br />./templates/default/medaleasybuy.htm</li>
+          <li>卸载完毕后，记得删除如下插件文件：<br /><textarea name="notice" style="width: 98%; height: 200px" readonly>'.$fileList.'</textarea></li>
           <li>点击“下一步”开始该插件的数据库卸载装操作。</li>
 		</td>
       </tr>
@@ -299,6 +325,10 @@ if ($action=='logout'){
 	  }elseif ($step==2){     //第2步,执行SQL语句.
 	  
 	      $db->query("DROP TABLE IF EXISTS `{$tablepre}medaleasybuylog`");
+		  $db->query("DROP TABLE IF EXISTS `{$tablepre}medaleasybuymedals`");
+		  $db->query("DELETE FROM `{$tablepre}caches` WHERE cachename='medaleasybuy_basicsettings'");
+		  $db->query("DELETE FROM `{$tablepre}caches` WHERE cachename='medaleasybuy_medallist'");
+		  
 
 	      showmsg("执行SQL语句成功!",$thisfilename.'?action=uninstall&amp;step=3','如果浏览器无法跳转请点击这里',TRUE);
 	  }elseif ($step==3){     //第3步,完成.
