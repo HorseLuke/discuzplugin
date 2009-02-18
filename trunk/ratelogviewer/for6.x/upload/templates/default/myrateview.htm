@@ -1,0 +1,72 @@
+{subtemplate header}
+
+<div class="container">
+	<div id="foruminfo">
+		<div id="nav">
+	        <a href="$indexname">$bbname</a> &raquo; 评分记录查看</a>
+		</div>
+	</div>
+
+
+  <div class="content">
+     <!--{if $notfound  == '1'}-->
+              <div class="notice"><b>提醒</b>：{$actiontitle}无任何记录。</div>
+     <!--{elseif $notfound  == '0'}--> 
+    
+         <!--{if !empty($multipage)}--><div class="pages_btns">$multipage</div><!--{/if}-->
+              <div class="mainbox">
+	             <h1>{$actiontitle}</h1>
+             	<table summary="{$actiontitle}" cellspacing="0" cellpadding="0">
+	         	<thead>
+	         		<tr>
+	         			<td>被评分者</td>
+	         			<td>帖子内容预览</td>
+		         		<td class="time">评分者/评分时间</td>
+		         		<td>积分变动</td>
+		         		<td>评分理由</td>
+		         	</tr>
+	         	</thead>
+	         	<!--{loop $rateloglist $ratelog}-->
+	         	<tr>
+		         	<td><a href="space.php?uid=$ratelog[authorid]" target="_blank">{$ratelog[author]}</a></td>
+		         	<td><a href="redirect.php?goto=findpost&pid=$ratelog[pid]" target="_blank">{$ratelog[message]}</a></td>
+		         	<td class="time"><a href="space.php?uid=$ratelog[uid]" target="_blank">{$ratelog[username]}</a><br />{$ratelog[dateline]}</td>
+		         	<td>{$extcredits[$ratelog[extcredits]][title]} <span class="bold">$ratelog[score]</span> {$extcredits[$ratelog[extcredits]][unit]}</td>
+		         	<td>$ratelog[reason]</td>
+	         	</tr>
+	         	<!--{/loop}-->
+	             </table>
+              </div>
+         <!--{if !empty($multipage)}--><div class="pages_btns">$multipage</div><!--{/if}-->
+     
+    <!--{/if}-->    
+     
+     
+  </div>
+
+
+
+   <div class="side">
+   
+    <div>
+      <h2>评分查看面板</h2>
+      <ul>
+    	        <li<!--{if $action == 'myrate'}--> class="side_on first"<!--{/if}-->><h3><a href="myrateview.php?action=myrate">我的评分记录</a></h3></li>
+    	        <li<!--{if $action == 'berated'}--> class="side_on first"<!--{/if}-->><h3><a href="myrateview.php?action=berated">我的被评记录</a></h3></li>
+      </ul>
+    </div>
+     
+     {subtemplate personal_navbar}  
+     
+     <div>
+      <h2>版本信息</h2>
+        <div style="text-align:center">个人评分记录独立查看页面<br />Ver 0.1 Beta Build 20080813<br />For Discuz6.1.0F<br />By Horse Luke<br /><a href="http://www.freediscuz.net/bbs/thread-4073-1-1.html" target="_blank"><b>检查新版本</b></a></div>
+     </div>     
+  
+
+   </div>
+
+
+
+</div>
+{subtemplate footer}
