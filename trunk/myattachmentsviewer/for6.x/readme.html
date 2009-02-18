@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>我的附件查询（My Attachments Viewer） For Discuz! 6.x</title>
+<style type="text/css">
+<!--
+.STYLE2 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.STYLE3 {
+	font-size: 16pt;
+	font-weight: bold;
+}
+-->
+</style>
+</head>
+
+<body>
+<table width="90%" border="1" cellpadding="1" cellspacing="1" bordercolor="#999999">
+  <tr>
+    <td height="64"><div align="center" class="STYLE3">我的附件查询（My Attachments Viewer） For Discuz! 6.x安装使用说明书</div></td>
+  </tr>
+  <tr>
+    <td height="53"><strong>欢迎选用由Horse Luke（中文名称：竹节虚）开发的插件！</strong></td>
+  </tr>
+  <tr>
+    <td><p><strong>插件名称：</strong>我的附件查询（My Attachments Viewer） For Discuz! 6.x<br />
+        <strong>版本：</strong>Ver 0.0.5 Build 20081119 For Discuz! 6.x(6.0.0(20081117)/6.1.0/6.1.0F)<br />
+        <strong>插件有限支援链接：</strong><a href="http://www.discuz.net/thread-1112048-1-1.html" target="_blank">http://www.discuz.net/thread-1112048-1-1.html</a></p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>第一原作者: Horse Luke（中文名称：竹节虚）</strong><br />
+    第一原作者基于Apache License协议授权开源。</p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>插件说明：<br />
+      </strong>该插件原模型来源于国外著名论坛程序phpBB的一个子功能：我的附件管理（User Control Panel - Manage attachments）。本插件仅抽取其核心功能——列出我所发表的附件。</p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>适合的论坛版本：</strong><br />
+      Discuz! 6.0.0（需打上官方在2008-11-17发布的“Discuz! 安全补丁包下载【20081117】”（<a href="http://www.discuz.net/thread-1113736-1-1.html" target="_blank">http://www.discuz.net/thread-1113736-1-1.html</a>））<br />
+        Discuz! 6.1.0<br />
+    Discuz! 6.1.0F</p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>安装/升级和使用方法：</strong></p>
+      <p><span class="STYLE2">请注意：<br />
+      若要使得该插件在Discuz! 6.0.0下正常运行，你必须首先打上官方在2008-11-17发布的“Discuz! 安全补丁包下载【20081117】”（<a href="http://www.discuz.net/thread-1113736-1-1.html" target="_blank">http://www.discuz.net/thread-1113736-1-1.html</a>）。该补丁针对Discuz! 6.0.0不仅补漏，而且更新了数据库访问方式，使得原本只能在6.1下运行的插件可以稍加修改即可使用在6.0。</span><br />
+      </p>
+      <table width="97%" border="1" cellpadding="1" cellspacing="1" bordercolor="#FF0000">
+        <tr>
+          <td class="STYLE2">如果你是第一次使用该插件</td>
+          <td class="STYLE2">如果你之前使用了Ver 0.0.2 Build 20081116，需要升级到Ver 0.0.5 Build 20081119 For Discuz! 6.x</td>
+        </tr>
+        <tr>
+          <td><strong>上传</strong>upload文件夹的所有文件到论坛根目录。在登录状态下<strong>访问</strong>myattachments.php即可。<br />
+            <strong>若想</strong>在右上角的插件上增加“ 我的附件查询”链接，请在后台导入discuz_plugin_myattachview.txt（请勾选上“允许导入不同版本 Discuz! 的插件”）。<br />
+该导入文件的作用仅增加附件查询在前台的链接显示，导入与否对此插件<strong>毫无影响</strong>。</td>
+          <td>请<strong>首先上传</strong>upload文件夹的所有文件覆盖同名文件。<br />
+            <strong>然后删除根目录的lightbox1文件夹</strong>（从0.0.5 Build 20081119开始，ajax访问图片改用Discuz!自身的显示方式，不再使用Lightbox 1）。<br />
+            <strong>最后</strong>在登录状态下访问myattachments.php即可。</td>
+        </tr>
+      </table>
+      <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>版本历史：</strong></p>
+      <p><span class="STYLE2">Ver 0.0.5 Build 20081119（当前）：</span><br />
+        新增：正式支持Discuz! 6.0.0（需打上官方在2008-11-17发布的“Discuz! 安全补丁包下载【20081117】”（<a href="http://www.discuz.net/thread-1113736-1-1.html" target="_blank">http://www.discuz.net/thread-1113736-1-1.html</a>））<br />
+        修改：对附件列表的显示方式进行了大量修改，使得显示方式更加人性化。<br />
+        修正：修正存在缩略图的情况下仍读取原图的问题。<br />
+        修正：查看购买记录链接含有Discuz! 7模版代码导致点击后显示javascript错误。<br />
+        取消：图像显示不再使用Lightbox 1，改为Discuz!自身的显示方式。</p>
+      <p>Ver 0.0.2 Build 20081116：<br />
+        新增：发布针对Discuz! 6.1.0/6.1.0F的插件版本。<br />
+      特别鸣谢：图像显示部分运用了Lokesh Dhakar开发的Lightbox 1（<a href="http://www.huddletogether.com/projects/lightbox/" target="_blank">http://www.huddletogether.com/projects/lightbox/</a>），在此致谢！</p>
+      <p>Ver 0.0.2 Beta Build 20081115：<br />
+      修正：在批量上传情况下无法正确识别文件类型，从而导致显示错误的文件类型图标，面向Discuz! 7.0.0 Beta。</p>
+      <p>Ver 0.0.1 Beta Build 20081115：<br />
+    测试版本发布，面向Discuz! 7.0.0 Beta。</p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>COPYRIGHT NOTICE</strong><br />
+        ----------------<br />
+        Copyright 2008 Horse Luke（竹节虚）.<br />
+        Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);<br />
+        you may not use this file except in compliance with the License.<br />
+        You may obtain a copy of the License at<br />
+        http://www.apache.org/licenses/LICENSE-2.0<br />
+        Unless required by applicable law or agreed to in writing, software<br />
+        distributed under the License is distributed on an &quot;AS IS&quot; BASIS,<br />
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br />
+        See the License for the specific language governing permissions and<br />
+    limitations under the License.</p>    </td>
+  </tr>
+</table>
+</body>
+</html>
