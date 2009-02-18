@@ -13,7 +13,8 @@
 
 http://www.discuz.net/attachments/month_0902/090213000541c79dfef1a6a8a2.jpg
 
-Discuz! 7.0.0存在一个刷积分的Bug。漏洞发现者发布了修补方法（http://www.alan888.com/Discuz/thread-162824-1-1.html），但是官方一直没有修复，也没有通知大多数的站长。
+Discuz! 7.0.0存在一个刷积分的Bug。漏洞发现者已经发布了修补方法：http://www.alan888.com/Discuz/thread-162824-1-1.html
+然而官方一直没有修复，也没有通知大多数的站长。
 该bug的产生原因是对fid的判断不严格，导致发出fid为0（不存在fid为0的板块）的隐藏帖子。*bug利用者可通过这种方法大量获取论坛积分，和写入大量垃圾数据到数据库中。*本dz7 bug对以积分交易为主的论坛威胁较大，对于积分设置较为严格、或者积分并不起重要作用的论坛威胁较小。
 
 ==BUG修复方法==
@@ -35,3 +36,5 @@ if(empty($forum['fid']) || $forum['type'] == 'group') { //版塊查詢
 在修改文件完毕后，如果你想清除因此导致的垃圾数据，可到这里下载本人所写的数据库修复程序，然后上传运行：http://www.discuz.net/thread-1212675-1-1.html
 本数据库修复程序同样可从本项目的svn处下载。
 请注意：该程序为非官方程序，运行前请自行在后台备份好数据库，然后再运行！作者不承担一切责任！
+http://www.discuz.net/attachments/month_0902/0902130000d848351609a2dce1.jpg.thumb.jpg
+http://www.discuz.net/attachments/month_0902/090213000062f3a6931652c72c.jpg
