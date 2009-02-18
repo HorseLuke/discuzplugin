@@ -1,0 +1,55 @@
+{subtemplate header}
+
+<div class="container">
+	<div id="foruminfo">
+		<div id="nav">
+	        <a href="$indexname">$bbname</a> &raquo; 论坛统计Plus! &raquo; <a href="statsplusspecialgroup.php">对特殊用户组进行发帖统计</a>
+		</div>
+	</div>
+    
+    
+	<div class="content">
+        
+        <!--{if $action == 'index'}-->
+		<div><span id="moduleinfo" class="msgtabs"><strong>您正在使用的模块：对特殊用户组进行发帖统计</strong></span>
+            <!--{if !empty($grouplist['special'])}-->
+                 <div class="mainbox">
+                    <ul class="tabs headertabs">
+    	                <li class="dropmenu current"><a href="###" id="specialgroup" onmouseover="showMenu(this.id)">请选择特殊用户组</a></li>
+                        <!--{if $adminid == '1'}--><li><a href="statsplusspecialgroup.php?action=managecache" onclick="ajaxget(this.href, 'specialgroupresult');doane(event);">缓存管理</a></li><!--{/if}-->
+    	                <li><a href="statsplusspecialgroup.php">重新载入该模块</a></li>
+                    </ul>
+                    <ul class="popupmenu_popup headermenu_popup" id="specialgroup_menu" style="display: none">
+                         {$grouplist['special']}
+                    </ul>
+                 </div>
+                 <div id="specialgroupresult"></div>
+            <!--{else}-->            
+                 <div class="mainbox">
+                    <ul class="tabs headertabs">
+                        <!--{if $adminid == '1'}--><li><a href="statsplusspecialgroup.php?action=managecache" onclick="ajaxget(this.href, 'specialgroupresult');doane(event);">缓存管理</a></li><!--{/if}-->
+    	                <li><a href="statsplusspecialgroup.php">重新载入该模块</a></li>
+                    </ul>
+                 </div>
+                 <div class="notice">错误：论坛不存在特殊用户组，无法进行统计。</div>
+                 <div id="specialgroupresult"></div>
+            <!--{/if}-->
+            
+            <div class="notice"><b>操作方法概述</b><br />
+            1. 请选择上面的特殊用户组进行统计。统计结果将在该页面显示。你也可以通过右键打开新页面进行统计。<br />
+            2. 对某个特殊用户组进行第一次统计、或者缓存失效而再进行统计时，服务器速度可能会变慢。<br />
+            3. 该模块使用的缓存参数设置与论坛后台的“论坛功能 - 统计相关设置”同步。</div>
+		</div>
+        <!--{/if}-->
+  
+	</div>    
+    
+    
+ 
+<div class="side">
+       {subtemplate statsplus_navbar}
+</div>
+
+
+
+{subtemplate footer}

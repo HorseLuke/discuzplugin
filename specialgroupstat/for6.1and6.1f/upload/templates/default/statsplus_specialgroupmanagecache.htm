@@ -1,0 +1,35 @@
+<!--{if $action == 'managecache'}-->
+	{template header} 
+    <span id="specialgroupinfo" class="msgtabs"><strong>请选择一项管理任务......</strong></span> 
+    <div class="mainbox" id="managebox">
+            <table summary="specialgroupresult" cellspacing="0" cellpadding="0">
+	         	<thead>
+	         		<tr>
+                        <td width="100px">代号及名称</td>
+                        <td>操作说明</td>
+                        <td width="70px">确定按钮</td>
+                    </tr>
+	         	</thead>
+                        <tbody>
+                         	<tr>
+                                    <td>1. 清空缓存</td>
+                                    <td>该操作将删除所有特殊用户组的发帖统计缓存。如果您在后台对特殊用户组进行过增删操作，建议进行此操作，以删除失效的特殊用户组发帖数据缓存。</td>
+                                    <td>
+                                      <form method="post" name="delallcache" action="statsplusspecialgroup.php?action=managecache&amp;actcase=delallcache">
+                                      <button type="submit" class="submit" name="delallcachesubmit" id="delallcachesubmit" value="true">确定</button>
+		                              </form>
+                                    </td>
+                            </tr>
+	                </tbody>
+             </table>
+             
+             <br />
+             <div class="notice">
+             <b>警告：</b>一旦按右边的“确定”按钮将立即开始管理操作！请慎重考虑。
+             <!--{if debuginfo()}-->
+			       <p id="debuginfo">共用时{$debuginfo[time]}秒，查询{$debuginfo[queries]}次。</p>
+		     <!--{/if}-->
+             </div>
+    </div>
+	{template footer}
+<!--{/if}-->
