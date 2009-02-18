@@ -1,4 +1,4 @@
-#forumrecommendlist－版主推荐主题帖的单独集合显示页面ForDZ6.0
+#summary forumrecommendlist－版主推荐主题帖的单独集合显示页面ForDZ6.0
 
 = Introduction =
 
