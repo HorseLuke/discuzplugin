@@ -1,0 +1,36 @@
+<div>
+<h2>勋章购买易</h2>
+<ul>
+			<li class="side_on">
+				<h3>勋章购买前台</h3>
+				<ul>
+					<li<!--{if !$action}--> class="current"<!--{/if}-->><a href="medaleasybuy.php">可购买勋章列表</a></li>
+					<li<!--{if $action == 'log'}--> class="current"<!--{/if}-->><a href="medaleasybuy.php?action=log">查看购买记录</a></li>
+				</ul>
+			</li>
+
+</ul>
+
+</div>
+
+<div class="credits_info">
+	<h2>{lang memcp_credits_info}</h2>
+	<ul>
+		<li>{lang credits}: $credits</li>
+		<!--{loop $extcredits $id $credit}-->
+		<li>
+			<!--{if $id == $creditstrans}-->
+			$credit[title]: <span style="font-weight: bold;">$GLOBALS['extcredits'.$id]</span> $credit[unit]
+			<!--{else}-->
+			$credit[title]: $GLOBALS['extcredits'.$id] $credit[unit]
+			<!--{/if}-->
+		</li>
+		<!--{/loop}-->
+	</ul>
+</div>
+
+     <div style="text-align:center">
+                     <span style="font: normal 9px Verdana; display:block;">
+                     <b>Medal EasyBuy</b><br />Ver 0.0.1 Build 20081223<br />For Discuz! 6.1<br /></a>
+                     <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" title="第一原作者：Horse Luke &amp; hzqedison">Licensed Under the Apache License, Version 2.0<br />Automatically Licensed to {$sitename}</a></span>
+   </div>
