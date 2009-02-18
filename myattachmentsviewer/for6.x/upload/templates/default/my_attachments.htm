@@ -1,45 +1,13 @@
-{subtemplate header}
-
+{template header}
+<script src="include/javascript/viewthread.js" type="text/javascript"></script>
+<script type="text/javascript">zoomstatus = parseInt(1);</script>
 <!--{if $filetype=='onlyimage'}-->
-
-<script type="text/javascript" src="lightbox1/lightbox.js"></script>
-
 <style type="text/css">
-
-#overlay{ background-image: url(lightbox1/overlay.png); }
-
-* html #overlay{
-	background-color: #000;
-	back\ground-color: transparent;
-	background-image: url(lightbox1/blank.gif);
-	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="lightbox1/overlay.png", sizingMethod="scale");
-	}
-	
-#lightbox{
-	background-color:#eee;
-	padding: 10px;
-	border-bottom: 2px solid #666;
-	border-right: 2px solid #666;
-	}
-#lightboxDetails{
-	font-size: 12px;
-	padding-top: 0.4em;
-	}	
-#lightboxCaption{ float: left; }
-#keyboardMsg{ float: right; }
-
-#lightbox img{ border: none; } 
-#overlay img{ border: none; }
-	
-
 <!--
 .imagedisplay img { border: none; max-width: 120px; max-height: 120px; width: expression(this.width > 120 && this.height < this.width ? 120: true); height: expression(this.height > 120 ? 120: true); vertical-align: middle; font-size: 1px; }
 -->
 </style>
-
 <!--{/if}-->
-
-
 
 <div class="container">
 	<div id="foruminfo">
@@ -47,26 +15,21 @@
 	        <a href="$indexname">$bbname</a> &raquo; 我的附件
 		</div>
 	</div>
-
-
   <div class="content">
               <!--{if $attachmentscount}--><span class="msgtabs"><strong>此次查询共有{$attachmentscount}个附件。</strong></span><!--{/if}-->
               <div class="mainbox">
               <h1>我的附件</h1>
                 <ul class="tabs headertabs">
                     <li<!--{if empty($filetype) || $filetype == 'alltype'}--> class="current"<!--{/if}-->><a href="myattachments.php">所有类型附件</a></li>
-
 				    <li<!--{if $filetype == 'onlyimage'}--> class="current"<!--{/if}-->><a href="myattachments.php?filetype=onlyimage">仅图像附件</a></li>
-
 					<li<!--{if $filetype == 'notimage'}--> class="current"<!--{/if}-->><a href="myattachments.php?filetype=notimage">非图像附件</a></li> 
                 </ul>
              	<table summary="myattachmentsviewer" cellspacing="0" cellpadding="0">
                 <!--{if $attachmentscount}-->
                    <!--{if $filetype=='onlyimage'}-->
-                   
                          <thead>
                             <tr>
-                                <td>图片预览</td>
+                                <td>预览[点击放大]</td>
                                 <td>所在主题及图片描述</td>
                                 <td>其他信息</td>
                             </tr>
@@ -74,81 +37,72 @@
                           <tbody>
                           <!--{loop $attachmentslist $attachments}-->
                             <tr>
-                                <td class="imagedisplay"><a href="attachments/$attachments['attachment']" title="所在主题：$attachments['subject'].<!--{if $attachments['description']}--><br />附件描述：$attachments['description']<!--{/if}-->" rel="lightbox" target="_blank"><img src="attachments/$attachments['attachment']" alt="{$attachments['filename']}" /></a>
+                                <td class="imagedisplay"><a href="#zoom"><img src="attachments/{$attachments['attachment']}<!--{if $attachments['thumb']}-->.thumb.jpg<!--{/if}-->" onclick="zoom(this, 'attachments/{$attachments['attachment']}')" alt="{$attachments['filename']}所在主题:{$attachments['subject']}<!--{if $attachments['description']}-->.附件描述:$attachments['description']<!--{/if}-->" /></a>
                                 </td>
                                 <td>
-                                文件名：<a href="attachment.php?aid=$attachments['aid']" target="_blank">$attachments['filename']</a>
-                                <a href="javascript:void(0)" title="复制图像链接到剪贴板" id="attachmentsaid{$attachments['aid']}" onclick="setcopy('<!--{if $attachments['price'] || $attachments['readperm']}-->{$boardurl}attachment.php?aid=$attachments['aid']<!--{else}-->{$boardurl}attachments/$attachments['attachment']<!--{/if}-->', '图像链接已经复制到剪贴板')">（复制图像链接到剪贴板）</a>
-                                <!--{if $attachments['description']}--><br />附件描述：$attachments['description']<!--{/if}-->
-                                <br />所在主题：<a href="redirect.php?goto=findpost&pid=$attachments['pid']" target="_blank">$attachments['subject']</a>
-                                <br />上传时间：$attachments['dateline']
+                                <b>所在主题</b>：<a href="redirect.php?goto=findpost&pid=$attachments['pid']" target="_blank">$attachments['subject']</a>
+                                <!--{if $attachments['description']}--><br /><b>附件描述</b>：$attachments['description']<!--{/if}-->
+                                <br /><em style="color: #999999;">上传于{$attachments['dateline']}</em>
+                                <br /><a href="javascript:void(0)" title="复制图像{$attachments['filename']}的链接到剪贴板" id="attachmentsaid{$attachments['aid']}" onclick="setcopy('<!--{if $attachments['price'] || $attachments['readperm']}-->{$boardurl}attachment.php?aid=$attachments['aid']<!--{else}-->{$boardurl}attachments/$attachments['attachment']<!--{/if}-->', '图像{$attachments['filename']}的链接已经复制到剪贴板')"><img src="pluginmyattachimg/copy.gif" /></a>
+                                <a href="attachments/{$attachments['attachment']}" target="_blank"><img src="pluginmyattachimg/opennew.gif" /></a>
                                 </td>
                                 <td>
-                                文件大小：$attachments['filesize']
-                                <br />下载次数：$attachments['downloads']次
-                                <!--{if $attachments['readperm']}--><br /> 阅读权限：$attachments['readperm']<!--{/if}-->
-                                <!--{if $attachments['price']}--><br /> 附件售价：$attachments['price']（<a href="misc.php?action=viewattachpayments&aid=$attachments['aid']" onclick="floatwin('open_attachpay', this.href, 600, 410);return false;" target="_blank">查看购买记录</a>）<!--{/if}-->
-                                <!--{if $attachments['remote']}--><br />远程附件<!--{/if}-->
+                                <a href="attachment.php?aid=$attachments['aid']" target="_blank"><b>{$attachments['filename']}</b></a><em style="color: #999999;">({$attachments['filesize']})</em>
+                                <br />下载次数：{$attachments['downloads']}
+                                <em style="color: #999999;"><!--{if $attachments['readperm']}--><br /> 阅读权限：$attachments['readperm']<!--{/if}-->
+                                <!--{if $attachments['price']}--><br /> 附件售价：{$attachments['price']}[<a href="misc.php?action=viewattachpayments&aid=$attachments['aid']" target="_blank">查看购买记录</a>]<!--{/if}-->
+                                <!--{if $attachments['remote']}--><br />远程附件<!--{/if}--></em>
                             </tr>
                           <!--{/loop}-->
-                   
-                   
                    <!--{else}-->
-                   
                          <thead class="colplural">
                             <tr>
-                                <td>类型</td>
+                                <td>&nbsp;</td>
                                 <th>文件名</th>
                                 <td class="forum">所在主题</td>
-                                <td>大小</td>
                                 <td>下载次数</td>
-                                <td class="forum">其它备注</td>
                             </tr>
                           </thead>
-                          
                           <tbody>
                           <!--{loop $attachmentslist $attachments}-->
                               <tr>
                                 <td>$attachments['filetype']</td>
-                                <th><a href="attachment.php?aid=$attachments['aid']" target="_blank">$attachments['filename']</a>
-                                <br /><a href="javascript:void(0)" title="复制附件链接到剪贴板" id="attachmentsaid{$attachments['aid']}" onclick="setcopy('{$boardurl}attachment.php?aid=$attachments['aid']', '附件链接已经复制到剪贴板')">（复制附件链接到剪贴板）</a>
-                                <br /><em>上传时间：$attachments['dateline']</em>
+                                <th><a href="attachment.php?aid=$attachments['aid']"><b>{$attachments['filename']}</b></a><em style="color: #999999;">($attachments['filesize'])</em>
                                 <!--{if $attachments['description']}--><br /><em>附件描述：$attachments['description']</em><!--{/if}-->
+                                <br /><em style="color: #999999;">上传于$attachments['dateline']
+                                <!--{if $attachments['readperm']}-->, 阅读权限：$attachments['readperm']<!--{/if}-->
+                                <!--{if $attachments['remote']}-->, 远程附件<!--{/if}-->
+                                <!--{if $attachments['price']}-->, 附件售价：{$attachments['price']}[<a href="misc.php?action=viewattachpayments&aid=$attachments['aid']" target="_blank">查看购买记录</a>]<!--{/if}-->
+                                </em>
+                                <br /><a href="javascript:void(0)" title="复制{$attachments['filename']}附件下载链接到剪贴板" id="attachmentsaid{$attachments['aid']}" onclick="setcopy('{$boardurl}attachment.php?aid=$attachments['aid']', '{$attachments['filename']}附件下载链接已经复制到剪贴板')"><img src="pluginmyattachimg/copy.gif" /></a>
+                                <!--{if $attachments['isimage']==1}--><a href="attachments/{$attachments['attachment']}" target="_blank" title="打开新窗口查看该图片"><img src="pluginmyattachimg/opennew.gif" /></a>
+                                <a href="#zoom"><img src="pluginmyattachimg/zoomin.gif" onclick="zoom(this, 'attachments/{$attachments['attachment']}')" alt="{$attachments['filename']}所在主题:{$attachments['subject']}<!--{if $attachments['description']}-->.附件描述：$attachments['description']<!--{/if}-->" /></a>
+                                <!--{else}-->
+                                <a href="attachment.php?aid=$attachments['aid']" target="_blank" title="打开新窗口下载该附件"><img src="pluginmyattachimg/opennew.gif" /></a>
+                                <!--{/if}-->
                                 </th>
                                 <td class="forum"><a href="redirect.php?goto=findpost&pid=$attachments['pid']" target="_blank">$attachments['subject']</a></td>
-                                <td>$attachments['filesize']</td>
                                 <td>$attachments['downloads']次</td>
-                                <td class="lastpost">
-                                    <!--{if $attachments['readperm']}-->阅读权限：$attachments['readperm']。<!--{/if}-->
-                                    <!--{if $attachments['price']}-->附件售价：$attachments['price']（<a href="misc.php?action=viewattachpayments&aid=$attachments['aid']" onclick="floatwin('open_attachpay', this.href, 600, 410);return false;" target="_blank">查看购买记录</a>）。<!--{/if}-->
-                                    <!--{if $attachments['remote']}-->远程附件。<!--{/if}-->
-                                </td>
                                </tr>
                           <!--{/loop}-->
                           </tbody>
-                   
                    <!--{/if}-->
                  <!--{else}-->
                      <tr><th colspan="5">指定的范围无任何附件记录。<a href="javascript:history.back()">（返回上一页）</a></th></tr>
                  <!--{/if}-->
-                 </table> 
-                   
+                 </table>
               </div>
-              <!--{if $attachmentscount}--><div class="pages_btns">$multipage</div><!--{/if}-->
-
+              <!--{if $attachmentscount}--><div class="pages_btns">$multipage</div><!--{/if}-->    
   </div>
 
-
-
    <div class="side"> 
-     {subtemplate personal_navbar}
+     {template personal_navbar}
      <div style="text-align:center">
-        <a href="http://www.discuz.net/thread-1111536-1-1.html" title="插件名称：我的附件查询（My Attachments Viewer）。第一原作者: Horse Luke（中文名称：竹节虚）。该插件原模型来源于国外著名论坛程序phpBB的一个子功能：我的附件管理（User Control Panel - Manage attachments）。本插件仅抽取其核心功能——列出我所发表的附件。" target="_blank"><span style="font: bold 14px Verdana; color: Blue;">My Attachments Viewer</span><span style="font: bold 12px Arial; color: #fbb040;">(H.L.)</span></a>
-                     <span style="font: normal 9px Verdana; display:block;">Ver 0.0.2 Beta Build 20081116<br />For Discuz! 6.1.0/6.1.0F</span>
-                     <span>图像显示部分运用了<a href="http://www.huddletogether.com/projects/lightbox/" target="_blank">Lokesh Dhakar开发的Lightbox 1</a>，在此致谢！
-                     <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">第一原作者基于Apache License协议授权开源</a></span>
+                     <span style="font: normal 9px Verdana; display:block;">
+                     <a href="###" title="插件名称：我的附件查询（My Attachments Viewer）。该插件原模型：phpBB子功能：我的附件管理（User Control Panel - Manage attachments）。本插件具备其核心功能——列出我所发表的附件。该插件Discuz! 6.0.0(081114)/6.1.0/6.1.0F通用。"><b>My Attachments Viewer</b><br />Ver 0.0.5 Build 20081119<br />For Discuz! 6.x<br /></a>
+                     <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" title="第一原作者：Horse Luke（竹节虚）">Licensed Under the Apache License, Version 2.0<br />Automatically Licensed to {$sitename}</a></span>
    </div>
 
 </div>
 
-{subtemplate footer}
+{template footer}
