@@ -1,0 +1,136 @@
+{template header}
+<script type="text/javascript" src="include/javascript/calendar.js"></script>
+
+<div class="container">
+	<div id="foruminfo">
+		<div id="nav">
+	        <a href="$indexname">$bbname</a> &raquo; <a href="ratelogviewer.php">评分记录查看</a> &raquo; {$navtitle}
+		</div>
+	</div>
+
+
+  <div class="content">
+              <span class="msgtabs"><strong>当前总记录：{$ratelogcount}条</strong></span>
+              <div class="mainbox">
+                <ul class="tabs headertabs">
+    	            <li <!--{if $action == 'myrate'}--> class="current"<!--{/if}-->><a href="ratelogviewer.php?action=myrate&amp;uid=$uid">{$username}的评分记录</a></li>
+    	            <li <!--{if $action == 'berated'}--> class="current"<!--{/if}-->><a href="ratelogviewer.php?action=berated&amp;uid=$uid">{$username}的被评记录</a></li>
+                </ul>
+             	<table summary="ratelogviewer" cellspacing="0" cellpadding="0">
+	         	<thead>
+	         		<tr>
+	         			<td>被评分者</td>
+	         			<td>帖子内容预览</td>
+		         		<td class="time">评分者/评分时间</td>
+		         		<td>积分变动</td>
+		         		<td>评分理由</td>
+		         	</tr>
+	         	</thead>
+                <tbody>
+     <!--{if $ratelogcount  == '0'}-->
+             	<tr><td colspan="4">指定的范围无任何记录。<a href="javascript:history.back()">（返回上一页）</a></td></tr>
+     <!--{else}--> 
+	         	<!--{loop $rateloglist $ratelog}-->
+	         	<tr>
+                    <!--{if !empty($ratelog['author'])}-->
+                    <td><a href="ratelogviewer.php?action=berated&uid={$ratelog[authorid]}" target="_blank">{$ratelog[author]}</a></td>
+		         	<td>
+                    <b><a href="forumdisplay.php?fid={$ratelog[fid]}" target="_blank">{$_DCACHE['forums'][$ratelog[fid]]['name']}</a> &raquo;&nbsp;<a href="viewthread.php?tid={$ratelog[tid]}" target="_blank">{$ratelog[subject]}</a></b><br />
+                    <a href="redirect.php?goto=findpost&pid=$ratelog[pid]" target="_blank">{$ratelog[message]}</a>
+                    </td>
+                    <!--{else}-->
+                    <td><i>未知</i></td>
+		         	<td><i>内容已删除</i></td>
+                    <!--{/if}-->
+
+		         	<td class="time"><a href="ratelogviewer.php?action=myrate&uid={$ratelog[uid]}" target="_blank">{$ratelog[username]}</a><br />{$ratelog[dateline]}</td>
+		         	<td>{$extcredits[$ratelog[extcredits]][title]} <span class="bold">$ratelog[score]</span> {$extcredits[$ratelog[extcredits]][unit]}</td>
+		         	<td>$ratelog[reason]</td>
+	         	</tr>
+	         	<!--{/loop}-->
+     <!--{/if}-->
+	             </tbody>
+             	</table>
+              </div>
+         <!--{if !empty($multipage)}--><div class="pages_btns">$multipage</div><!--{/if}-->
+
+  </div>
+
+
+
+   <div class="side"> 
+
+      <!--{if ($ratelogcount>$tpp || !empty($extcreditssubmit))}-->    
+          <form method="post" action="ratelogviewer.php?action=$action&amp;uid=$uid">
+	      <input type="hidden" name="formhash" value="{FORMHASH}" />
+	        <div class="box"><span class="headactions"><a href="#" id="warninginfilter" onmouseover="showMenu(this.id)"><img id="help_and_tip" src="./images/icons/icon3.gif" /></a></span><h2>评分筛选面板</h2>
+            <div class="popupmenu_popup headermenu_popup" id="warninginfilter_menu" style="display: none;">
+              <font color="#FF0000"><b>警告！</b><br />请勿使用该功能频繁重复筛选，否则可能会引起不可预料的服务器故障，甚至数据的永久丢失！</font>
+            </div>
+            以下将对“{$navtitle}”进行筛选。
+            <span class="headactions"><a href="#" id="helpinfilterext" onmouseover="showMenu(this.id)"><img id="help_and_tip" src="./images/default/faq.gif" /></a></span><h4>积分类别筛选</h4>
+            <div class="popupmenu_popup headermenu_popup" id="helpinfilterext_menu" style="display: none;">
+              <b>关于积分筛选</b><br />A、请至少保留一个勾，否则筛选完毕后该面板可能会被隐藏。<br />B、仅能搜索论坛已经启用的积分项目。
+            </div>
+	     	<ul class="userlist">
+	      		<!--{loop $extcredits $id $credit}-->
+				<li><label><input class="checkbox" type="checkbox" name="extcreditssubmit[]" value="$id" $extcreditscheck[$id] /> $credit[title]</label></li>
+	    		<!--{/loop}-->
+		    </ul>
+            <h4>正负分筛选</h4>
+            <ul class="userlist">
+              <li><label><input type="radio" name="filter" id="filter" value="all"<!--{if $filter == 'all'}--> checked="checked"<!--{/if}--> />显示全部</label></li>
+              <li><label><input type="radio" name="filter" id="filter" value="plus"<!--{if $filter == 'plus'}--> checked="checked"<!--{/if}--> />仅显示加分</label></li>
+              <li><label><input type="radio" name="filter" id="filter" value="decrease"<!--{if $filter == 'decrease'}--> checked="checked"<!--{/if}--> />仅显示减分</label></li>
+            </ul>
+            <span class="headactions"><a href="#" id="helpinfilterdate" onmouseover="showMenu(this.id)"><img id="help_and_tip" src="./images/default/faq.gif" /></a></span><h4>时间筛选</h4>
+            <div class="popupmenu_popup headermenu_popup" id="helpinfilterdate_menu" style="display: none;">
+                <b>关于时间筛选</b><br />A、若不需要使用时间筛选，则请留空该两个空(或者填为0000-00-00)。<br />B、可单独填入其中任何一个空或者两个空都填入，以作筛选条件。格式为yyyy-mm-dd。<br />C、当两个空均填入时，务必保证后一个空所填的日期大于前一个空的日期，否则，将当作错误条件忽略。
+            </div>
+             <ul>
+                <li>显示<input type="text" id="datefrom" name="datefrom" size="10" onclick="showcalendar(event, this)" onfocus="showcalendar(event, this);if(this.value=='')this.value=''" value="{$datefrom}" />之后的评分</li>
+                <li>或者/并且：</li>
+                <li>显示<input type="text" id="dateto" name="dateto" size="10" onclick="showcalendar(event, this)" onfocus="showcalendar(event, this);if(this.value=='')this.value=''" value="{$dateto}" />之前的评分</li>
+             </ul>
+            <div style="text-align:center"><button class="submit" type="submit" value="true">开始筛选</button></div>
+	        </div>
+         </form> 
+       <!--{else}-->
+          <div class="box"><h2>评分筛选面板</h2>当前记录没有超过分页所需的{$tpp}条，评分筛选面板自动关闭。</div>
+       <!--{/if}-->
+
+       <!--{if $allowviewotheruser  == '1'}-->
+     		 <span class="headactions"><a href="#" id="helpinusersearch" onmouseover="showMenu(this.id)"><img id="help_and_tip" src="./images/default/faq.gif" /></a></span>
+             <div class="box" id="searchbox" name="searchbox"><h2>用户定位面板</h2>
+                  <form action="ratelogviewer.php?action=search" method="post" name="search" id="search" style="text-align:center">
+                  <label>
+                    搜索
+                    <select name="searchkey" id="searchkey">
+                      <option value="uid">用户编号(uid)</option>
+                      <option value="username" selected="selected">用户名称</option>
+                    </select>
+                    为
+                    <input name="keyword" type="text" id="keyword" size="10"/>
+                    的
+                    <select name="actiontype" id="actiontype">
+                      <option value="myrate">评分记录</option>
+                      <option value="berated">被评记录</option>
+                    </select>
+                  </label>
+                    <button class="submit" type="submit" name="submit" value="true">搜索</button>
+                  </form>
+                该面板仅提供定位到某个用户的评分记录功能，与筛选面板设置并无关连。
+               </div>
+        <div class="popupmenu_popup headermenu_popup" id="helpinusersearch_menu" style="display: none;">
+            <b>管理员开启了你查看别人评分的权限。你可以：</b><br />A、点击该页面“评分人”、“被评分人”的会员名称链接查看；<br />B、在该用户定位面板中搜索（注意，该功能仅提供定位到某个用户的评分记录功能，与筛选面板设置毫无关系）。<br />C、在地址栏输入“http://你的bbs地址/ratelogviewer.php?uid=xx”（xx为会员的数字uid）直接查看。
+        </div>
+     <!--{/if}-->
+  
+     <div style="text-align:center">
+        <span style="font: bold 10px Verdana; color: blue;">RATELOG</span><span style="font: bold 15px Verdana; color: #f15a29;">VIEWER</span><sup style="font: bold 8px; color:Teal;"> By Horse Luke</sup></a> &nbsp;  <span style="font: normal 8px; display:block;">Module 1:Ver 0.2.3 Build 080918<br /><a href="http://creativecommons.org/licenses/GPL/2.0/deed.zh" target="_blank">基于GUN GPL协议授权</a></span><a href="http://www.freediscuz.net/bbs/thread-4073-1-1.html" target="_blank"><b>检查新版本</b></a>
+   </div>
+
+
+
+</div>
+{template footer}
