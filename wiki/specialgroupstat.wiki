@@ -1,4 +1,4 @@
-#StatisticPlus!模块一：对特殊用户组进行发帖统计for6.0/6.1/6.1f下载地址
+#summary StatisticPlus!模块一：对特殊用户组进行发帖统计for6.0/6.1/6.1f下载地址
 
 
 = Details =
