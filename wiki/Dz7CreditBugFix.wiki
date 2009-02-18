@@ -36,5 +36,8 @@ if(empty($forum['fid']) || $forum['type'] == 'group') { //版塊查詢
 在修改文件完毕后，如果你想清除因此导致的垃圾数据，可到这里下载本人所写的数据库修复程序，然后上传运行：http://www.discuz.net/thread-1212675-1-1.html
 本数据库修复程序同样可从本项目的svn处下载。
 请注意：该程序为非官方程序，运行前请自行在后台备份好数据库，然后再运行！作者不承担一切责任！
+
+
 http://www.discuz.net/attachments/month_0902/0902130000d848351609a2dce1.jpg.thumb.jpg
+
 http://www.discuz.net/attachments/month_0902/090213000062f3a6931652c72c.jpg
