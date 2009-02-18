@@ -1,0 +1,65 @@
+	{template header} 
+    
+<div class="container">
+	<div id="foruminfo">
+		<div id="nav">
+	        <a href="$indexname">$bbname</a> &raquo; <a href="illegalsigban.php">屏蔽违规签名插件 &raquo; 管理插件数据</a>
+		</div>
+	</div>
+
+
+  <div>
+  
+
+    <div class="mainbox" id="managebox">
+    <h1>被屏蔽签名的用户uid</h1>
+    <!--{if !empty($illegalsigbanuidlist2)}-->
+	         	<!--{loop $illegalsigbanuidlist2 $banuid}-->
+                <a href="space.php?action=viewpro&uid={$banuid}" target="_blank">{$banuid}</a>&nbsp;,&nbsp;
+	         	<!--{/loop}-->
+    <!--{else}-->
+     <b>暂无用户被屏蔽签名。</b>
+    <!--{/if}-->
+    </div>
+    <br />
+    <div class="mainbox" id="managebox">
+    <h1>请选择一项管理任务......</h1>
+            <table summary="illegalsigbantask" cellspacing="0" cellpadding="0">
+	         	<thead>
+	         		<tr>
+                        <td width="100px">任务列表</td>
+                        <td>任务说明</td>
+                        <td width="70px">确定按钮</td>
+                    </tr>
+	         	</thead>
+                        <tbody>
+                         	<tr>
+                                    <td>1. 重刷缓存</td>
+                                    <td>该操作将重新刷新屏蔽签名的用户名单。适合于出现屏蔽签名异常的情况。</td>
+                                    <td>
+                                      <form method="post" name="cacherefreshsubmit" action="illegalsigban.php?action=admin">
+                                      <input type="hidden" name="formhash" value="{FORMHASH}" />
+                                      <button type="submit" class="submit" name="cacherefreshsubmit" id="cacherefreshsubmit" value="true">确定执行任务1</button>
+		                              </form>
+                                    </td>
+                            </tr>
+                         	<tr>
+                                    <td>2. 解除所有签名屏蔽状态</td>
+                                    <td>该操作将解除所有签名屏蔽状态。适合于出现屏蔽签名异常、但通过重刷缓存无效的情况。</td>
+                                    <td>
+                                      <form method="post" name="unbanallsubmit" action="illegalsigban.php?action=admin">
+                                      <input type="hidden" name="formhash" value="{FORMHASH}" />
+                                      <button type="submit" class="submit" name="unbanallsubmit" id="cacherefreshsubmit" value="true">确定执行任务2</button>
+		                              </form>
+                            </tr>
+	                </tbody>
+             </table>
+    </div>
+             <div class="notice">
+             <b>警告：</b>一旦按右边的“确定”按钮将立即开始管理操作！请慎重考虑。
+             </div>
+  </div>
+
+{template illegalsigban_footer}
+
+{template footer}

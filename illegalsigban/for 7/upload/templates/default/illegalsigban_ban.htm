@@ -1,0 +1,114 @@
+{subtemplate header}
+
+<!--{if $banstatus==0}-->
+<div id="nav">
+	 <a href="$indexname">$bbname</a> $navigation &raquo;<a href="space.php?uid=$uid">{$username}资料</a>&raquo;屏蔽违规签名确认操作
+</div>
+<div id="wrap" class="wrap with_side s_clear">
+	<div class="main">
+		<div class="content">
+			<div class="itemtitle s_clear">
+					<h1>屏蔽签名确认页面</h1>
+			</div> 
+            <div class="notice">{$username}的签名为非屏蔽状态。<b>提醒：您将要执行屏蔽操作。</b></div>
+ 			<div class="illegalsigban datalist">
+	    	<form method="post" action="illegalsigban.php?action=ban&amp;uid={$uid}" id="postform">
+        	<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<input type="hidden" name="referer" value="$referer" />
+            <input type="hidden" name="banstatusnew" value="1" />
+			<div class="mainbox datalist">
+				<table summary="illegalsigban" cellspacing="0" cellpadding="0">
+					<thead>
+						<tr>
+							<th>{lang username}</th>
+							<td>$discuz_userss [<a href="$link_logout">{lang member_logout}</a>]</td>
+						</tr>
+					</thead>
+					<tr>
+						<th>被屏蔽用户</th>
+						<td><a href="space.php?uid=$uid">$username</a></td>
+					</tr>
+
+                    <tr>
+                     	<th valign="top"><label for="banreasonnew">{lang admin_reason}</label></th>
+	                    <td style="height: 9em;">
+                  		    <textarea id="banreasonnew" name="banreasonnew" style="height: 100px; width: 22em"></textarea>
+	                    </td>
+                    </tr>
+                    <tr>
+	                    <th>&nbsp;</th>
+	                <td>
+		                <label><input type="checkbox" name="sendreasonpm" value="1" /> 发短消息通知被屏蔽用户</label>
+	                </td>
+                    </tr>
+
+					<tr class="btns">
+						<th>&nbsp;</th>
+						<td>
+							<button type="submit" name="bansubmit" value="true" id="postsubmit">确认屏蔽</button> {lang post_submit_hotkey}
+						</td>
+					</tr>
+
+				</table>
+		 	</div>
+	    	</form>
+			</div>
+		</div>
+	</div>
+    
+<!--{elseif $banstatus==1}-->  
+  
+<div id="nav">
+	 <a href="$indexname">$bbname</a> $navigation &raquo;<a href="space.php?uid=$uid">{$username}资料</a>&raquo;解除屏蔽违规签名确认操作
+</div>
+<div id="wrap" class="wrap with_side s_clear">
+	<div class="main">
+		<div class="content">
+        
+			<div class="itemtitle s_clear">
+					<h1>解除屏蔽签名确认页面</h1>
+			</div>
+        
+             <div class="notice">{$username}的签名为屏蔽状态。<b>提醒：您将要执行解除屏蔽操作。</b></div>
+
+ 			<div class="illegalsigban datalist">
+		    <form method="post" action="illegalsigban.php?action=ban&amp;uid={$uid}" id="postform">
+			<input type="hidden" name="formhash" value="{FORMHASH}" />
+			<input type="hidden" name="referer" value="$referer" />
+            <input type="hidden" name="banstatusnew" value="0" />
+
+			<div class="mainbox datalist">
+				<table summary="illegalsigban" cellspacing="0" cellpadding="0">
+					<thead>
+						<tr>
+							<th>{lang username}</th>
+							<td>$discuz_userss [<a href="$link_logout">{lang member_logout}</a>]</td>
+						</tr>
+					</thead>
+					<tr>
+						<th>将被解除屏蔽用户</th>
+						<td><a href="space.php?uid=$uid">$username</a></td>
+					</tr>
+					<tr class="btns">
+						<th>&nbsp;</th>
+						<td>
+							<button type="submit" name="bansubmit" value="true" id="postsubmit">确认解除屏蔽</button> {lang post_submit_hotkey}
+						</td>
+					</tr>
+
+				</table>
+			</div>
+		    </form>
+			</div>
+		</div>
+	</div> 
+
+<!--{/if}--> 
+ 
+    
+	<div class="side">
+        {template illegalsigban_sidebar}
+	</div>
+
+</div>
+{subtemplate footer}

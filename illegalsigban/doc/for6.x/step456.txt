@@ -1,0 +1,54 @@
+	4、打开论坛文件viewthread.php（请修改前务必备份源文件）。
+	找到：
+while($post = $db->fetch_array($query)) {	
+	在它的上面添加：
+//illegalsigban plugin
+    @include_once './forumdata/cache/cache_illegalsigbanuidlist.php';
+	$illegalsigbanuidlistnew=array();
+    $illegalsigbanuidlistnew=explode(',', $illegalsigbanuidlist);
+//illegalsigban plugin	
+	
+	找到：
+$postlist[$post['pid']] = viewthread_procpost($post);	
+	在它的上面添加：
+//illegalsigban plugin
+	    if(in_array($post['authorid'],$illegalsigbanuidlistnew)){
+	          $post['signature']='签名被屏蔽';
+	    }
+//illegalsigban plugin		
+	
+	找到：
+	if($pagebydesc) {
+		$postlist = array_reverse($postlist, TRUE);
+	}	
+	在它的上面添加：
+//illegalsigban plugin
+	unset($illegalsigbanuidlistnew,$illegalsigbanuidlist);
+//illegalsigban plugin	
+	然后保存该文件。
+	
+
+
+	5、打开论坛文件templates\default\viewpro_classic.htm（请修改前务必备份源文件）。
+	找到：
+								<!--{if $member['adminid'] > 0 && $modworkstatus}-->
+									[ <a href="stats.php?type=modworks&uid=$member[uid]">{lang moderations}</a> ]&nbsp;
+								<!--{/if}-->	
+	在它的下面添加：
+								<!--{if $adminid > 0}-->
+									[ <a href="illegalsigban.php?action=ban&uid=$member[uid]">屏蔽/解除屏蔽个人签名</a> ]&nbsp;
+								<!--{/if}-->	
+	然后保存该文件。
+
+    6、 对于Discuz 6.0和安装了Mini-space插件的Discuz 6.1/6.1F（什么是Mini-space插件：http://www.discuz.net/thread-946455-1-3.html），则还需要打开论坛文件templates\default\viewpro.htm（请修改前务必备份源文件）：
+	找到：
+<!--{if $member['adminid'] > 0 && $modworkstatus}-->
+	<a href="stats.php?type=modworks&uid=$member[uid]">{lang moderations}</a>
+<!--{/if}-->	
+	在它的下面添加：
+<!--{if $adminid > 0}-->
+	<a href="illegalsigban.php?action=ban&uid=$member[uid]">屏蔽/解除屏蔽个人签名</a>
+<!--{/if}-->	
+	然后保存该文件。
+
+    7、上传步骤4、5、6中修改过的文件。
