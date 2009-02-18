@@ -1,0 +1,54 @@
+<!--{if $action == 'stats'}-->
+	{template header}
+            <span id="specialgroupinfo" class="msgtabs"><strong>用户组：{$group[grouptitle]}；级别：<!--{if $group['stars']}-->{eval showstars($group[stars]);}<!--{else}--><img src="{IMGDIR}/check_error.gif" /><!--{/if}-->；管理权限：<!--{if $group[radminid]==1 || $group[radminid]==2}-->{lang permission_modoptions_allfourm}<!--{elseif $group[radminid]==3 }-->{lang permission_modoptions_partforum}<!--{else}-->无<!--{/if}--></strong></span>
+    <div class="mainbox">
+            <table summary="specialgroupresult" cellspacing="0" cellpadding="0">
+	         	<thead>
+	         		<tr>
+                        <td>用户名</td>
+                        <td>上次访问</td>
+                        <td>离开天数</td>
+                        <td>积分</td>
+                        <td>帖子</td>
+                        <td>最近 30 天发帖</td>
+                        <!--{if $oltimespan}-->
+                        <td>总计在线</td>
+                        <td>本月在线</td> 
+                        <!--{/if}-->
+                    </tr>
+	         	</thead>
+                         	
+                                <!--{if empty($groupresult['members'])}-->
+                                    <tr><td>当前没有用户在&nbsp;{$group[grouptitle]}。</td></tr>
+                                <!--{else}-->
+						             <!--{loop $groupresult['members'] $uid}-->
+                                     <tr>
+						                 <td><a href="space.php?uid={$uid['uid']}">$uid['username']</a><!--{if ($group[radminid] != $uid['adminid'])}-->(<!--{if $uid['adminid'] == 1}-->{lang admin}<!--{elseif $uid['adminid'] == 2}-->{lang supermod}<!--{elseif $uid['adminid'] == 3}-->{lang moderator}<!--{else}-->普通用户<!--{/if}-->)<!--{/if}--></td>
+						                 <td>$uid['lastactivity']</td>
+								         <td>$uid['offdays']</td>
+								         <td>$uid['credits']</td>
+							             <td>$uid['posts']</td>
+								         <td>$uid['thismonthposts']</td>
+								         <!--{if $oltimespan}-->
+									       <td>$uid['totalol'] {lang hours}</td>
+									       <td>$uid['thismonthol'] {lang hours}</td>
+								         <!--{/if}-->
+                                     </tr>
+						             <!--{/loop}--> 
+                                <!--{/if}-->
+             </table>
+             
+             <br />
+             <div class="notice">
+             <!--{if !empty($groupresult['members'])}-->
+             <b>{$group[grouptitle]}&nbsp;共有成员{$groupresult['memberscount']}个，每人平均值如下：</b><br />
+              总在线时间{$groupresult['avgtotalol']} {lang hours}，本月在线时间{$groupresult['avgthismonthol']} {lang hours}；总发帖数{$groupresult['avgposts']}，本月发帖数{$groupresult['avgthismonthposts']}；本月离开天数{$groupresult['avgoffdays']}。<br />
+              <!--{/if}-->
+             {$group[grouptitle]}&nbsp;发帖统计数据已被缓存，上次于&nbsp;{$lastupdate}&nbsp;被更新，下次将于&nbsp;{$nextupdate}&nbsp;进行更新。<br />
+             <!--{if debuginfo()}-->
+			       <p id="debuginfo">共用时{$debuginfo[time]}秒，查询{$debuginfo[queries]}次。</p>
+		     <!--{/if}-->
+             </div>
+    </div>
+	{template footer}
+<!--{/if}-->

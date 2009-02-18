@@ -1,0 +1,21 @@
+# Discuz! Plugin Dump
+# Version: Discuz! 6.0.0
+# Time: 2008-9-17 13:07  
+# From: 资料备份中心 (http://127.0.0.1/dzbbs/) 
+#
+# Discuz! Community: http://www.Discuz.net
+# Please visit our website for latest news about Discuz!
+# --------------------------------------------------------
+
+
+YToyOntzOjY6InBsdWdpbiI7YTo5OntzOjk6ImF2YWlsYWJsZSI7czoxOiIx
+IjtzOjc6ImFkbWluaWQiO3M6MToiMCI7czo0OiJuYW1lIjtzOjEzOiLC28yz
+zbO8xlBsdXMhIjtzOjEwOiJpZGVudGlmaWVyIjtzOjE2OiJzdGF0c3BsdXNt
+b2R1bGUxIjtzOjExOiJkZXNjcmlwdGlvbiI7czowOiIiO3M6MTA6ImRhdGF0
+YWJsZXMiO3M6MDoiIjtzOjk6ImRpcmVjdG9yeSI7czowOiIiO3M6OToiY29w
+eXJpZ2h0IjtzOjA6IiI7czo3OiJtb2R1bGVzIjtzOjE4MjoiYToxOntpOjA7
+YTo2OntzOjQ6Im5hbWUiO3M6NzoibW9kdWxlMSI7czo0OiJtZW51IjtzOjE0
+OiLM2Mri08O7p9fpzbO8xiI7czozOiJ1cmwiO3M6MjU6InN0YXRzcGx1c3Nw
+ZWNpYWxncm91cC5waHAiO3M6NDoidHlwZSI7czoxOiI1IjtzOjc6ImFkbWlu
+aWQiO3M6MToiMCI7czoxMjoiZGlzcGxheW9yZGVyIjtpOjA7fX0iO31zOjc6
+InZlcnNpb24iO3M6NToiNi4wLjAiO30=
