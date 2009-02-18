@@ -2,7 +2,7 @@
 
 /*
 medaleasybuy主要解决以相同价格购买多个勋章的功能。功能较为简单。
-for dz6.1/6.1f
+for dz6.1/6.1f 0.0.1 hotfix1 build 20081224
 
   Copyright 2008 Horse Luke（竹节虚）.
 
@@ -84,13 +84,14 @@ if(empty($action)) {
 			showmessage('medal_apply_existence', 'medaleasybuy.php');
 		} else {		
 			$userip=dhtmlspecialchars($_SERVER['REMOTE_ADDR']);
-			$db->query("INSERT INTO {$tablepre}medaleasybuylog (uid,medalid,buytime,expiration,buyip,moneyamount,extcreditsid) VALUES ('$discuz_uid', '$medalid', '$timestamp', '$expiration', '$userip','$medalcanbuyprice', '$medalcanbuyextcreditsid')");
 			$expiration = empty($medal['expiration'])? 0 : $timestamp + $medal['expiration'] * 86400;
-			$db->query("INSERT INTO {$tablepre}medallog (uid, medalid, type, dateline, expiration, status) VALUES ('$discuz_uid', '$medalid', '1', '$timestamp', '$expiration', '1')");
+			$status= empty($medal['expiration'])? 0 : 1;
+			$db->query("INSERT INTO {$tablepre}medaleasybuylog (uid,medalid,buytime,expiration,buyip,moneyamount,extcreditsid) VALUES ('$discuz_uid', '$medalid', '$timestamp', '$expiration', '$userip','$medalcanbuyprice', '$medalcanbuyextcreditsid')");
+			$db->query("INSERT INTO {$tablepre}medallog (uid, medalid, type, dateline, expiration, status) VALUES ('$discuz_uid', '$medalid', '1', '$timestamp', '$expiration', '$status')");
             $db->query("UPDATE {$tablepre}members SET extcredits{$medalcanbuyextcreditsid}=extcredits{$medalcanbuyextcreditsid}-$medalcanbuyprice WHERE uid='$discuz_uid'");
 			$usermedallist = $db->result_first("SELECT medals FROM {$tablepre}memberfields WHERE uid='$discuz_uid'");
 			$newmedal = empty($medal['expiration']) ? $medalid : $medalid.'|'.$medal['expiration'];
-			$medalsnew= $usermedallist.'\t'.$newmedal;
+			$medalsnew= empty($usermedallist) ? $newmedal : $usermedallist.'\t'.$newmedal;
             $db->query("UPDATE {$tablepre}memberfields SET medals='$medalsnew' WHERE uid='$discuz_uid'");			
 			showmessage('购买成功！', 'medaleasybuy.php');	
 		}
