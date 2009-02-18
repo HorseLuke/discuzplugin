@@ -1,0 +1,90 @@
+{subtemplate header}
+
+	<div id="nav"><a href="$indexname">$bbname</a> &raquo; <!--{if empty($action)}-->可购买勋章列表<!--{elseif $action == 'log'}-->查看购买记录<!--{elseif $action == 'apply'}-->确认购买页面<!--{/if}--></div>
+	<div class="container">
+		<div class="side">
+        
+        
+			{template medaleasybuy_navbar}
+            
+            
+		</div>
+		<div class="content">
+			<!--{if empty($action)}-->
+				<div class="mainbox">
+					<h1>可购买勋章列表</h1>
+					<table summary="{medals}" cellspacing="0" cellpadding="0">
+					<!--{if $medallist}-->
+						<!--{loop $medallist $key $medal}-->
+							<tr>
+							<td width="20%" class="attriblist" valign="top">
+								<dl>
+									<dt><img src="images/common/$medal[image]" alt="$medal[name]" /></dt>
+									<dd class="name">$medal[name]</dd>
+								</dl>
+							</td><td>
+								$medal[description]<br />
+								<!--{if $medal[expiration]}-->{lang medals_expiration} $medal[expiration] {lang medals_days} &nbsp; <!--{/if}-->
+								<!--{if $medal[permission]}-->{lang medals_draw_condition} $medal[permission]<!--{/if}-->
+							</td>
+							<td>                            
+                            <!--{if $medal['type']}--><a href="medal.php?action=apply&medalid=$medal[medalid]">[此勋章为用户自助申请，后台管理员审核，无须付费。点击这里跳转到相应页面]</a><!--{elseif $GLOBALS['extcredits'.$medalcanbuyextcreditsid] < $medalcanbuyprice}--><a href="#">[{$noticesentense}<b>你的条件不够，无法申请</b>]</a><!--{else}--><a href="medaleasybuy.php?action=apply&medalid=$medal[medalid]">[{$noticesentense}点此开始购买。]</a><!--{/if}-->
+							</td>
+							</tr>
+							<!--{/loop}-->
+					<!--{else}-->
+						<td colspan="3">{lang medals_nonexistence}</td></tr>
+					<!--{/if}-->
+					</table>
+				</div>
+			<!--{elseif $action == 'log'}-->
+				<div class="mainbox">
+					<h1>查看购买记录</h1>
+					<table summary="{medals}" cellspacing="0" cellpadding="0">
+					<thead><tr><td>{lang medals}</td><td>购买时间</td><td>过期时间</td><td>购买时的ip</td><td>购买价格</td></tr></thead>
+					<!--{if $medallogs}-->
+						<!--{loop $medallogs $medallog}-->
+							<tr>
+							<td width="20%" class="attriblist">
+							<dl>
+								<dt><img src="images/common/$medallog[image]" alt="$medallog[name]" /></dt>
+								<dd class="name">$medallog[name]</dd>
+							</dl>
+							</td>
+							<td>$medallog[buytime]</td>
+							<td><!--{if $medallog[expiration]}-->$medallog[expiration]<!--{else}-->{lang medals_noexpire}<!--{/if}--></td>
+							<td>$medallog[buyip]</td>
+							<td>$extcredits[$medallog[extcreditsid]]['title'] $medallog[moneyamount]</td>
+							</tr>
+						<!--{/loop}-->
+					<!--{else}-->
+						<tr><td colspan="3">暂无数据</td></tr>
+					<!--{/if}-->
+					</table>
+				</div>
+				<!--{if !empty($multipage)}--><div class="pages_btns">$multipage</div><!--{/if}-->
+				
+			<!--{elseif $action == 'apply'}-->
+				<form method="post" action="medaleasybuy.php?action=apply">
+				<input type="hidden" name="formhash" value="{FORMHASH}" />
+				<input type="hidden" name="action" value="apply" />
+				<input type="hidden" name="medalid" value="$medalid" />
+				<div class="mainbox">
+				<h1>确认购买页面</h1>
+				<table cellspacing="0" cellpadding="0" width="100%" align="0">
+				<tr><td rowspan="6"align="center" width="20%"><img src="images/common/$medal[image]"><br /></td>
+				<td width="80%"><b>$medal[name]</b></td></tr>
+				<tr><td>$medal[description]</td></tr>
+				<!--{if $medal[expiration]}--><tr><td>{lang medals_expiration} $medal[expiration] {lang medals_days}</td></tr><!--{/if}-->
+				<!--{if $formulamessage}--><tr><td>{lang medals_draw_condition} $formulamessage</td></tr><!--{/if}-->
+				<tr><td>
+					<button class="submit" type="submit" name="medalsubmit" id="medalsubmit" value="true" tabindex="101">{$noticesentense}</button>
+				</td></tr>
+				</table></div>
+				</form>
+			<!--{/if}-->
+		</div>
+	</div>
+
+
+{subtemplate footer}

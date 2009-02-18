@@ -1,0 +1,23 @@
+# Discuz! Plugin Dump
+# Version: Discuz! 6.1.0F
+# Time: 2008-12-23 16:08  
+# From: Discuz! Board (http://127.0.0.1/bbsother/dz61f/) 
+#
+# Discuz! Community: http://www.Discuz.net
+# Please visit our website for latest news about Discuz!
+# --------------------------------------------------------
+
+
+YToyOntzOjY6InBsdWdpbiI7YTo5OntzOjk6ImF2YWlsYWJsZSI7czoxOiIx
+IjtzOjc6ImFkbWluaWQiO3M6MToiMSI7czo0OiJuYW1lIjtzOjEwOiLRq9XC
+ubrC8tLXIjtzOjEwOiJpZGVudGlmaWVyIjtzOjEyOiJtZWRhbGVhc3lidXki
+O3M6MTE6ImRlc2NyaXB0aW9uIjtzOjY0OiJtZWRhbGVhc3lidXnW99KqveK+
+9tLUz+DNrLzbuPG5usLytuC49tGr1cK1xLmmxNyho7mmxNy9z86qvPK1paGj
+IjtzOjEwOiJkYXRhdGFibGVzIjtzOjE1OiJtZWRhbGVhc3lidXlsb2ciO3M6
+OToiZGlyZWN0b3J5IjtzOjA6IiI7czo5OiJjb3B5cmlnaHQiO3M6MjE6IkNy
+ZWF0ZWQgQnkgSG9yc2UgTHVrZSI7czo3OiJtb2R1bGVzIjtzOjE3NToiYTox
+OntpOjA7YTo2OntzOjQ6Im5hbWUiO3M6MTI6Im1lZGFsZWFzeWJ1eSI7czo0
+OiJtZW51IjtzOjEwOiLRq9XCubrC8tLXIjtzOjM6InVybCI7czoxNjoibWVk
+YWxlYXN5YnV5LnBocCI7czo0OiJ0eXBlIjtzOjE6IjUiO3M6NzoiYWRtaW5p
+ZCI7czoxOiIwIjtzOjEyOiJkaXNwbGF5b3JkZXIiO2k6MDt9fSI7fXM6Nzoi
+dmVyc2lvbiI7czo2OiI2LjEuMEYiO30=
