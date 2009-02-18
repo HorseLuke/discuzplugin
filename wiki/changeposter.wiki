@@ -1,4 +1,4 @@
-#更改发贴人到指定帐户changeposter下载地址
+#summary 更改发贴人到指定帐户changeposter下载地址
 
 = Introduction =
 
