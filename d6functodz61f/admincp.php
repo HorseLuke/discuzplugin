@@ -77,7 +77,20 @@ if($cpaccess == 0 || (!$discuz_secques && $admincp['forcesecques'])) {
 				cpmsg('action_noaccess');
 			}
 		}
+		
+		
+		
+		/*D6功能移植to6.1 by horseluke
+		原语句
+		
 		if(in_array($action, array('home', 'settings', 'members', 'groups', 'forums', 'threadtypes', 'threads', 'moderate', 'attachments', 'smilies', 'recyclebin', 'prune', 'styles', 'plugins', 'magics', 'medals', 'google', 'qihoo', 'video', 'announcements', 'faq', 'ecommerce', 'tradelog', 'creditwizard', 'jswizard', 'project', 'counter', 'misc', 'advertisements', 'insenz', 'logs', 'tools', 'checktools', 'upgrade')) || ($isfounder && in_array($action, array('runwizard', 'templates', 'database')))) {
+		
+       */
+		
+		if(in_array($action, array('home', 'settings', 'members', 'groups', 'forums', 'threadtypes', 'threads', 'moderate', 'attachments', 'smilies', 'recyclebin', 'prune', 'styles', 'plugins', 'magics', 'medals', 'google', 'qihoo', 'video', 'announcements', 'faq', 'ecommerce', 'tradelog', 'creditwizard', 'jswizard', 'project', 'counter', 'misc', 'advertisements', 'insenz', 'logs', 'tools', 'checktools', 'upgrade','d6func')) || ($isfounder && in_array($action, array('runwizard', 'templates', 'database')))) {
+
+		//D6功能移植to6.1 by horseluke
+			
 			require_once DISCUZ_ROOT.'./admin/'.$action.'.inc.php';
 			$title = 'cplog_'.$action.($operation ? '_'.$operation : '');
 			if(!in_array($action, array('home', 'custommenu')) && lang($title, false)) {
