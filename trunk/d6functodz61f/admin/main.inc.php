@@ -47,6 +47,22 @@ showheader('extended', 'plugins');
 showheader('misc', 'announcements');
 showheader('adv', 'advertisements');
 showheader('tools', $isfounder && checkpermission('dbimport', 0) ? 'database&operation=export' : 'counter');
+
+
+
+
+
+
+//D6功能移植to6.1f by horseluke 
+$lang['header_d6func']='D6功能移植';
+showheader('d6func', 'd6func&operation=intro');
+//D6功能移植to6.1f by horseluke 
+
+
+
+
+
+
 if($isfounder) {
 	//echo '<li><em><a href="#" class="diffcolor" onclick="window.open(\''.UC_API.'\')">'.$lang['header_uc'].'</a></em></li>';
 }
@@ -97,7 +113,12 @@ echo <<<EOT
 </div>
 
 <script type="text/JavaScript">
-	var headers = new Array('index', 'global', 'forum', 'user', 'topic', 'extended', 'misc', 'tools', 'adv');
+
+
+    <!--D6功能移植to6.1f by horseluke--> 
+	var headers = new Array('index', 'global', 'forum', 'user', 'topic', 'extended', 'misc', 'tools', 'adv','d6func');
+	<!--D6功能移植to6.1f by horseluke-->
+	
 	function toggleMenu(key, url) {
 		if(key == 'index' && url == 'home') {
 			parent.location.href = 'admincp.php?frames=yes';

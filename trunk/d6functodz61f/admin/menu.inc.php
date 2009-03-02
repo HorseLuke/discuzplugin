@@ -89,6 +89,8 @@ showmenu('tools', array(
 	$isfounder ? array('menu_database', 'database&operation=export') : array(),
 	array('menu_logs', 'logs&operation=illegal')
 ));
+
+
 $insenz = ($insenz = $db->result_first("SELECT value FROM {$tablepre}settings WHERE variable='insenz'")) ? unserialize($insenz) : array();
 showmenu('adv', array(
 	array('menu_adv_custom', 'advertisements'),
@@ -106,6 +108,20 @@ while($custom = $db->fetch_array($query)) {
 if(count($historymenus) > 1) {
 	$historymenus[] = array('menu_home_clearhistorymenus', 'misc&operation=custommenu&do=clean', 'main', 'class="menulink"');
 }
+
+
+//D6功能移植to6.1f by horseluke
+$lang['menu_intro']='模块简介';
+$lang['menu_membersmerge']='合并用户';
+$lang['menu_pmprune']='清理短消息';
+showmenu('d6func', array(
+	array('menu_intro', 'd6func&operation=intro'),
+	array('menu_membersmerge', 'd6func&operation=membersmerge'),
+	array('menu_pmprune', 'd6func&operation=pmprune'),
+));
+//D6功能移植to6.1f by horseluke
+
+
 showmenu('index', $historymenus);
 
 ?>
