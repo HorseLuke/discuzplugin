@@ -114,10 +114,12 @@ if(count($historymenus) > 1) {
 $lang['menu_intro']='模块简介';
 $lang['menu_membersmerge']='合并用户';
 $lang['menu_pmprune']='清理短消息';
+$lang['menu_adduserwithuid']='添加用户[uid选号]';
 showmenu('d6func', array(
 	array('menu_intro', 'd6func&operation=intro'),
 	array('menu_membersmerge', 'd6func&operation=membersmerge'),
 	array('menu_pmprune', 'd6func&operation=pmprune'),
+	array('menu_adduserwithuid', 'd6func&operation=adduserwithuid'),
 ));
 //D6功能移植to6.1f by horseluke
 
