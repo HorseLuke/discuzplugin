@@ -234,7 +234,10 @@ if(!$operation || $operation == 'intro') {
         shownav('d6func', '添加新用户[UID选号]');
 		showsubmenu('添加新用户[UID选号]');
 		$uidmax = $db->result_first("SELECT max(uid) FROM {$tablepre}members");
-		showtips('<li>本功能结合Discuz 6和6.1F的代码，恢复Discuz 6中通过指定uid（即uid选号）添加用户的功能。</li><li>现在最大的uid值为<b>'.$uidmax.'</b>。若采取uid选号方式添加用户，请勿高于此值太多，否则会造成uid大段空白而形成资源浪费。<a href="http://soft.ccw.com.cn/programing/database/htm2008/20081010_517910.shtml" target="_blank">有关信息请查看MySQL的AUTO_INCREMENT知识</a></li>');
+		showtips('<li>本功能结合Discuz 6和6.1F的代码，恢复Discuz 6中通过指定uid（即uid选号）添加用户的功能。若uid选号最小值等于最大值，表示要插入指定的uid。</li>
+				 <li>现在注册用户中，最大的uid值为<b>'.$uidmax.'。</b></li>
+				 <li><b>注意：</b>若采取高于'.$uidmax.'的uid选号方式，uid选号范围的最小值请勿高于'.$uidmax.'太多，否则会造成uid大段空白而形成资源浪费（<a href="http://soft.ccw.com.cn/programing/database/htm2008/20081010_517910.shtml" target="_blank">有关信息请查看MySQL的AUTO_INCREMENT知识</a>）。</li>
+				 <li>采取低于'.$uidmax.'的uid选号方式、或者自动分配uid方式则不受上面的注意影响。</li>');
 		showformheader('d6func&operation=adduserwithuid');
 		showtableheader();
 
