@@ -13,7 +13,7 @@ cpheader();
 $lang['header_d6func']='D6功能移植';
 if(!$operation || $operation == 'intro') {
 		 shownav('d6func', '模块介绍');
-         cpmsg('本模块主要增加Discuz 6有而Discuz 6.1F没有的功能。请挑选左边任务继续。<br />当前模块版本：V0.0.1 BUILD 20090303 BY Horse Luke');
+         cpmsg('本模块主要增加Discuz 6有而Discuz 6.1F没有的功能。请挑选左边任务继续。<br />当前模块版本：V0.0.2 BUILD 20090304 BY Horse Luke');
 		 
 }elseif($operation == 'membersmerge'){
 	if(!submitcheck('mergesubmit')) {
@@ -211,6 +211,140 @@ if(!$operation || $operation == 'intro') {
 
 		}
 	}
+
+
+}elseif($operation == 'adduserwithuid'){
+
+	if(!submitcheck('addsubmit')) {
+
+		$groupselect = '';
+		$query = $db->query("SELECT groupid, type, grouptitle, creditshigher FROM {$tablepre}usergroups WHERE type='member' AND creditshigher='0' OR (groupid NOT IN ('5', '6', '7') AND radminid<>'1' AND type<>'member') ORDER BY type DESC, (creditshigher<>'0' || creditslower<>'0'), creditslower");
+		while($group = $db->fetch_array($query)) {
+			if($group['type'] == 'member' && $group['creditshigher'] == 0) {
+				$groupselect .= "<option value=\"$group[groupid]\" selected>$group[grouptitle]</option>\n";
+			} else {
+				$groupselect .= "<option value=\"$group[groupid]\">$group[grouptitle]</option>\n";
+			}
+		}
+        shownav('d6func', '添加新用户[UID选号]');
+		showsubmenu('添加新用户[UID选号]');
+		$uidmax = $db->result_first("SELECT max(uid) FROM {$tablepre}members");
+		showtips('<li>本功能结合Discuz 6和6.1F的代码，恢复Discuz 6中通过指定uid（即uid选号）添加用户的功能。</li><li>现在最大的uid值为<b>'.$uidmax.'</b>。若采取uid选号方式添加用户，请勿高于此值太多，否则会造成uid大段空白而形成资源浪费。<a href="http://soft.ccw.com.cn/programing/database/htm2008/20081010_517910.shtml" target="_blank">有关信息请查看MySQL的AUTO_INCREMENT知识</a></li>');
+		showformheader('d6func&operation=adduserwithuid');
+		showtableheader();
+
+		showsetting('UID 选号范围：如不设定为自动分配；若需设定，请在左边填写uid选号最小值，右边填写uid选号最大值，并且范围请勿太大，以免加重服务器负担', array('uidlowerlimit', 'uidupperlimit'), array('', ''), 'range');
+		
+		showsetting('username', 'newusername', '', 'text');
+		showsetting('password', 'newpassword', '', 'text');
+		showsetting('email', 'newemail', '', 'text');
+		showsetting('usergroup', '', '', '<select name="newgroupid">'.$groupselect.'</select>');
+		showsetting('members_add_email_notify', 'emailnotify', '', 'radio');
+		showsubmit('addsubmit');
+		showtablefooter();
+		showformfooter();
+
+	} else {
+
+		$newusername = trim($newusername);
+		$newpassword = trim($newpassword);
+		$newemail = trim($newemail);
+
+		if($newusername == '' || $newpassword == '' || !$newemail) {
+			cpmsg('members_add_invalid');
+		}
+
+		if(strlen($newusername) < 3) {
+			cpmsg('members_add_tooshort');
+		} elseif(strlen($newusername) > 15) {
+			cpmsg('members_add_toolong');
+		}
+
+		$newsalt = random(6);
+		$newpassword2 = md5(md5($newpassword).$newsalt);
+
+		$guestexp = '\xA1\xA1|\xAC\xA3|^Guest|^\xD3\xCE\xBF\xCD|\xB9\x43\xAB\xC8';
+		$censorexp = '/^('.str_replace(array('\\*', "\r\n", ' '), array('.*', '|', ''), preg_quote(($censoruser = trim($censoruser)), '/')).')$/i';
+		if(preg_match("/^\s*$|^c:\\con\\con$|[%,\*\"\s\t\<\>\&]|$guestexp/is", $newusername) || ($censoruser && @preg_match($censorexp, $newusername))) {
+			cpmsg('members_add_illegal');
+		}
+
+		$query = $db->query("SELECT uid FROM {$tablepre}members WHERE username='$newusername'");
+		if($db->num_rows($query)) {
+			cpmsg('members_add_username_duplicate');
+		}
+		
+		
+
+		$uidupperlimit = intval($uidupperlimit);
+		$uidlowerlimit = intval($uidlowerlimit);
+		
+	    if($uidlowerlimit == 0){
+			 $uid=NULL;
+		}elseif($uidlowerlimit && $uidupperlimit < $uidlowerlimit){
+			    cpmsg('错误指定UID范围（指定的uid选号最大值反而小于指定的uid选号最小值），请返回修改。','', 'error');
+		}elseif($uidlowerlimit && $uidupperlimit >= $uidlowerlimit) {
+			$uid = $uidlowerlimit;
+			$query = $db->query("SELECT uid FROM {$tablepre}members WHERE uid BETWEEN '$uidlowerlimit' AND '$uidupperlimit' ORDER BY uid");
+			while($member = $db->fetch_array($query)) {
+				if($member['uid'] > $uid) {
+					break;
+				} else {
+					$uid ++;
+				}
+			}
+			if($uid > $uidupperlimit) {
+				cpmsg('指定范围内没有可用的 UID，无法成功分配，请返回修改。','', 'error');
+			}
+		}
+
+		
+		
+
+		$query = $db->query("SELECT groupid, radminid, type FROM {$tablepre}usergroups WHERE groupid='$newgroupid'");
+		$group = $db->fetch_array($query);
+		$newadminid = in_array($group['radminid'], array(1, 2, 3)) ? $group['radminid'] : ($group['type'] == 'special' ? -1 : 0);
+		if($group['radminid'] == 1) {
+			cpmsg('members_add_admin_none', '', 'error');
+		}
+		if(in_array($group['groupid'], array(5, 6, 7))) {
+			cpmsg('members_add_ban_all_none', '', 'error');
+		}
+
+		$db->query("INSERT INTO {$tablepre}members (uid, username, password, salt, secques, gender, adminid, groupid, regip, regdate, lastvisit, lastactivity, posts, credits, email, bday, sigstatus, tpp, ppp, styleid, dateformat, timeformat, showemail, newsletter, invisible, timeoffset)
+			VALUES ('$uid', '$newusername', '$newpassword2', '$newsalt', '', '0', '$newadminid', '$newgroupid', 'Manual Acting', '$timestamp', '$timestamp', '$timestamp', '0', '0', '$newemail', '0000-00-00', '0', '0', '0', '0', '0', '{$_DCACHE[settings][timeformat]}', '1', '1', '0', '{$_DCACHE[settings][timeoffset]}')");
+		$uid = $db->insert_id();
+
+		$db->query("REPLACE INTO {$tablepre}memberfields (uid) VALUES ('$uid')");
+
+		if($emailnotify) {
+			sendmail("$newusername <$newemail>", 'add_member_subject', 'add_member_message');
+		}
+
+		updatecache('settings');
+		$newusername = stripslashes($newusername);
+		cpmsg('members_add_succeed', '', 'succeed');
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
