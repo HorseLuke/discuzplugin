@@ -13,7 +13,11 @@ cpheader();
 $lang['header_d6func']='D6功能移植';
 if(!$operation || $operation == 'intro') {
 		 shownav('d6func', '模块介绍');
-         cpmsg('本模块主要增加Discuz 6有而Discuz 6.1F没有的功能。请挑选左边任务继续。<br />当前模块版本：V0.0.2 BUILD 20090304 BY Horse Luke');
+		 showsubmenu('模块介绍');
+		 showtips('<li>本模块主要增加Discuz 6有而Discuz 6.1F没有的功能。请挑选左边任务继续。</li>
+				  <li><a href="http://www.freediscuz.net/bbs/thread-4711-1-1.html" target="_blank">获取该模块的升级版本请点击这里查看</a></li>
+				  <li>当前模块版本：V0.0.2 Build 20090304 Fix1 BY Horse Luke</li>');
+
 		 
 }elseif($operation == 'membersmerge'){
 	if(!submitcheck('mergesubmit')) {
@@ -137,7 +141,7 @@ if(!$operation || $operation == 'intro') {
 	    ));
 		showtablerow('', array('class=""'), array(
 		    "删除多少天以前的短消息(不限制时间请输入 0):",
-		    '<input type="text" name="days" size="7" value="0" />'
+		    '<input type="text" name="days" size="7" />'
 	    ));
 		showtablerow('', array('class=""'), array(
 		    "按发信用户名清理(多用户名中间请用半角逗号 \",\" 分割):",
@@ -160,6 +164,7 @@ if(!$operation || $operation == 'intro') {
 				cpmsg('您没有输入要删除短消息的时间范围，请返回修改。');
 			} else {
 				$uids = 0;
+				$days=intval($days);
 				$users = str_replace(',', '\',\'', str_replace(' ', '', $users));
 				$query = $db->query("SELECT uid FROM {$tablepre}members WHERE ".(empty($cins) ? 'BINARY' : '')." username IN ('$users')");
 				while($member = $db->fetch_array($query)) {
