@@ -67,6 +67,7 @@ if ($page * $show_num_inpage < 51){
                                  ORDER BY a.dateline DESC
 		    			    	 LIMIT 0 , 50");
 		    $i = 0;
+			$piclist = array();
 		    while($pic = $db->fetch_array($query)) {
 				if($pic['readperm'] > 0 || $pic['price'] > 0 || $pic['remote'] > 0){
 					$pic['attachment'] = "./images/tasks/gift.gif";
