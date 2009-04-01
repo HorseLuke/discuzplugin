@@ -22,7 +22,7 @@
                   <!--{loop $piclist $pic}-->
 
 				<td>
-                    <table style="border: 1px solid rgb(204, 204, 204); text-align: center; width: 1px;" class="box"><tbody><tr><td style="padding: 5px;"><a href="viewthread.php?tid={$pic[tid]}" target="_blank"><img src="{$pic[attachment]}" width="133" height="100" /></a><p style="text-align: center;"><a href="viewthread.php?tid={$pic[tid]}" target="_blank">{$pic[subject]}</a></p></td></tr></tbody></table>
+                    <table style="border: 1px solid rgb(204, 204, 204); text-align: center; width: 1px;" class="box"><tbody><tr><td style="padding: 5px;"><a href="viewthread.php?tid={$pic[tid]}" target="_blank"><img src="{$pic[attachment]}" onload="DrawImage(this,133,100)" width="133" height="100" /></a><p style="text-align: center;"><a href="viewthread.php?tid={$pic[tid]}" target="_blank">{$pic[subject]}</a></p></td></tr></tbody></table>
                 </td>
                   <!--{/loop}-->
             <!--{/if}-->               
