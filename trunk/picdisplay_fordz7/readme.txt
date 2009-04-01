@@ -18,6 +18,33 @@
 <div id="nav"><a href="$indexname">$bbname</a> &raquo; {lang home}</div>
 <!--{if $admode && empty($insenz['hardadstatus']) && !empty($advlist['text'])}--><div class="ad_text" id="ad_text"><table summary="Text Ad" cellpadding="0" cellspacing="1">$advlist[text]</table></div><!--{else}--><div id="ad_text"></div><!--{/if}-->
 下面添加：
+<script language="javascript">
+var flag=false; 
+function DrawImage(ImgD,w,h){ 
+var image=new Image(); 
+image.src=ImgD.src; 
+if(image.width>0 && image.height>0){ 
+flag=true; 
+if(image.width/image.height>= w/h){ 
+    if(image.width>w){ 
+      ImgD.width=w; 
+      ImgD.height=(image.height*w)/image.width; 
+    }else{ 
+      ImgD.width=image.width; 
+      ImgD.height=image.height; 
+    } 
+}else{ 
+    if(image.height>h){ 
+      ImgD.height=h; 
+      ImgD.width=(image.width*h)/image.height; 
+    }else{ 
+      ImgD.width=image.width; 
+      ImgD.height=image.height; 
+    } 
+} 
+} 
+} 
+</script>
 <div class="ad_text" id="picdisplayindex">
     {eval include_once("./picdisplay.php"); }
 </div>
