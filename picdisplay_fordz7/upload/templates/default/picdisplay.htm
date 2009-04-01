@@ -1,0 +1,35 @@
+<!--{if $inajax}-->
+{template header_ajax}
+<!--{/if}-->
+
+<div>
+    <!--{if $no_nextpage == 0}-->
+    <div class="pages" id="nextpage_1"><a href="picdisplay.php?page={$nextpage}" class="next" onclick="ajaxget(this.href, 'picdisplayindex');doane(event);">下一页</a></div>
+    <!--{/if}-->
+    <!--{if $page > 1}-->
+    <span class="pageback"><a href="picdisplay.php?page={$prepage}" onclick="ajaxget(this.href, 'picdisplayindex');doane(event);">[现在是第{$page}页]&nbsp;&nbsp;上一页</a></span>
+    <!--{/if}-->
+</div>
+<div>
+<table align="center">
+		<tbody>
+            <tr>
+            <!--{if empty($piclist)}-->
+				<td align="center">
+                    已经到了最后一页，无图片显示。
+                </td>
+            <!--{else}-->
+                  <!--{loop $piclist $pic}-->
+
+				<td>
+                    <table style="border: 1px solid rgb(204, 204, 204); text-align: center; width: 1px;" class="box"><tbody><tr><td style="padding: 5px;"><a href="viewthread.php?tid={$pic[tid]}" target="_blank"><img src="{$pic[attachment]}" width="133" height="100" /></a><p style="text-align: center;"><a href="viewthread.php?tid={$pic[tid]}" target="_blank">{$pic[subject]}</a></p></td></tr></tbody></table>
+                </td>
+                  <!--{/loop}-->
+            <!--{/if}-->               
+			</tr>
+		</tbody>
+</table>
+</div>
+<!--{if $inajax}-->
+{template footer_ajax}
+<!--{/if}-->
