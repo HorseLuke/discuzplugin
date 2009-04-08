@@ -1,7 +1,7 @@
 <?php
 
 /*
-PIC DISPLAY Ver 0.0.3 Build 20090408 Rev 48 For Discuz! 7
+PIC DISPLAY Ver 0.0.3 Build 20090408 Rev 49 For Discuz! 7
 
   Copyright 2009 Horse Luke£¨Öñ½ÚÐé£©.
 
@@ -45,7 +45,7 @@ if ($fid_ignore_list){
 
 
 if ($page * $show_num_inpage < 51){
-    if (!$cache_refresh_time || !file_exists("./forumdata/cache/cache_picdisplay.php") || ($timestamp - $cachetime > $cache_refresh_time * 1)) {
+    if (!$cache_refresh_time || !file_exists("./forumdata/cache/cache_picdisplay.php") || ($timestamp - $cachetime > $cache_refresh_time * 3600)) {
 		if ($fid_ignore_list){
             $image_tid_totalnum = $db->result_first("SELECT count(DISTINCT t.tid) FROM cdb_attachments a LEFT JOIN cdb_threads t ON t.tid=a.tid WHERE isimage = 1 {$sqlfilter}");
 			
