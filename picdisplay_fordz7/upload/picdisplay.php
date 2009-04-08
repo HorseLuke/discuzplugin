@@ -1,7 +1,7 @@
 <?php
 
 /*
-PIC DISPLAY Ver 0.0.3 Build 20090401 Rev 1 For Discuz! 7
+PIC DISPLAY Ver 0.0.3 Build 20090408 Rev 48 For Discuz! 7
 
   Copyright 2009 Horse Luke£¨Öñ½ÚĞé£©.
 
@@ -38,35 +38,31 @@ $cachetime = @filemtime("./forumdata/cache/cache_picdisplay.php");
 @include_once ("./forumdata/cache/cache_picdisplay.php");
 $image_tid_totalnum = empty($image_tid_totalnum) ? 0 : intval($image_tid_totalnum);
 
-$sqlfilter = '';
+$sqlfilter =  '';
 if ($fid_ignore_list){
-	$sqlfilter = " WHERE t.fid NOT IN ({$fid_ignore_list}) ";
+	$sqlfilter = " AND t.fid NOT IN ({$fid_ignore_list}) ";
 }
 
 
 if ($page * $show_num_inpage < 51){
-    if (!$cache_refresh_time || !file_exists("./forumdata/cache/cache_picdisplay.php") || ($timestamp - $cachetime > $cache_refresh_time * 3600)) {
+    if (!$cache_refresh_time || !file_exists("./forumdata/cache/cache_picdisplay.php") || ($timestamp - $cachetime > $cache_refresh_time * 1)) {
 		if ($fid_ignore_list){
-			$subsql = "SELECT t.tid, t.fid, a.isimage FROM {$tablepre}attachments a
-			           LEFT JOIN {$tablepre}threads t ON t.tid=a.tid
-					   WHERE t.fid NOT IN ({$fid_ignore_list})
-			           GROUP BY tid HAVING isimage = 1";
+            $image_tid_totalnum = $db->result_first("SELECT count(DISTINCT t.tid) FROM cdb_attachments a LEFT JOIN cdb_threads t ON t.tid=a.tid WHERE isimage = 1 {$sqlfilter}");
+			
 		}else{
-			$subsql = "SELECT tid, isimage FROM {$tablepre}attachments GROUP BY tid HAVING isimage = 1";
+            $image_tid_totalnum = $db->result_first("SELECT count(DISTINCT tid) FROM {$tablepre}attachments WHERE isimage = 1");
 		}
-        $image_tid_totalnum = $db->result_first("SELECT COUNT(*) FROM
-					    							({$subsql})
-					    						 subsql");
 		$piclist = array();
 		if($image_tid_totalnum > 0){
-            $query = $db->query("SELECT a.aid, a.tid, a.readperm, a.price, 
-	    					     a.attachment, a.thumb, a.isimage, a.remote, t.subject, t.fid
-                                 FROM {$tablepre}attachments a
-                                 LEFT JOIN {$tablepre}threads t ON t.tid=a.tid
-								 {$sqlfilter}
-                                 GROUP BY a.tid HAVING a.isimage=1
-                                 ORDER BY a.dateline DESC
-		    			    	 LIMIT 0 , 50");
+            $query = $db->query("SELECT a.aid, a.tid , a.readperm, a.price, a.attachment,
+			                 a.thumb, a.isimage, a.remote, t.subject, t.fid
+                             FROM {$tablepre}attachments a
+                             LEFT JOIN {$tablepre}threads t ON t.tid = a.tid
+                             WHERE a.isimage = 1
+							 {$sqlfilter}
+                             GROUP BY a.tid
+                             ORDER BY a.dateline DESC 
+                             LIMIT 0 , 50");
 		    $i = 0;
 		    while($pic = $db->fetch_array($query)) {
 				if($pic['readperm'] > 0 || $pic['price'] > 0 || $pic['remote'] > 0){
@@ -100,8 +96,9 @@ if ($page * $show_num_inpage < 51){
 	    					 a.attachment, a.thumb, a.isimage, a.remote, t.subject, t.fid
                              FROM {$tablepre}attachments a
                              LEFT JOIN {$tablepre}threads t ON t.tid=a.tid
-							 {$sqlfilter}
-                             GROUP BY a.tid HAVING a.isimage=1
+							 WHERE a.isimage=1
+							 {$sqlfilter}	 
+                             GROUP BY a.tid
                              ORDER BY a.dateline DESC
 		    				 LIMIT $startlimit , $show_num_inpage");	
 		while($pic = $db->fetch_array($query)) {
