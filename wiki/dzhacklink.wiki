@@ -19,6 +19,7 @@
 
 6、折叠评分记录Hack For Discuz6.0/6.1/6.1F：http://www.discuz.net/viewthread.php?tid=1040622
 
+7（2009-5-10）、父版块显示子版块所有主题帖子标题HACK for dz7：http://www.discuz.net/thread-1294847-1-1.html
 
 ==其它链接==
 一个插件作者的困惑（开发半年的插件感受/关于官方、站长、插件作者）：http://www.discuz.net/viewthread.php?tid=1193703
