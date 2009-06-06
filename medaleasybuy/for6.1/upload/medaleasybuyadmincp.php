@@ -1,7 +1,7 @@
 <?php
 
 /*
-Medal EasyBuy Ver 0.0.2 Build 20090119 For Discuz! 6.1/6.1F - Settingpage
+Medal EasyBuy Ver 0.0.2 Build 20090607 For Discuz! 6.1/6.1F - Settingpage
 
   Copyright 2008 Horse Luke£¨Öñ½ÚÐé£©.
 
@@ -55,7 +55,7 @@ if($action == 'alllogs') {
 	}else{
 		    $logstotalnum = $db->result_first("SELECT COUNT(*) FROM {$tablepre}medaleasybuylog");
 	    	$multipage = multi($logstotalnum, $tpp, $page, "medaleasybuyadmincp.php?action=alllogs");
-	    	$etrasql='';
+	    	$extrasql='';
 	}
 
 	if ($logstotalnum){
