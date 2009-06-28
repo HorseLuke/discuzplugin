@@ -1,0 +1,120 @@
+Discuz SQL执行语句调试之 简单写入日志版本
+
+(开发代号：DiscuzSQLDebug_SimpleToHTMLLog)
+
+
+
+　
+　Copyright 2009 Horse Luke（竹节虚）.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+　limitations under the License.
+　
+
+
+
+一、前言	2
+二、修改方法	2
+三、使用方法	3
+四、常见问答	3
+问1：输出的为什么是HTML而不是PHP？不怕黑客查看吗？	3
+问2：如何修改这些日志文件的路径？	3
+问3：为什么打开debug模式后，页面顶端会有一句“注意：现在你已经打开了SQLDebug调试（简单写入日志版本），请随时留意并自行删除过时的SQLDebug HTML日志（位于文件夹/forumdata/logs/下）。”？他干扰了我的css样式啊！	3
+参考文献	4
+
+
+
+
+
+
+
+
+2009-6-28（第1版）
+
+
+一、前言
+
+　　注意和警告：
+　　本Debug文件仅供测试人员和开发人员使用，请勿用于正式场合（比如正在运营的网站）！本人不承担任何因使用及误用而导致任何不良后果的责任！
+　　
+　　本Debug文件作用：
+　　把Discuz!在执行过程中的所有SQL语句写入到以日为单位的HTML文件日志，以供测试人员和开发人员进行SQL Debug和优化。
+　　本Debug文件在Discuz 6.x/7测试通过。
+　　本文件首发于FreeDiscuz!技术讨论：http://www.freediscuz.net/bbs/thread-5198-1-1.html
+　　
+　　特别鸣谢：
+　　Daevid Vincent[1]和Freediscuz!上的renothing, 044003。
+　　
+　　现在版本：
+　　0.0.1 Build 20090628 Rev 1
+　　更新日志：
+　　暂无
+　　
+　　授权方式：
+　　Apache License 2.0
+
+
+
+二、修改方法
+
+1，上传upload文件夹到论坛目录下。
+
+2，按论坛版本修改源代码。
+
+　　如果你是：Discuz 7
+　　无需修改源代码。
+
+    如果你是：Discuz 6.1、6.1f
+    你还需要修改db_mysql.class.php，把：
+sqldebug();改为
+sqldebug($sql);
+　　如果你是：Discuz 6.0
+　　你还需要修改db_mysql.class.php，在：
+	function query($sql, $type = '') {
+		global $debug, $discuz_starttime, $sqldebug, $sqlspenttimes;　　下面添加：
+                if(defined('SYS_DEBUG') && SYS_DEBUG) {
+                        @include_once DISCUZ_ROOT.'./include/debug.func.php';
+                        sqldebug($sql);
+                }　　
+　　如果你是：Discuz 5.5及以下版本
+　　没有做测试，修改方法可能和Discuz 6一样。请自行摸索。
+　　
+3，打开include/common.inc.php，把
+define('SYS_DEBUG', FALSE);改为
+define('SYS_DEBUG', true);
+
+三、使用方法
+    在按上述修改后，运行时，在论坛目录“forumdata\logs”下将出现以日期和“SQLDebug”文字组成的html文件名（如：2009-06-28-SQLDebug.html），打开即可查看到类似于以下的输出：
+URL:http://localhost:80/bbsother/dz7/pm.php?checknewpm=0.9212575695396465&inajax=1&ajaxtarget=pm_ntc&random=0.17335345970753374
+2009-06-28 12:33:34 AM SQL[0]: SELECT sid, uid AS sessionuid, groupid, groupid='6' AS ipbanned, pageviews AS spageviews, styleid, lastolupdate, seccode FROM cdb_sessions WHERE sid='NnFfd3' AND CONCAT_WS('.',ip1,ip2,ip3,ip4)='127.0.0.1';
+2009-06-28 12:33:34 AM SQL[1]: SELECT m.uid AS discuz_uid, m.username AS discuz_user, m.password AS discuz_pw, m.secques AS discuz_secques, m.adminid, m.groupid, m.groupexpiry, m.extgroupids, m.email, m.timeoffset, m.tpp, m.ppp, m.posts, m.digestposts, m.oltime, m.pageviews, m.credits, m.extcredits1, m.extcredits2, m.extcredits3, m.extcredits4, m.extcredits5, m.extcredits6, m.extcredits7, m.extcredits8, m.timeformat, m.dateformat, m.pmsound, m.sigstatus, m.invisible, m.lastvisit, m.lastactivity, m.lastpost, m.accessmasks, m.editormode, m.customshow, m.customaddfeed FROM cdb_members m WHERE uid='1';　　
+
+
+四、常见问答
+　　问1：输出的为什么是HTML而不是PHP？不怕黑客查看吗？
+　　答：第一，这个Debug仅是为了调试方便而写，也就是说，一般都是本地调试使用，因此并没有考虑远程调试问题。再次强调，请勿用于正式场合（比如正在运营的网站）！
+　　第二，纵观其它web程序（包括国内外的一些PHP框架），其日志输出的都是log文件。事实上，保护日志所在的文件夹不被轻易访问要比单纯使用程序算法来解决这个问题要好许多。
+
+　　问2：如何修改这些日志文件的路径？
+　　答：打开debug.func.php，然后找到
+	$logDir = DISCUZ_ROOT.'/forumdata/logs/';　　修改$logDir的值即可。
+　　
+　　问3：为什么打开debug模式后，页面顶端会有一句“注意：现在你已经打开了SQLDebug调试（简单写入日志版本），请随时留意并自行删除过时的SQLDebug HTML日志（位于文件夹/forumdata/logs/下）。”？他干扰了我的css样式啊！
+　　答：这是为防止粗心的开发员忘记在非开发状态下关闭debug模式，从而导致生成大量sql日志占用磁盘空间的问题。若你确信你不是“大马哈”，请打开debug.func.php，注释掉以下代码即可：
+	   echo "<div style=\"text-align:left;background-color:#FFC\"><b>注意：现在你已经打开了SQLDebug调试（简单写入日志版本），请随时留意并自行删除过时的SQLDebug HTML日志（位于文件夹/forumdata/logs/下）。</b></div>";
+
+
+参考文献
+    [1] Daevid Vincent [daevid@LockdownNetworks.com]. highlight SQL functions. 05-Apr-2005 08:14. http://us2.php.net/manual/en/function.str-ireplace.php
+
+第 2 页 共 4 页
+
