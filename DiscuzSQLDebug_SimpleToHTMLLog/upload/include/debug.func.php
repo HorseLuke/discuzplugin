@@ -17,7 +17,7 @@
 * Output the HTML debugging string to HtmlFile in color coded glory for a sql query 
 * For Discuz! SQLDEBUG ONLY!
 * @Special Thans to Daevid Vincent [daevid@LockdownNetworks.com] and renothing[FreeDiscuz!], 044003[FreeDiscuz!]
-* @version    0.0.1 Build 20090628 Rev 1 
+* @version    0.0.2 Build 20090628 Rev 53 
 * @date       2009-6-28
 */ 
 
@@ -32,8 +32,14 @@ function sqldebug( $query )
 
    global $SQL_INT; 
    if( !isset($SQL_INT) ){
+	   //一个新的数据库请求周期产生了
 	   $SQL_INT = 0;
 	   echo "<div style=\"text-align:left;background-color:#FFC\"><b>注意：现在你已经打开了SQLDebug调试（简单写入日志版本），请随时留意并自行删除过时的SQLDebug HTML日志（位于文件夹/forumdata/logs/下）。</b></div>";
+	   
+	   //往日志内写入当前的url
+	   $CurrentURL = htmlentities("http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$_SERVER['REQUEST_URI']}");
+	   $str =  "\n\n<div><br />-----------------------------------------------------------<br /><b>URL:</b>{$CurrentURL}</div>";
+	   sqlDebugWrite($str);
    }
 
    //[dv] this has to come first or you will have goofy results later. 
@@ -99,11 +105,6 @@ function sqldebug( $query )
 
 
 function sqlDebugWrite($str){
-    global $isbegin;
-    if( !isset($isbegin) ){
-		$isbegin = true;
-        $str =  "\n\n<div><br />-----------------------------------------------------------<br /><b>URL:</b>http://{$_SERVER['SERVER_NAME']}:{$_SERVER['SERVER_PORT']}{$_SERVER['REQUEST_URI']}</div>".$str;
-	}
     $fileName = date('Y-m-d').'-SQLDebug.html';
 	$logDir = DISCUZ_ROOT.'/forumdata/logs/';
 	
