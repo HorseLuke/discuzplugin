@@ -1,0 +1,16 @@
+#Discuz SQL执行语句调试文件。现发布两个版本：简单显示版本、简单写入日志版本
+
+= Introduction =
+
+本Debug文件将收集discuz 运行时sql语句并按照版本进行对应的处理。
+
+
+= Details =
+
+简单显示版本:
+  * 下载地址：http://www.freediscuz.net/bbs/thread-5198-1-1.html
+
+简单写入日志版本:
+  * 下载地址（推荐第一个）：
+   ## http://www.freediscuz.net/bbs/thread-5198-1-1.html
+   ## http://www.discuz.net/viewthread.php?tid=1337965
