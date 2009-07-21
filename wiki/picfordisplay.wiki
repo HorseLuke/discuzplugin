@@ -1,0 +1,6 @@
+#summary 在首页显示图片附件并ajax翻页（带缓存）【for 7】
+
+
+= Details =
+下载地址
+for 7:http://www.discuz.net/viewthread.php?tid=1277034
