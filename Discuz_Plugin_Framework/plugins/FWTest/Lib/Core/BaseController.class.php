@@ -7,8 +7,8 @@
  * @version ver 0.0.1 build 20090724 rev 1 For Discuz! 7
  */
 
-!defined('IN_DZ_PLUGIN_FW') && exit();
+!defined('IN_FW') && exit();
 
 class BaseController{
-	
+    
 }
