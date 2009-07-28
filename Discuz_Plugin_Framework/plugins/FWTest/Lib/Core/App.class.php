@@ -1,6 +1,6 @@
 <?php
 /**
- * @name Discuz! Plugin Framework Core App Class File
+ * @name Discuz! Plugin Framework Core App Class File UTF8
  * @author Horse Luke
  * @copyright Horse Luke, 2009. Licensed under the Apache License, Version 2.0
  * @version ver 0.0.1 build 20090724 rev 1 For Discuz! 7
@@ -15,23 +15,23 @@ class App{
     public $controllerInstance;
     
     /**
-     * ²å¼þ³ÌÐòÔËÐÐµÄÈë¿Ú£¬ÔÚ³õÊ¼»¯ÍêFWBaseÀàºó£¬±ØÐëÍ¨¹ý´ËÈë¿ÚÆô¶¯¿ò¼ÜÏÂµÄ²å¼þ
+     * æ’ä»¶ç¨‹åºè¿è¡Œçš„å…¥å£ï¼Œåœ¨åˆå§‹åŒ–å®ŒFWBaseç±»åŽï¼Œå¿…é¡»é€šè¿‡æ­¤å…¥å£å¯åŠ¨æ¡†æž¶ä¸‹çš„æ’ä»¶
      *
      */
     public function run(){
         $this->controller = $this->getControllerName().'Controller';
         $this->action = $this->getActionName().'Action';
         $this->controllerInstance = $this->initController();
-        //ÔËÐÐ¿ØÖÆÆ÷ÀïÃæµÄ·½·¨
+        //è¿è¡ŒæŽ§åˆ¶å™¨é‡Œé¢çš„æ–¹æ³•
         if(method_exists($this->controllerInstance,$this->action)){
             $this->controllerInstance->{$this->action}();
         }else{
-                FWBase::throw_exception('Ö¸¶¨µÄ¿ØÖÆÆ÷ÎÄ¼þÄÚÃ»ÓÐ¶ÔÓ¦µÄ·½·¨£¡ÎÞ·¨Æô¶¯¿ò¼Ü£¡','FRAMEWORK_ERROR');
+                FWBase::throw_exception('æŒ‡å®šçš„æŽ§åˆ¶å™¨æ–‡ä»¶å†…æ²¡æœ‰å¯¹åº”çš„æ–¹æ³•ï¼æ— æ³•å¯åŠ¨æ¡†æž¶ï¼','FRAMEWORK_ERROR');
         }
     }
     
     /**
-     * ´ÓurlÖÐÈ¡µÃ¿ØÖÆÆ÷Ãû³Æ
+     * ä»Žurlä¸­å–å¾—æŽ§åˆ¶å™¨åç§°
      *
      * @return mix
      */
@@ -40,45 +40,47 @@ class App{
             FWBase::setConfig('DEFAULT_CONTROLLER',DEFAULT_CONTROLLER);
             return DEFAULT_CONTROLLER;
         }else{
-            $controller = FWBase::getRequestValue('c');
+            $controller = FWBase::getRequest('c');
             if(empty($controller)){
-                FWBase::throw_exception('Î´Ö¸¶¨¿ØÖÆÆ÷£¡ÎÞ·¨Æô¶¯¿ò¼Ü£¡','FRAMEWORK_ERROR');
+                FWBase::throw_exception('æœªæŒ‡å®šæŽ§åˆ¶å™¨ï¼æ— æ³•å¯åŠ¨æ¡†æž¶ï¼','FRAMEWORK_ERROR');
             }
+            FWBase::setConfig('DEFAULT_CONTROLLER',$controller);
             return $controller;
         }
     }
     
     /**
-     * ´ÓurlÖÐÈ¡µÃ·½·¨Ãû³Æ
+     * ä»Žurlä¸­å–å¾—æ–¹æ³•åç§°
      *
-     * @return mix
+     * @return string
      */
     public function getActionName(){
         if(defined('DEFAULT_ACTION')){
             FWBase::setConfig('DEFAULT_ACTION',DEFAULT_ACTION);
             return DEFAULT_ACTION;
         }else{
-            $action = FWBase::getRequestValue('a');
+            $action = FWBase::getRequest('a');
             if(empty($action)){
-                FWBase::throw_exception('Î´Ö¸¶¨¶¯×÷£¡ÎÞ·¨Æô¶¯¿ò¼Ü£¡','FRAMEWORK_ERROR');
+                FWBase::throw_exception('æœªæŒ‡å®šåŠ¨ä½œï¼æ— æ³•å¯åŠ¨æ¡†æž¶ï¼','FRAMEWORK_ERROR');
             }
+            FWBase::setConfig('DEFAULT_ACTION',$action);
             return $action;
         }
     }
     
     /**
-     * ÊµÀý»¯¿ØÖÆÆ÷
+     * å®žä¾‹åŒ–æŽ§åˆ¶å™¨
      *
-     * @return mix
+     * @return object
      */
     public function initController(){
         $controllerFilePath = APP_PATH."/Controller/{$this->controller}.class.php";
         if(!is_file($controllerFilePath)){
-                FWBase::throw_exception('ÎÞ·¨ÕÒµ½¿ØÖÆÆ÷ÎÄ¼þ£¡ÎÞ·¨Æô¶¯¿ò¼Ü£¡','FRAMEWORK_ERROR');        
+                FWBase::throw_exception('æ— æ³•æ‰¾åˆ°æŽ§åˆ¶å™¨æ–‡ä»¶ï¼æ— æ³•å¯åŠ¨æ¡†æž¶ï¼','FRAMEWORK_ERROR');        
         }
         require($controllerFilePath);
         if(!class_exists($this->controller)){
-                FWBase::throw_exception('Ö¸¶¨µÄ¿ØÖÆÆ÷ÎÄ¼þÄÚÃ»ÓÐ¶ÔÓ¦µÄ¿ò¼Ü£¡ÎÞ·¨Æô¶¯¿ò¼Ü£¡','FRAMEWORK_ERROR');                
+                FWBase::throw_exception('æŒ‡å®šçš„æŽ§åˆ¶å™¨æ–‡ä»¶å†…æ²¡æœ‰å¯¹åº”çš„æ¡†æž¶ï¼æ— æ³•å¯åŠ¨æ¡†æž¶ï¼','FRAMEWORK_ERROR');                
         }
         return new $$this->controller;
     }
