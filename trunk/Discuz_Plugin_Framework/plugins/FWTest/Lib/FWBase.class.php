@@ -7,49 +7,48 @@
  * @version ver 0.0.1 build 20090724 rev 1 For Discuz! 7
  */
 
-// ¶¨ÒåÒ»¸ö³£Á¿£¬±íÊ¾ÒÑ¾­Æô¶¯Discuz×ÔĞ´²å¼ş¿ò¼Ü
+// å®šä¹‰ä¸€ä¸ªå¸¸é‡ï¼Œè¡¨ç¤ºå·²ç»å¯åŠ¨Discuzè‡ªå†™æ’ä»¶æ¡†æ¶
 define('IN_FW',TRUE);
 
-// ¶¨ÒåDiscuz×ÔĞ´²å¼ş¿ò¼ÜµÄÂ·¾¶
+// å®šä¹‰Discuzè‡ªå†™æ’ä»¶æ¡†æ¶çš„è·¯å¾„
 !defined('FW_PATH') && define('FW_PATH',dirname(__FILE__));
 
 class FWBase{
 
-    //¿ò¼ÜºËĞÄÎÄ¼şÊı×é
+    //æ¡†æ¶æ ¸å¿ƒæ–‡ä»¶æ•°ç»„
     private static $_bootfiles = array(
-                                       'DbFactory' => '/Db/DbFactory.class.php',
                                        'BaseModel' => '/Core/BaseModel.class.php',
                                        'BaseController' => '/Core/BaseController.class.php',
                                        'BaseView' => '/Core/BaseView.class.php',
                                        'App' => '/Core/App.class.php');
-    // ÉèÖÃÖµµÄÊı×é
-    private static $_config = array('DB_DRIVE_NAME' =>'Db_Discuz7' );
+    // è®¾ç½®å€¼çš„æ•°ç»„
+    private static $_config = array('DB_DRIVER_NAME' =>'Db_Discuz7' );
     
     /**
-     * Discuz×ÔĞ´²å¼ş¿ò¼ÜÆô¶¯Èë¿Ú¡£ËùÓĞ×ÔĞ´µÄ²å¼şÔËĞĞ¶¼Òª´ÓÕâ¸öÈë¿ÚÆô¶¯²ÅÄÜÔËĞĞ
+     * Discuzè‡ªå†™æ’ä»¶æ¡†æ¶å¯åŠ¨å…¥å£ã€‚æ‰€æœ‰è‡ªå†™çš„æ’ä»¶è¿è¡Œéƒ½è¦ä»è¿™ä¸ªå…¥å£å¯åŠ¨æ‰èƒ½è¿è¡Œ
      *
      */
     
     public static function Startup(){
-        //ÉèÖÃdiscuz»º´æÎÄ¼ş¼ĞÎ»ÖÃ£¨ÒòÎªÔÚ$_configÊı×é´¦ÒòÎª³£Á¿µÄ´æÔÚ¶øÎŞ·¨¶¨Òå£©
-        FWBase::setConfig('CACHE_DIR', DISCUZ_ROOT.'forumdata/cache/~fwruntime.php');
-        //ÔØÈë¿ò¼ÜºËĞÄÎÄ¼ş
+        //è®¾ç½®discuzç¼“å­˜æ–‡ä»¶å¤¹ä½ç½®ï¼ˆå› ä¸ºåœ¨$_configæ•°ç»„å¤„æ— æ³•ä½¿ç”¨å¸¸é‡ï¼‰
+        self::setConfig('CACHE_DIR', DISCUZ_ROOT.'forumdata/cache/~fwruntime.php');
+        //è½½å…¥æ¡†æ¶æ ¸å¿ƒæ–‡ä»¶
         if(defined('DEBUG_MODE')){
             foreach (self::$_bootfiles as $filename => $filepath){
-                require_once(DZ_PLUGIN_FW_PATH.$filepath);
+                require_once(FW_PATH.$filepath);
             }
         }else{
             if(is_file(self::$_config['CACHE_DIR'].'/~fwruntime.php')){
                 require (self::$_config['CACHE_DIR'].'/~fwruntime.php');
             }else{
-                FWBase::buildCache();
+                self::buildCache();
             }
         }
         return true;
     }
     
     /**
-     * Éú³É¿ò¼ÜºËĞÄÎÄ¼ş»º´æ
+     * ç”Ÿæˆæ¡†æ¶æ ¸å¿ƒæ–‡ä»¶ç¼“å­˜
      *
      */
     public static function buildCache(){
@@ -63,15 +62,19 @@ class FWBase{
             $content .= $contentTemp;
             unset($contentTemp);
         }
-        file_put_contents(DISCUZ_ROOT.'forumdata/cache/~fwruntime.php','<?php \n\n'.$content);
+        $content = @file_put_contents(DISCUZ_ROOT.'forumdata/cache/~fwruntime.php','<?php \n\n'.$content);
+        if(empty($content)){
+            self::throw_exception('ç³»ç»Ÿæ¡†æ¶RUNTIMEç¼“å­˜å†™å…¥å¤±è´¥ï¼è¯·æ£€æŸ¥forumdata/cache/æ˜¯å¦æ‹¥æœ‰è¯»å†™æƒé™ï¼','FRAMEWORK_ERROR');
+        }
         unset($content);
     }
     
     /**
-     * ½«Ö¸¶¨µÄÖµĞ´Èëµ½ÉèÖÃÊı×éÖĞ
+     * å°†æŒ‡å®šçš„å€¼å†™å…¥åˆ°è®¾ç½®æ•°ç»„ä¸­
      *
-     * @param mix $name ÉèÖÃµÄÃû³Æ£¬¿ÉÒÔÊÇ×Ö·û´®£¬Ò²¿ÉÒÔÊÇÊı×é£»ÈôÎªÊı×éÔòÎŞĞèÉèÖÃ$value
-     * @param mix $value ÒªÉèÖÃµÄÃû³ÆµÄÖµ
+     * @param mix $name è®¾ç½®çš„åç§°ï¼Œå¯ä»¥æ˜¯å­—ç¬¦ä¸²ï¼Œä¹Ÿå¯ä»¥æ˜¯æ•°ç»„ï¼›è‹¥ä¸ºæ•°ç»„åˆ™æ— éœ€è®¾ç½®$value
+     * @param mix $value è¦è®¾ç½®çš„åç§°çš„å€¼
+     * @return mix
      */
     public static function setConfig($name,$value=''){
         if(is_array($name)){
@@ -87,7 +90,7 @@ class FWBase{
     }
     
      /**
-      * È¡µÃÉèÖÃÊı×éÖĞµÄÖµÓò
+      * å–å¾—è®¾ç½®æ•°ç»„ä¸­çš„å€¼åŸŸ
       *
       * @param string $name
       */
@@ -101,36 +104,69 @@ class FWBase{
     }
     
     /**
-     * È¡µÃ±¾×ÔĞ´¿ò¼ÜµÄ°æ±¾
+     * å–å¾—æœ¬è‡ªå†™æ¡†æ¶çš„ç‰ˆæœ¬
      *
-     * @return array °æ±¾ĞÅÏ¢
+     * @return array ç‰ˆæœ¬ä¿¡æ¯
      */
     public static function getVersion(){
         return array('version'=>'0.0.1','build'=>20090724,'rev'=>1,'note'=>'For Discuz! 7');
     }
 
-
-
+   /**
+    * å–å¾—æœ¬è‡ªå†™æ¡†æ¶çš„ä½œè€…
+    *
+    * @return array ä½œè€…å’Œæ¡†æ¶ä¿¡æ¯
+    */
     public static function getAuthor(){
         return array('author'=>'Horse Luke', 'email'=>'horseluke@126.com', 'Description'=>'Discuz! Plugin Framework');
     }
     
             /**
-             * Å×³öÒì³££¬ÔÚdzÏµÍ³ÖĞ£¬ÀûÓÃshowmessageº¯ÊıÀ´Íê³ÉÏàÓ¦µÄÏÔÊ¾¡£
+             * æŠ›å‡ºå¼‚å¸¸ï¼Œåœ¨dzç³»ç»Ÿä¸­ï¼Œåˆ©ç”¨showmessageå‡½æ•°æ¥å®Œæˆç›¸åº”çš„æ˜¾ç¤ºã€‚
              *
-             * @param string $message Òì³£ĞÅÏ¢
-             * @param mix $code ´úÂë£¬¿ÉÎªÊıÖµ»òÕßÊı×Ö¡£
+             * @param string $message å¼‚å¸¸ä¿¡æ¯
+             * @param mix $code ä»£ç ï¼Œå¯ä¸ºæ•°å€¼æˆ–è€…æ•°å­—ã€‚
              */
     public static function throw_exception($message,$code=0){
-        // µ÷ÓÃdzº¯ÊıÍê³ÉÅ×³öÒì³£µÄ²Ù×÷
-        showmessage("<b>ÏµÍ³Å×³öÒì³££º</b><br />$message");
+        // è°ƒç”¨dzå‡½æ•°å®ŒæˆæŠ›å‡ºå¼‚å¸¸çš„æ“ä½œ
+        showmessage("<b>ç³»ç»ŸæŠ›å‡ºå¼‚å¸¸ï¼š</b><br />$message");
+    }
+
+    
+    
+    /**
+     * è¿›è¡ŒåŸºäºåŸç¨‹åºçš„æ•°æ®åº“é©±åŠ¨å·¥å‚æ¨¡å¼
+     *
+     * @param string $dbDriveName æ•°æ®åº“é©±åŠ¨çš„å®Œæ•´æ–‡ä»¶åï¼ˆä¸åŒ…å«æ‰©å±•åï¼‰
+     * @param array $dbConfig æ•°æ®åº“é©±åŠ¨é…ç½®æ•°ç»„
+     * @return object
+     */
+    public static function DbFactory( $dbDriverName,$dbConfig=array() ){
+        if(is_file(FW_PATH.'/DbDriver/'.$dbDriverName.'.class.php')){
+            require(FW_PATH.'/DbDriver/'.$dbDriverName.'.class.php');
+            return new $dbDriverName($dbConfig);
+        }else{
+            self::throw_exception('ä¸å­˜åœ¨æŒ‡å®šçš„é©±åŠ¨ï¼æ— æ³•å¯åŠ¨ï¼','FRAMEWORK_ERROR');
+        }
     }
     
     
-    public static function getRequestValue($name){
+    /**
+     * å–å¾—REQUESTçš„å€¼ï¼Œç”±äºdzçš„ç‰¹æ®Šæœºåˆ¶ï¼Œå› æ­¤ç›´æ¥ä»Globalsä¸­å–å€¼
+     *
+     * @param string $name
+     * @return mix
+     */
+    public static function getRequest($name){
         return self::getGlobals($name);
     }
     
+    /**
+     * ä»Globalsæ•°ç»„ä¸­å–å€¼
+     *
+     * @param unknown_type $name
+     * @return mix
+     */
     public static function getGlobals($name){
         if(!empty($GLOBALS[$name])){
             return $GLOBALS[$name];
