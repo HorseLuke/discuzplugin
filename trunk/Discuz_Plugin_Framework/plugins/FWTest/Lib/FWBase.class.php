@@ -16,13 +16,13 @@ define('IN_FW',TRUE);
 class FWBase{
 
     //框架核心文件数组
-    private static $_bootfiles = array(
+    protected static $_bootfiles = array(
+                                       'App' => '/Core/App.class.php',
                                        'BaseModel' => '/Core/BaseModel.class.php',
                                        'BaseController' => '/Core/BaseController.class.php',
-                                       'BaseView' => '/Core/BaseView.class.php',
-                                       'App' => '/Core/App.class.php');
+                                       'BaseView' => '/Core/BaseView.class.php');
     // 设置值的数组
-    private static $_config = array('DB_DRIVER_NAME' =>'Db_Discuz7' );
+    protected static $_config = array('DB_DRIVER_NAME' =>'Db_Discuz7' );
     
     /**
      * Discuz自写插件框架启动入口。所有自写的插件运行都要从这个入口启动才能运行
@@ -62,7 +62,7 @@ class FWBase{
             $content .= $contentTemp;
             unset($contentTemp);
         }
-        $content = @file_put_contents(DISCUZ_ROOT.'forumdata/cache/~fwruntime.php','<?php \n\n'.$content);
+        $content = @file_put_contents(self::$_config['CACHE_DIR'].'/~fwruntime.php','<?php \n\n'.$content);
         if(empty($content)){
             self::throw_exception('系统框架RUNTIME缓存写入失败！请检查forumdata/cache/是否拥有读写权限！','FRAMEWORK_ERROR');
         }
@@ -121,15 +121,15 @@ class FWBase{
         return array('author'=>'Horse Luke', 'email'=>'horseluke@126.com', 'Description'=>'Discuz! Plugin Framework');
     }
     
-            /**
-             * 抛出异常，在dz系统中，利用showmessage函数来完成相应的显示。
-             *
-             * @param string $message 异常信息
-             * @param mix $code 代码，可为数值或者数字。
-             */
+    /**
+    * 抛出异常，在dz系统中，利用showmessage函数来完成相应的显示。
+    *
+    * @param string $message 异常信息
+    * @param mix $code 代码，可为数值或者数字。
+    */
     public static function throw_exception($message,$code=0){
         // 调用dz函数完成抛出异常的操作
-        showmessage("<b>系统抛出异常：</b><br />$message");
+        showmessage("<b>系统抛出异常（代号: {$code}）：</b><br />{$message}");
     }
 
     
@@ -137,7 +137,7 @@ class FWBase{
     /**
      * 进行基于原程序的数据库驱动工厂模式
      *
-     * @param string $dbDriveName 数据库驱动的完整文件名（不包含扩展名）
+     * @param string $dbDriverName 数据库驱动的完整文件名（不包含扩展名）
      * @param array $dbConfig 数据库驱动配置数组
      * @return object
      */
