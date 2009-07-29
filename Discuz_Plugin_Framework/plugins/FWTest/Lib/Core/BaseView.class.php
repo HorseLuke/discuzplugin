@@ -31,7 +31,7 @@ class BaseView{
     }
     
     /**
-     * 进行模版渲染和输出
+     * 进行模版渲染和输出，dz专用方法
      *
      * @param string $tplFileName 模版名称，可选
      */
@@ -40,17 +40,25 @@ class BaseView{
         if (empty($tplFileName)){
             $tplFileName = FWBase::getConfig('DEFAULT_ACTION').'Action';
         }
+        /*交由dz来完成检查
         $tplFilePath = APP_PATH."/Tpl/{$controller}/{$tplFileName}.htm";
         if(!is_file($tplFilePath)){
                 FWBase::throw_exception('未找到模版！无法显示结果！','FRAMEWORK_ERROR');
         }
-
+        */
+        /*dz专用方法的实现(开始)*/
+        $tplid = 999;
+        $tplFilePath = APP_PATH."/Tpl/{$controller}/{$tplFileName}.htm";
+        $tplFileDir =  APP_PATH."/Tpl/{$controller}";
+        $tplObjfile = DISCUZ_ROOT."./forumdata/templates/{$tplid}_{$tplFileName}.tpl.php";
+        @checktplrefresh($tplFilePath, $tplFilePath, filemtime($tplObjfile), $tplid, $tplFileDir);
+        /*dz专用方法的实现(结束)*/
         foreach ($this->t_var as $name => $value){
-            $$name = $value;
+            if(!isset($GLOBALS[$name])){
+                $GLOBALS[$name] = $value;
+            }
         }
-        //ob_start();
-        require ($tplFilePath);
-        //ob_end_flush();
-        //exit;
+        define ('APP_TPL_PATH',$tplObjfile);
+        return $tplObjfile;
     }
 }

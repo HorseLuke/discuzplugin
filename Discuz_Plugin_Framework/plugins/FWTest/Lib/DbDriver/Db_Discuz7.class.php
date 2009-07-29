@@ -11,7 +11,6 @@
 
 class Db_Discuz7{
 
-    
     public function __construct(){
 
     }
@@ -66,8 +65,20 @@ class Db_Discuz7{
         return mysql_fetch_array($query, $result_type);
     }
     
+    /**
+     * 利用__call方法实现对原有db实例的调用，仅接受1个参数 （魔术方法）
+     *
+     * @param string $method 方法名称
+     * @param array $args 参数
+     * @return mix
+     */
     public function __call($method,$args){
-        FWBase::throw_exception("没有对应的查询方法: {$method} 。请返回。",'Db_Discuz7_ERROR');
+        global $db;
+        if(method_exists($db,$method)){
+            return $db->$method($args[0]);
+        }else{
+            FWBase::throw_exception("没有对应的查询方法: {$method} 。请返回。",'Db_Discuz7_ERROR');
+        }
     }
     
 }
