@@ -7,7 +7,7 @@
  * @version ver 0.0.1 build 20090724 rev 1 For Discuz! 7
  */
 
-!defined('IN_FW') && exit();
+!defined('IN_FW') && exit('ACCESS IS NOT ALLOWED!');
 
 class BaseModel{
     public $_pk='id';    //主键
@@ -26,10 +26,6 @@ class BaseModel{
     }
     
     public function throw_exception($message,$code='BASEMODEL_ERROR'){
-        FWBase::throw_exception($message,$code);
-    }
-    
-    public function throw_exception($message,$code='BASECONTROLLER_ERROR'){
         FWBase::throw_exception($message,$code);
     }
     

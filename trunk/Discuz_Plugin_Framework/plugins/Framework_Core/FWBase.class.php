@@ -22,28 +22,37 @@ class FWBase{
                                        'BaseController' => '/Core/BaseController.class.php',
                                        'BaseView' => '/Core/BaseView.class.php');
     // 设置值的数组
-    protected static $_config = array('DB_DRIVER_NAME' =>'Db_Discuz7' );
+    protected static $_config = array('DB_DRIVER_NAME' =>'Db_Discuz7' ,
+                                                         'DEFAULT_CONTROLLER' => 'Index',
+                                                         'DEFAULT_ACTION' => 'Index'
+                                                        );
     
     /**
      * Discuz自写插件框架启动入口。所有自写的插件运行都要从这个入口启动才能运行
      *
      */
     
-    public static function Startup(){
+    public static function startup(){
         //设置discuz缓存文件夹位置（因为在$_config数组处无法使用常量）
-        self::setConfig('CACHE_DIR', DISCUZ_ROOT.'forumdata/cache/~fwruntime.php');
+        $cacheDir = DISCUZ_ROOT.'forumdata/cache';
+        self::setConfig('CACHE_DIR', $cacheDir);
+        unset($cacheDir);
         //载入框架核心文件
-        if(defined('DEBUG_MODE')){
+        if(defined('APP_DEBUG_MODE')){
             foreach (self::$_bootfiles as $filename => $filepath){
-                require_once(FW_PATH.$filepath);
+                $filepath = FW_PATH."{$filepath}";
+                require_once($filepath);
             }
         }else{
-            if(is_file(self::$_config['CACHE_DIR'].'/~fwruntime.php')){
-                require (self::$_config['CACHE_DIR'].'/~fwruntime.php');
+            $cachefile = self::$_config['CACHE_DIR'].'/~fwruntime.php';
+            if(is_file($cachefile)){
+                require ($cachefile);
             }else{
                 self::buildCache();
+                require ($cachefile);
             }
         }
+
         return true;
     }
     
@@ -54,15 +63,17 @@ class FWBase{
     public static function buildCache(){
         $content = $contentTemp = '';
         foreach (self::$_bootfiles as $filename => $filepath){
-            $contentTemp = php_strip_whitespace(DZ_PLUGIN_FW_PATH.$filepath);
-            $contentTemp = substr(trim($content),5);
-            if('?>' == substr($content,-2)) {
-                $contentTemp = substr($content,0,-2);
+            $filepath = FW_PATH."{$filepath}";
+            //require_once($filepath);
+            $contentTemp = php_strip_whitespace($filepath);
+            $contentTemp = substr(trim($contentTemp),5);
+            if('?>' == substr($contentTemp,-2)) {
+                $contentTemp = substr($contentTemp,0,-2);
             }
             $content .= $contentTemp;
             unset($contentTemp);
         }
-        $content = @file_put_contents(self::$_config['CACHE_DIR'].'/~fwruntime.php','<?php \n\n'.$content);
+        $content = @file_put_contents(self::$_config['CACHE_DIR'].'/~fwruntime.php','<?php '.$content);
         if(empty($content)){
             self::throw_exception('系统框架RUNTIME缓存写入失败！请检查forumdata/cache/是否拥有读写权限！','FRAMEWORK_ERROR');
         }
@@ -80,11 +91,11 @@ class FWBase{
         if(is_array($name)){
             foreach ($name as $name => $value){
                 $name = strtoupper($name);
-                self::$_config($name) = $value;
+                self::$_config[$name] = $value;
             }
         }else{
             $name = strtoupper($name);
-            self::$_config($name) = $value;
+            self::$_config[$name] = $value;
         }
         return true;
     }
@@ -96,8 +107,8 @@ class FWBase{
       */
     public static function getConfig($name){
         $name = strtoupper($name);
-        if(!empty(self::$_config($name))){
-            return self::$_config($name);
+        if(!empty(self::$_config[$name])){
+            return self::$_config[$name];
         }else{
             return null;
         }
@@ -158,7 +169,11 @@ class FWBase{
      * @return mix
      */
     public static function getRequest($name){
-        return self::getGlobals($name);
+        if(!empty($GLOBALS[$name])){
+            return $GLOBALS[$name];
+        }else{
+            return null;
+        }
     }
     
     /**

@@ -6,7 +6,7 @@
  * @version ver 0.0.1 build 20090724 rev 1 For Discuz! 7
  */
 
-!defined('IN_FW') && exit();
+!defined('IN_FW') && exit('ACCESS IS NOT ALLOWED!');
 
 class App{
     
@@ -19,6 +19,7 @@ class App{
      *
      */
     public function run(){
+        
         $this->controller = $this->getControllerName().'Controller';
         $this->action = $this->getActionName().'Action';
         $this->controllerInstance = $this->initController();
@@ -37,16 +38,16 @@ class App{
      */
     public function getControllerName(){
         if(defined('DEFAULT_CONTROLLER')){
-            FWBase::setConfig('DEFAULT_CONTROLLER',DEFAULT_CONTROLLER);
-            return DEFAULT_CONTROLLER;
+            $controller = DEFAULT_CONTROLLER;
         }else{
             $controller = FWBase::getRequest('c');
             if(empty($controller)){
-                FWBase::throw_exception('未指定控制器！无法启动框架！','FRAMEWORK_ERROR');
+                $controller = FWBase::getConfig('DEFAULT_CONTROLLER');
             }
-            FWBase::setConfig('DEFAULT_CONTROLLER',$controller);
-            return $controller;
         }
+        $controller = ucfirst($controller);
+        FWBase::setConfig('DEFAULT_CONTROLLER',$controller);
+        return $controller;
     }
     
     /**
@@ -56,16 +57,16 @@ class App{
      */
     public function getActionName(){
         if(defined('DEFAULT_ACTION')){
-            FWBase::setConfig('DEFAULT_ACTION',DEFAULT_ACTION);
-            return DEFAULT_ACTION;
+            $action = DEFAULT_ACTION;
         }else{
             $action = FWBase::getRequest('a');
             if(empty($action)){
-                FWBase::throw_exception('未指定动作！无法启动框架！','FRAMEWORK_ERROR');
+                $action = FWBase::getConfig('DEFAULT_ACTION');
             }
-            FWBase::setConfig('DEFAULT_ACTION',$action);
-            return $action;
         }
+        $action = ucfirst($action);
+        FWBase::setConfig('DEFAULT_ACTION',$action);
+        return $action;
     }
     
     /**
@@ -76,13 +77,15 @@ class App{
     public function initController(){
         $controllerFilePath = APP_PATH."/Controller/{$this->controller}.class.php";
         if(!is_file($controllerFilePath)){
-                FWBase::throw_exception('无法找到控制器文件！无法启动框架！','FRAMEWORK_ERROR');        
+                FWBase::throw_exception("无法找到控制器文件！无法启动框架！",'FRAMEWORK_ERROR');        
         }
+
         require($controllerFilePath);
         if(!class_exists($this->controller)){
-                FWBase::throw_exception('指定的控制器文件内没有对应的框架！无法启动框架！','FRAMEWORK_ERROR');                
+                FWBase::throw_exception('指定的控制器文件内没有对应的控制器！无法启动控制器！','FRAMEWORK_ERROR');                
         }
-        return new $$this->controller;
+        $controller = $this->controller;
+        return new $controller;
     }
     
 }
