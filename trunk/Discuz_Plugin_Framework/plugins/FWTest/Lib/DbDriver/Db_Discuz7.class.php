@@ -38,6 +38,7 @@ class Db_Discuz7{
     public function _execute($sql){
         global $db;
         $db->query($sql);
+        return true;
     }
     
     /**
@@ -63,6 +64,10 @@ class Db_Discuz7{
      */
     public function fetch_array($query, $result_type = MYSQL_ASSOC){
         return mysql_fetch_array($query, $result_type);
+    }
+    
+    public function __call($method,$args){
+        FWBase::throw_exception("没有对应的查询方法: {$method} 。请返回。",'Db_Discuz7_ERROR');
     }
     
 }
