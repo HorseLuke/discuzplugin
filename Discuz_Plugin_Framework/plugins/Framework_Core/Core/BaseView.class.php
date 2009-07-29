@@ -7,7 +7,7 @@
  * @version ver 0.0.1 build 20090724 rev 1 For Discuz! 7
  */
 
-!defined('IN_FW') && exit();
+!defined('IN_FW') && exit('ACCESS IS NOT ALLOWED!');
 
 class BaseView{
     public $t_var = array();
