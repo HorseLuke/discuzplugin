@@ -15,8 +15,8 @@ class BaseView{
     /**
      * 对模版变量赋值
      *
-     * @param mix $name 模版变量名称，若为数组，则无需$value。
-     * @param mix $value 模版变量值
+     * @param mixed $name 模版变量名称，若为数组，则无需$value。
+     * @param mixed $value 模版变量值
      */
     public function assign($name,$value=''){
         if(is_array($name)){
@@ -54,7 +54,8 @@ class BaseView{
         @checktplrefresh($tplFilePath, $tplFilePath, filemtime($tplObjfile), $tplid, $tplFileDir);
         /*dz专用方法的实现(结束)*/
         foreach ($this->t_var as $name => $value){
-            if(!isset($GLOBALS[$name])){
+            //只要存在键值为name的request数据，就直接覆盖，防止外部干扰view数据输出（dz历史原因，作此处理）。
+            if(isset($_REQUEST[$name]) || !isset($GLOBALS[$name])){
                 $GLOBALS[$name] = $value;
             }
         }

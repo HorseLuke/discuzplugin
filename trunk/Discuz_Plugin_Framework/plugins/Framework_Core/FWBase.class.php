@@ -7,11 +7,26 @@
  * @version ver 0.0.1 build 20090724 rev 1 For Discuz! 7
  */
 
+/* FRAMEWORKWORK ERROR EXCEPTION CODE
+FRAMEWORK_ERROR:9001
+DB_ERROR:9002
+BASEMODEL ERROR:9003
+BASECONTROLLER ERROR:9004
+*/
+
 // 定义一个常量，表示已经启动Discuz自写插件框架
 define('IN_FW',TRUE);
 
 // 定义Discuz自写插件框架的路径
 !defined('FW_PATH') && define('FW_PATH',dirname(__FILE__));
+
+
+
+
+
+
+
+
 
 class FWBase{
 
@@ -20,11 +35,15 @@ class FWBase{
                                        'App' => '/Core/App.class.php',
                                        'BaseModel' => '/Core/BaseModel.class.php',
                                        'BaseController' => '/Core/BaseController.class.php',
-                                       'BaseView' => '/Core/BaseView.class.php');
+                                       'BaseView' => '/Core/BaseView.class.php',
+                                       'FileCache' => '/Core/FileCache.class.php'
+                                       );
     // 设置值的数组
-    protected static $_config = array('DB_DRIVER_NAME' =>'Db_Discuz7' ,
+    protected static $_config = array(
+                                                         'DB_DRIVER_NAME' =>'Db_Discuz7' ,
                                                          'DEFAULT_CONTROLLER' => 'Index',
-                                                         'DEFAULT_ACTION' => 'Index'
+                                                         'DEFAULT_ACTION' => 'Index',
+                                                         'TIME_ZONE' =>'PRC',
                                                         );
     
     /**
@@ -32,11 +51,22 @@ class FWBase{
      *
      */
     
-    public static function startup(){
+    public static function startup($config=array()){
+        //如果传入设置值，就对其进行设置初始化处理
+        if(!empty($config)){
+            self::setConfig($config);
+        }
+        
+        /* dz已经完成设置，所以注释掉
+        // 设置系统时区(PHP5必须，否则在STRICT环境下报错)
+        if(function_exists('date_default_timezone_set')){
+            date_default_timezone_set(FWBase::getConfig('TIME_ZONE'));
+        }
+        */
+        
         //设置discuz缓存文件夹位置（因为在$_config数组处无法使用常量）
-        $cacheDir = DISCUZ_ROOT.'forumdata/cache';
-        self::setConfig('CACHE_DIR', $cacheDir);
-        unset($cacheDir);
+        self::$_config['CACHE_DIR']=DISCUZ_ROOT.'forumdata/cache';
+
         //载入框架核心文件
         if(defined('APP_DEBUG_MODE')){
             foreach (self::$_bootfiles as $filename => $filepath){
@@ -53,7 +83,8 @@ class FWBase{
             }
         }
 
-        return true;
+        //return true;
+        return new App();
     }
     
     /**
@@ -67,15 +98,16 @@ class FWBase{
             //require_once($filepath);
             $contentTemp = php_strip_whitespace($filepath);
             $contentTemp = substr(trim($contentTemp),5);
+            $contentTemp = str_replace("!defined('IN_FW') && exit('ACCESS IS NOT ALLOWED!');",'',$contentTemp);
             if('?>' == substr($contentTemp,-2)) {
                 $contentTemp = substr($contentTemp,0,-2);
             }
             $content .= $contentTemp;
             unset($contentTemp);
         }
-        $content = @file_put_contents(self::$_config['CACHE_DIR'].'/~fwruntime.php','<?php '.$content);
+        $content = @file_put_contents(self::$_config['CACHE_DIR'].'/~fwruntime.php','<?php  !defined(\'IN_FW\') && exit(\'ACCESS IS NOT ALLOWED!\');'.$content);
         if(empty($content)){
-            self::throw_exception('系统框架RUNTIME缓存写入失败！请检查forumdata/cache/是否拥有读写权限！','FRAMEWORK_ERROR');
+            self::throw_exception('系统框架RUNTIME缓存写入失败！请检查forumdata/cache/是否拥有读写权限！',9001);
         }
         unset($content);
     }
@@ -83,9 +115,9 @@ class FWBase{
     /**
      * 将指定的值写入到设置数组中
      *
-     * @param mix $name 设置的名称，可以是字符串，也可以是数组；若为数组则无需设置$value
-     * @param mix $value 要设置的名称的值
-     * @return mix
+     * @param mixed $name 设置的名称，可以是字符串，也可以是数组；若为数组则无需设置$value
+     * @param mixed $value 要设置的名称的值
+     * @return mixed
      */
     public static function setConfig($name,$value=''){
         if(is_array($name)){
@@ -120,7 +152,7 @@ class FWBase{
      * @return array 版本信息
      */
     public static function getVersion(){
-        return array('version'=>'0.0.1','build'=>20090724,'rev'=>1,'note'=>'For Discuz! 7');
+        return array('version'=>'0.0.1','build'=>20090801,'rev'=>69,'note'=>'For Discuz! 7');
     }
 
    /**
@@ -133,14 +165,19 @@ class FWBase{
     }
     
     /**
-    * 抛出异常，在dz系统中，利用showmessage函数来完成相应的显示。
+    * 抛出异常，在dz系统+非调试模式中，利用showmessage函数来完成相应的显示。
+    * 调试模式下则直接抛出异常
     *
     * @param string $message 异常信息
-    * @param mix $code 代码，可为数值或者数字。
+    * @param mixed $code 代码，可为数值或者数字。
     */
     public static function throw_exception($message,$code=0){
-        // 调用dz函数完成抛出异常的操作
-        showmessage("<b>系统抛出异常（代号: {$code}）：</b><br />{$message}");
+        if(!defined('APP_DEBUG_MODE')){
+            // 调用dz函数完成抛出异常的操作
+            showmessage("<b>系统抛出异常（代号: {$code}）：</b><br />{$message}");
+        }else{
+            throw new Exception($message.$code);
+        }
     }
 
     
@@ -157,7 +194,7 @@ class FWBase{
             require(FW_PATH.'/DbDriver/'.$dbDriverName.'.class.php');
             return new $dbDriverName($dbConfig);
         }else{
-            self::throw_exception('不存在指定的驱动！无法启动！','FRAMEWORK_ERROR');
+            self::throw_exception('不存在指定的驱动！无法启动！',1);
         }
     }
     
@@ -166,7 +203,7 @@ class FWBase{
      * 取得REQUEST的值，由于dz的特殊机制，因此直接从Globals中取值
      *
      * @param string $name
-     * @return mix
+     * @return mixed
      */
     public static function getRequest($name){
         if(!empty($GLOBALS[$name])){
@@ -180,7 +217,7 @@ class FWBase{
      * 从Globals数组中取值
      *
      * @param unknown_type $name
-     * @return mix
+     * @return mixed
      */
     public static function getGlobals($name){
         if(!empty($GLOBALS[$name])){
