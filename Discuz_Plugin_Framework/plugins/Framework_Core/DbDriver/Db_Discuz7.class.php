@@ -77,7 +77,7 @@ class Db_Discuz7{
         if(method_exists($db,$method)){
             return $db->$method($args[0]);
         }else{
-            FWBase::throw_exception("没有对应的查询方法: {$method} 。请返回。",'Db_Discuz7_ERROR');
+            FWBase::throw_exception("没有对应的查询方法: {$method} 。请返回。",9002);
         }
     }
     

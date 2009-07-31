@@ -27,22 +27,22 @@ class App{
         if(method_exists($this->controllerInstance,$this->action)){
             $this->controllerInstance->{$this->action}();
         }else{
-                FWBase::throw_exception('指定的控制器文件内没有对应的方法！无法启动框架！','FRAMEWORK_ERROR');
+                FWBase::throw_exception('指定的控制器文件内没有对应的方法！无法启动框架！',9001);
         }
     }
     
     /**
      * 从url中取得控制器名称
      *
-     * @return mix
+     * @return string
      */
     public function getControllerName(){
-        if(defined('DEFAULT_CONTROLLER')){
-            $controller = DEFAULT_CONTROLLER;
+        if(defined('FIXED_CONTROLLER')){                   //若定义一个固定的controller，则无论如何都执行之
+            $controller = FIXED_CONTROLLER;
         }else{
             $controller = FWBase::getRequest('c');
             if(empty($controller)){
-                $controller = FWBase::getConfig('DEFAULT_CONTROLLER');
+                    $controller = defined('DEFAULT_CONTROLLER') ? DEFAULT_CONTROLLER : FWBase::getConfig('DEFAULT_CONTROLLER');
             }
         }
         $controller = ucfirst($controller);
@@ -56,12 +56,12 @@ class App{
      * @return string
      */
     public function getActionName(){
-        if(defined('DEFAULT_ACTION')){
-            $action = DEFAULT_ACTION;
+        if(defined('FIXED_ACTION')){       //若定义一个固定的action，则无论如何都执行之
+            $action = FIXED_ACTION;
         }else{
             $action = FWBase::getRequest('a');
             if(empty($action)){
-                $action = FWBase::getConfig('DEFAULT_ACTION');
+                    $action = defined('DEFAULT_ACTION')  ? DEFAULT_ACTION : FWBase::getConfig('DEFAULT_ACTION');
             }
         }
         $action = ucfirst($action);
@@ -77,12 +77,12 @@ class App{
     public function initController(){
         $controllerFilePath = APP_PATH."/Controller/{$this->controller}.class.php";
         if(!is_file($controllerFilePath)){
-                FWBase::throw_exception("无法找到控制器文件！无法启动框架！",'FRAMEWORK_ERROR');        
+                FWBase::throw_exception("无法找到控制器文件！无法启动框架！",9001);        
         }
 
         require($controllerFilePath);
         if(!class_exists($this->controller)){
-                FWBase::throw_exception('指定的控制器文件内没有对应的控制器！无法启动控制器！','FRAMEWORK_ERROR');                
+                FWBase::throw_exception('指定的控制器文件内没有对应的控制器！无法启动控制器！',9001);                
         }
         $controller = $this->controller;
         return new $controller;

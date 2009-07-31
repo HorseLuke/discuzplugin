@@ -22,16 +22,17 @@ class BaseController{
         if(!in_array($name,$this->_importedModel)){
             $modelPath = APP_PATH."/Model/{$name}Model.class.php";
             if(!is_file($modelPath)){
-                $this->throw_exception("找不到指定的模型:{$name} ，无法继续运行。请返回。",'BASECONTROLLER_ERROR');
+                $this->throw_exception("找不到指定的模型:{$name} ，无法继续运行。请返回。",9004);
             }else{
                 require($modelPath);
+                $name = $name.'Model';
                 $this->_importedModel[]=$name;
             }
         }
         return new $name;
     }
     
-    public function throw_exception($message,$code='BASECONTROLLER_ERROR'){
+    public function throw_exception($message,$code=9004){
         FWBase::throw_exception($message,$code);
     }
     
