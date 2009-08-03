@@ -40,4 +40,18 @@ class BaseController{
         showmessage($message, $url_forward, $extra, $forwardtype);
     }
     
+    /**
+     * 对post来源进行简单检查。
+     * 简单方法可使用isset($_POST['submit'])。其中submit是以下代码（提交按钮）的value属性：
+     * <button type="submit" name="submit" id="fastpostsubmit" value="submit">提交</button>
+     * 而dz有专用函数为submitcheck。
+     *
+     * @param string $flag 提交按钮的name属性
+     */
+    public function checkPost($flag){
+        if(!submitcheck($flag)){
+            $this->showMessage('submit_invalid');
+        }
+    }
+    
 }

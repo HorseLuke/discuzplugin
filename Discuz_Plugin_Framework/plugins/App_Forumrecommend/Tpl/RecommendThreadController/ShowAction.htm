@@ -1,0 +1,92 @@
+{subtemplate header}
+
+<!--{if $filetype=='onlyimage'}-->
+
+<style type="text/css">
+<!--
+.imagedisplay img { border: none; max-width: 120px; max-height: 120px; width: expression(this.width > 120 && this.height < this.width ? 120: true); height: expression(this.height > 120 ? 120: true); vertical-align: middle; font-size: 1px; }
+-->
+</style>
+
+<script src="include/js/viewthread.js" type="text/javascript"></script>
+<!--{/if}-->
+
+<div id="nav">
+    <a href="$indexname">$bbname</a> &raquo; 版主推荐
+</div>
+<div id="wrap" class="wrap with_side s_clear">
+    <div class="main">
+        <div class="content">
+
+            <div class="datalist">
+                    <table cellspacing="0" cellpadding="0" summary="版主推荐">     
+
+                         <thead class="colplural">
+                            <tr>
+                                <td class="forum">所在推荐版块</td>
+                                <td class="author">作者</td>
+                                <td class="subject">标题</td>
+                                <td class="lastpost">最后发表</td>
+                            </tr>
+                          </thead>
+                          
+                          <tbody>
+                          <!--{loop $recommendlist $recommend}-->
+                                          <tr>
+                                          <td class="forum"><a href="forumdisplay.php?fid={$recommend['fid']}" target="_blank">{$recommend['name']}</a>
+                </td>
+                                          <td class="author"><cite><a href="space.php?uid={$recommend['authorid']}" target="_blank">{$recommend['author']}</a></cite>
+                                          <em>{$recommend['dateline']}</em></td>
+                                          <th class="subject"><span id="thread_{$recommend['tid']}"><a href="viewthread.php?tid={$recommend['tid']}" target="_blank">$recommend['subject']</a></span>
+                </th>
+                                          <td class="lastpost">
+                                              <em>{$recommend['lastpost']}</em> <cite>{$recommend['lastposter']}</cite>
+                                          </td>
+                                          </tr>
+                          <!--{/loop}-->
+                          </tbody>
+                    </table> 
+            </div>
+            <div class="forumcontrol s_clear">$multipage</div>
+        </div>
+    </div>
+    
+    
+    <div class="side">
+
+        <div class="sideinner">
+             <ul class="tabs">
+               <h4 class="tabs">{lang orderby}</h4>
+                  <li>
+                  <form method="post" action="forumrecommend.php">
+		<label><select name="order">
+			<option value="t.dateline" $ordercheck[t.dateline]>发表时间</option>
+			<option value="t.lastpost" $ordercheck[t.lastpost]>回复时间</option>
+			<option value="fr.fid" $ordercheck[fr.fid]>所在板块</option>
+			<option value="fr.subject" $ordercheck[fr.subject]>主题名称</option>
+			<option value="fr.displayorder" $ordercheck[fr.displayorder]>版主排序</option>
+		</select></label>
+                  <button class="submit" type="submit" value="true">{lang search}</button>
+                  </form>
+                  </li>
+           </ul>
+           <hr class="shadowline" />
+             <ul class="tabs">
+               <h4 class="tabs">版本信息</h4>
+                  <li>
+                     <span style="font: normal 9px Verdana; display:block;">Forum Recommend Individual Page Plugin<br />For Discuz! 7.0.0 Beta</span>
+                     <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">第一原作者基于Apache License协议授权开源</a>
+                  </li>
+           </ul>
+           <hr class="shadowline" />
+             <ul class="tabs">
+             <h4 class="tabs">Framework Version</h4>
+                  <li>
+                     <span style="font: normal 9px Verdana; display:block;">Powered By Discuz Plugin Framework<br />{$fwversion}</span>
+                  </li>
+           </ul>
+        </div>
+    </div>
+
+</div>
+{subtemplate footer}

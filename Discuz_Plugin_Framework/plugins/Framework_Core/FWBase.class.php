@@ -172,12 +172,8 @@ class FWBase{
     * @param mixed $code 代码，可为数值或者数字。
     */
     public static function throw_exception($message,$code=0){
-        if(!defined('APP_DEBUG_MODE')){
             // 调用dz函数完成抛出异常的操作
             showmessage("<b>系统抛出异常（代号: {$code}）：</b><br />{$message}");
-        }else{
-            throw new Exception($message.$code);
-        }
     }
 
     
