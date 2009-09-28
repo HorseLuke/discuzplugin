@@ -1,0 +1,46 @@
+============================================================================
+Q8：（受影响版本：0.0.2 build 20090119 with fix 20090607、0.0.2 build 20090119）
+为什么我在安装或升级的时候出现下面的数据库错误提示?如何解决?
+Discuz! info: MySQL Query Error
+User: admin
+Time: 2009-1-20 11:54pm
+Script: /001_081224_upgradeto002_090119.php
+
+SQL: REPLACE INTO `[Table]caches` (`cachename` ,`type` ,`dateline` ,`expiration` ,`data` )VALUES ('medaleasybuy_basicsettings', '1', '1232466852', '0', '$medaleasybuy_basicsettings=array (
+'open' => 0,
+'buyextcreditsid' => 2,
+)');
+Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'open' => 0,
+'buyextcreditsid' => 2,
+)')' at line 1
+Errno.: 1064
+A8：（2009-1-21回复）这是因为你的服务器无运行daddslashes函数，插入数据库的数据中单引号无转义，导致报错。
+请立刻：
+1、打开medaleasybuyadmincp.php和medaleasybuy.php，把里面所有的daddslashes改为addslashes。
+2、如果是安装出错，则打开medaleasybuy_install.php，把里面所有的daddslashes改为addslashes；如果是升级出错，请打开001_081224_upgradeto002_090119.php，把里面所有的daddslashes改为addslashes。
+3、然后上传修改好的medaleasybuyadmincp.php和medaleasybuy.php覆盖源文件
+4、若安装，则另外再上传修改好的medaleasybuy_install.php；若升级，则另外再上传修改好的001_081224_upgradeto002_090119.php。
+5、重新进行升级或安装。
+
+
+============================================================================
+Q9：（受影响版本：0.0.2 build 20090119 with fix 20090607、0.0.2 build 20090119）
+根据常见问题中的Q8和A8修改后仍然出错，请问该如何做？
+A9：（2009-2-14回复）这是由于魔术引号magic_quotes_gpc为打开状态，导致多次转义出错。
+修改方法：
+1、首先按照A8中的步骤1和步骤2进行修改；
+2、接着，你还需要对medaleasybuyadmincp.php和medaleasybuy_install.php（如果是升级，则为001_081224_upgradeto002_090119.php）这两个文件中同时增加一个修改：在
+<?php
+下面加
+set_magic_quotes_runtime ( 0 );
+3、剩余步骤与A8中的步骤3、步骤4、步骤5一致。
+
+
+============================================================================
+Q10：（受影响版本：0.0.2 build 20090119 with fix 20090607、0.0.2 build 20090119）
+如何判断我的服务器是否打开了魔术引号？
+A10：用记事本保存以下内容，文件名任你起，但结尾必须是php，比如1.php
+<?php
+echo get_magic_quotes_gpc() ;
+?>
+然后上传文件并运行。若浏览器输出的结果为1，则表示服务器打开了魔术引用，这时则可能会出现常见问答中Q8或者Q9的问题。

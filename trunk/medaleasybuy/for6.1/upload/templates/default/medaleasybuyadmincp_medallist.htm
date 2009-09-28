@@ -1,13 +1,20 @@
 {template header}
-
+<script language="JavaScript">					   
+function displaymodifydiv(divname,type){
+	if (type=='none'){
+		document.getElementById(divname).style.display = "none";
+	}else{
+        document.getElementById(divname).style.display = "";
+	}
+    return 0;
+}
+</script>
 	<!--{if !($inajax)}--><div id="nav"><a href="$indexname">$bbname</a> &raquo; 勋章购买易[后台管理] &raquo; 插件设置&raquo; 已设置的可购买勋章列表管理</div><!--{/if}-->
 	<div class="container">
         <!--{if !($inajax)}-->
 		<div class="side">
 			{template medaleasybuy_navbar}
 		</div>
-
-		
         <div class="content">
         <!--{/if}-->
                                
@@ -58,7 +65,7 @@
 							</dl>
 							</td>
 							<td>
-                                <div id="moneyamount{$medal[medalid]}"><b>购买价格：{$medal[moneyamount]} <a href="javascript:void(0);" onclick="moneyamountmodify{$medal[medalid]}.style.display = ''">（修改或删除）</a></b></div>
+                                <div id="moneyamount{$medal[medalid]}"><b>购买价格：{$medal[moneyamount]} <a href="javascript:void(0);" onclick="displaymodifydiv('moneyamountmodify{$medal[medalid]}','');">（修改或删除）</a></b></div>
                                 <div class="mainbox formbox" id="moneyamountmodify{$medal[medalid]}" style="display: none; margin-top: 10px;">
                                      <form method="post" action="medaleasybuyadmincp.php?action=set&op=medalcanbuysettings&set=modify">
                                      <input type="hidden" name="formhash" value="{FORMHASH}" />
@@ -72,7 +79,7 @@
                                      <br /><b>请输入新的价格数值：</b><input type="text" name="moneyamountnew" size="10" value="" />
                                      <!--{/if}-->
                                      <br /><br /><label><input type="checkbox" name="delmedal" value="{$medal[medalid]}" />把此勋章从可购买列表上删除（不可恢复，慎重）</label>
-                                     <br /><br /><button class="submit" type="submit" name="modifymoneyamount" id="modifymoneyamount" value="true">确认无误，开始修改或删除</button>&nbsp;<button type="button" onclick="moneyamountmodify{$medal[medalid]}.style.display = 'none'">放弃修改，返回</button><br />
+                                     <br /><br /><button class="submit" type="submit" name="modifymoneyamount" id="modifymoneyamount" value="true">确认无误，开始修改或删除</button>&nbsp;<button type="button" onclick="displaymodifydiv('moneyamountmodify{$medal[medalid]}','none');">放弃修改，返回</button><br />
                                      </form>
                                 </div>
                                 <div>
@@ -102,6 +109,4 @@
 		</div>
         <!--{/if}-->
 	</div>
-
-
 {template footer}

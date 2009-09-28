@@ -54,7 +54,7 @@
 							<td>$medallog[buytime]</td>
 							<td><!--{if $medallog[expiration]}-->$medallog[expiration]<!--{else}-->{lang medals_noexpire}<!--{/if}--></td>
 							<td>$medallog[buyip]</td>
-							<td>$extcredits[$medallog[extcreditsid]]['title'] $medallog[moneyamount]</td>
+							<td><!--{if $medallog[moneyamount]<0}-->ิ๙หอ <!--{/if}--> $extcredits[$medallog[extcreditsid]]['title'] <!--{if $medallog[moneyamount]<0}-->{eval echo abs($medallog[moneyamount]);}<!--{else}-->$medallog[moneyamount]<!--{/if}--></td>
 							</tr>
 						<!--{/loop}-->
 					<!--{else}-->
