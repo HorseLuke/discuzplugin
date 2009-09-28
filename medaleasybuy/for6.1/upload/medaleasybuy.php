@@ -31,7 +31,6 @@ if(!$discuz_uid) {
 $open=empty($medaleasybuy_basicsettings['open']) ? 0 : $medaleasybuy_basicsettings['open'];
 $medalcanbuyextcreditsid=empty($medaleasybuy_basicsettings['buyextcreditsid']) ? 2 : $medaleasybuy_basicsettings['buyextcreditsid'];
 $medalcanbuyid = empty($medaleasybuy_medallist['medalcanbuylistidcache']) ? array() : $medaleasybuy_medallist['medalcanbuylistidcache'];
-//$medalcanbuyprice=10;         //统一购买价格
 
 $navtitle = "勋章购买易 - ";
 
@@ -39,7 +38,7 @@ if((!$open) && ($adminid != 1)){
 	showmessage('插件关闭中，稍候再来吧 ^_^');
 }
 
-if ((!file_exists('./forumdata/cache/cache_medaleasybuy.php'))  &&  $adminid == 1 ) {
+if (($adminid == 1 && !is_file('./forumdata/cache/cache_medaleasybuy.php')) ) {
       echo '<script>alert(\'插件的缓存文件丢失，请进入进入后台重新刷新缓存！\n（当前登录权限：管理员）\');</script> ';
 }
 
@@ -93,7 +92,6 @@ if(empty($action)) {
 	}else{
 		    $noticesentense='在免费获取此勋章同时，将增送'.$extcredits[$medalcanbuyextcreditsid]['title'].-($medalcanbuyprice).'。点击开始。';
 	}
-	//$noticesentense='一旦点击，将扣除'.$extcredits[$medalcanbuyextcreditsid]['title'].$medalcanbuyprice.'。点击开始。';
 	if(submitcheck('medalsubmit')) {
 	    if ( ($medalcanbuyprice > 0) && ($GLOBALS['extcredits'.$medalcanbuyextcreditsid] < $medalcanbuyprice)){
 		    showmessage('不够银子了，先去提款机那里吧 ^_^','javascript:history.back()');
@@ -101,6 +99,9 @@ if(empty($action)) {
 		$medaldetail = $db->fetch_first("SELECT medalid FROM {$tablepre}medallog WHERE uid='$discuz_uid' AND medalid='$medalid' AND type ='2'");    //type==2,审核中，type==3，审核不通过，type==1，审核通过。type==0，人工授予。
 		$hasmedal = $db->result_first("SELECT medals FROM {$tablepre}memberfields WHERE uid='$discuz_uid'");
 		$hasmedalarray = explode("\t",$hasmedal);
+		foreach ($hasmedalarray as $key=>$value){
+			$hasmedalarray[$key]=intval($value);
+		}
 		if(in_array($medalid,$hasmedalarray)){
 			showmessage('你已经拥有这个勋章啦！', 'medaleasybuy.php');
 		}
