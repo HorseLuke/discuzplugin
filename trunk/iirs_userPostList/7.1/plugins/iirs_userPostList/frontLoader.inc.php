@@ -20,11 +20,11 @@ $handlekey = ($handlekey && is_string($handlekey)) ? $handlekey : 'default_handl
 //包含微型MVC框架，并指定插件App的目录
 include(dirname(__FILE__).'/Lib/MiniMVC.php');
 define('APP_PATH',dirname(__FILE__).'/App');
-$actionName = ($action && is_string($action)) ? $action.'Action' : 'getThreadlistAction';
+$actionName = ($action && is_string($action)) ? $action.'Action' : 'getPostlistAction';
 
 //本插件只有一个Controller，故直接指定之。
-require(APP_PATH.'/Controller/UserController.php');
-$controller = new UserController();
+require(APP_PATH.'/Controller/DiscuzUserController.php');
+$controller = new DiscuzUserController();
 if( method_exists($controller,$actionName) ){
     $controller->$actionName();
 }else{

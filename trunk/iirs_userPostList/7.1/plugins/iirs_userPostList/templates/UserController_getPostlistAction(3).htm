@@ -10,10 +10,7 @@
     <h3 class="float_ctrl">
     <em id="return_$handlekey">{$username}的回复</em>
     <span>
-        <a href="search.php?srchuid={$uid}&amp;srchfid=all&amp;srchfrom=0&amp;searchsubmit=yes" target="_blank">[{$username}的主题]</a>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&uid={$uid}&action=getPostlist" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的回复]</a>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&uid={$uid}&action=getAttachmentlist" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的附件]</a>
-        <!--{if !empty($infloat)}--><a href="javascript:;" class="float_close" onclick="hideWindow('$handlekey')" title="关闭">&nbsp;&nbsp;&nbsp;&nbsp;关闭</a><!--{/if}-->
+        <!--{if !empty($infloat)}--><a href="javascript:;" class="float_close" onclick="hideWindow('$handlekey')" title="关闭">关闭</a><!--{/if}-->
     </span>
     </h3>
 
@@ -106,18 +103,27 @@
         <strong>1</strong>
         <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">2</a>
         <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">3</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">4</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">5</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">6</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">7</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">8</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">9</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">8</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">9</a>
+        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">2</a>
+        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">3</a>
+        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">2</a>
+        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">3</a>
+        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">2</a>
+        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">3</a>
         <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2" class="next">下一页</a>
     </div>
 
-    {template iirs_userPostList:Copyright}
+    <div class="pages">
+        <a href="search.php?srchuid={$uid}&amp;srchfid=all&amp;srchfrom=0&amp;searchsubmit=yes" target="_blank">{$username}的主题</a>
+        <a href="#"><strong>{$username}的回复</strong></a>
+        <a href="#">{$username}的回复</a>
+        <a href="#">{$username}的附件</a>
+    </div>
+
+
+    
+    <div class="postbox">
+        备注啊备注啊～<br />
+    </div>
 
 </div>
 

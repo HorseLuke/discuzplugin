@@ -7,19 +7,21 @@
 <!--{/if}-->
 
 <div class="fcontent">
-    <h3 class="float_ctrl">
-    <em id="return_$handlekey">{$username}的回复</em>
-    <span>
-        <a href="search.php?srchuid={$uid}&amp;srchfid=all&amp;srchfrom=0&amp;searchsubmit=yes" target="_blank">[{$username}的主题]</a>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&uid={$uid}&action=getPostlist" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的回复]</a>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&uid={$uid}&action=getAttachmentlist" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的附件]</a>
-        <!--{if !empty($infloat)}--><a href="javascript:;" class="float_close" onclick="hideWindow('$handlekey')" title="关闭">&nbsp;&nbsp;&nbsp;&nbsp;关闭</a><!--{/if}-->
-    </span>
-    </h3>
+<h3 class="float_ctrl">
+  <em id="return_$handlekey">{$floatTitle}</em>
+  <span>
+   <!--{if !empty($infloat)}--><a href="javascript:;" class="float_close" onclick="hideWindow('$handlekey')" title="关闭">关闭</a><!--{/if}-->
+  </span>
+
+</h3>
+
+<div class="postbox">
+    getPostlistAction: 成功接收到uid值：{$uid}。并查询到其用户名为{$username}。请继续代码编写。
+</div>
 
     <div class="floatwrap">
         <table class="list" cellspacing="0" cellpadding="0">
-            <thead class="colplural">
+            <thead>
                 <tr>
                     <td><b>111</b></td>
                     <td><b>222</b></td>
@@ -96,28 +98,9 @@
                 <td>bbbbb</td>
                 <td>ccccccccc</td>
             </tr>
-            <tr><td colspan="3"><i>NO DATA NO DATA NO DATA NO DATA NO DATA NO DATA NO DATA NO DATA</i></td></tr>
+            <tr><td colspan="3">NO DATA NO DATA NO DATA NO DATA NO DATA NO DATA NO DATA NO DATA</td></tr>
         </table>
     </div>
-
-    
-    <div class="pages">
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=1" class="prev">&nbsp</a>
-        <strong>1</strong>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">2</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">3</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">4</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">5</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">6</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">7</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">8</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">9</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2">8</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=3">9</a>
-        <a href="viewthread.php?tid=16&amp;extra=page%3D1&amp;page=2" class="next">下一页</a>
-    </div>
-
-    {template iirs_userPostList:Copyright}
 
 </div>
 

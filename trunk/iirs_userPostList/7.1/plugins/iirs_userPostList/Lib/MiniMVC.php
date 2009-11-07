@@ -39,7 +39,7 @@ class BaseModel{
  */
 class BaseController{
     protected $_param = array();
-    protected $_t_var = array();
+    protected $_tplVar = array();
     
     public function __construct(){
         
@@ -54,10 +54,10 @@ class BaseController{
     public function assign($name,$value=''){
         if(is_array($name)){
             foreach ($name as $k => $v){
-                $this->_t_var[$k] = $v;
+                $this->_tplVar[$k] = $v;
             }
         }else{
-            $this->_t_var[$name] = $value;
+            $this->_tplVar[$name] = $value;
         }
     }
     
@@ -67,8 +67,8 @@ class BaseController{
      * @param string $tplFileName 模版名称
      */
     public function display($tplFileName){
-        if(!empty($this->_t_var)){
-            foreach ($this->_t_var as $name => $value){
+        if(!empty($this->_tplVar)){
+            foreach ($this->_tplVar as $name => $value){
                 //只要存在键值为name的request数据，就直接覆盖，防止外部干扰view数据输出（dz历史原因，作此处理）。
                 if(isset($_REQUEST[$name]) || !isset($GLOBALS[$name])){
                     $GLOBALS[$name] = $value;
