@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * 用户帖子信息列表之——前台框架初始化载入的文件
+ * 基于Discuz!7.1架构下的微型MVC架构——初始化载入文件
  * 本文件为基于Discuz!架构下的微型MVC架构插件框架一部分，主要负责其初始化的载入工作（采取基于URL传值的简单Dispather方式）
  * @author Horse Luke<horseluke@126.com>
  * @copyright Horse Luke, 2009
@@ -13,6 +13,9 @@
 if(!defined('IN_DISCUZ')) {
     exit('Access Denied');
 }
+
+//dz非ajax安全简易修正
+$handlekey = ($handlekey && is_string($handlekey)) ? $handlekey : 'default_handlekey';
 
 //包含微型MVC框架，并指定插件App的目录
 include(dirname(__FILE__).'/Lib/MiniMVC.php');
@@ -26,4 +29,9 @@ if( method_exists($controller,$actionName) ){
     $controller->$actionName();
 }else{
     showmessage("控制器不存在此方法！请返回。", NULL,  'HALTED');
+}
+
+//Discuz View层输出
+if( defined ('APP_TPL_FILENAME') ){
+    include plugintemplate(APP_TPL_FILENAME);
 }

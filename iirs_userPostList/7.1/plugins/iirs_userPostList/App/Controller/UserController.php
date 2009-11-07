@@ -15,7 +15,9 @@ class UserController extends BaseController{
     }
     
     public function getPostlistAction(){
-        showmessage("getPostlistAction: 成功接收到uid值：{$this->_param['uid']}。请继续代码编写。", NULL,  'HALTED');
+        //showmessage("getPostlistAction: 成功接收到uid值：{$this->_param['uid']}。请继续代码编写。", NULL,  'HALTED');
+        $this->assign('uid',$this->_param['uid']);
+        $this->display('UserController_getPostlistAction');
     }
     
     
@@ -27,5 +29,6 @@ class UserController extends BaseController{
         }else{
             $this->_param['uid'] = abs(intval($GLOBALS['uid']));
         }
+        $this->_param['inajax'] = ( empty($GLOBALS['inajax']) || ($GLOBALS['inajax'] != 1) ) ? 0 : 1;
     }
 }
