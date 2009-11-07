@@ -10,17 +10,20 @@
  * @package iirs_userPostList_Discuz_7.1
  */
 
-//安全过滤URL传值代码
 if(!defined('IN_DISCUZ')) {
     exit('Access Denied');
 }
 
-if( empty($uid) || !is_numeric($uid) || $uid==$discuz_uid ){
-    showmessage('<b>本链接不支持查看自己的帖子。</b><br /><a href="my.php?item=threads" target="_blank">要查看自己的帖子，请点击这里进入“个人中心”的“我的帖子”查看。</a>', NULL,  'HALTED');
-    exit();
-}else{
-    $uid = abs(intval($uid));
-}
+//包含微型MVC框架，并指定插件App的目录
+include(dirname(__FILE__).'/Lib/MiniMVC.php');
+define('APP_PATH',dirname(__FILE__).'/App');
+$actionName = ($action && is_string($action)) ? $action.'Action' : 'getThreadlistAction';
 
-showmessage("OK！已接收到uid值：{$uid}。请继续代码编写。", NULL,  'HALTED');
-exit();
+//本插件只有一个Controller，故直接指定之。
+require(APP_PATH.'/Controller/UserController.php');
+$controller = new UserController();
+if( method_exists($controller,$actionName) ){
+    $controller->$actionName();
+}else{
+    showmessage("控制器不存在此方法！请返回。", NULL,  'HALTED');
+}
