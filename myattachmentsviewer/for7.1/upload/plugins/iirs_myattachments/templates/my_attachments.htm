@@ -1,0 +1,130 @@
+{template header}
+
+<!--{if $filetype=='onlyimage'}-->
+    <style type="text/css">
+        <!--
+            .imagedisplay img { border: none; max-width: 120px; max-height: 120px; width: expression(this.width > 120 && this.height < this.width ? 120: true); height: expression(this.height > 120 ? 120: true); vertical-align: middle; font-size: 1px; }
+        -->
+    </style>
+    <script type="text/javascript" src="{$jspath}viewthread.js?{VERHASH}"></script>
+    <script type="text/javascript">zoomstatus = parseInt($zoomstatus);var imagemaxwidth = '{IMAGEMAXWIDTH}';var aimgcount = new Array();</script>
+<!--{/if}-->
+
+<div id="nav">
+    <a href="$indexname">$bbname</a> &raquo; {lang iirs_myattachments:title}
+</div>
+
+<div id="wrap" class="wrap with_side s_clear">
+    <div class="main">
+    
+        <div class="content">
+            <div class="itemtitle s_clear">
+                <h1>{lang iirs_myattachments:title}</h1>
+                <ul>
+                    <li<!--{if empty($filetype) || $filetype == 'alltype'}--> class="current"<!--{/if}-->><a href="plugin.php?id=iirs_myattachments:myattachments" hidefocus="true"><span>{lang iirs_myattachments:allType}</span></a></li>
+                    <li class="pipe">|</li>
+                    <li<!--{if $filetype == 'onlyimage'}--> class="current"<!--{/if}-->><a href="plugin.php?id=iirs_myattachments:myattachments&filetype=onlyimage" hidefocus="true"><span>{lang iirs_myattachments:onlyImage}</span></a></li>
+                    <li class="pipe">|</li>
+                    <li<!--{if $filetype == 'notimage'}--> class="current"<!--{/if}-->><a href="plugin.php?id=iirs_myattachments:myattachments&filetype=notimage" hidefocus="true"><span>{lang iirs_myattachments:notImage}</span></a></li>
+                    <!--{if $attachmentscount}--><li class="pipe">[{lang iirs_myattachments:resultNumNotice}{$attachmentscount}]</li><!--{/if}-->
+                </ul>
+            </div>
+            
+            <div class="attachmentslist datalist">
+                    <table cellspacing="0" cellpadding="0" summary="{lang iirs_myattachments:title}">     
+                        <!--{if $attachmentscount}-->
+                        
+                            <!--{if $filetype=='onlyimage'}-->
+                                <thead class="colplural">
+                                    <tr>
+                                        <td>{lang iirs_myattachments:previewImage}</td>
+                                        <td>{lang iirs_myattachments:threadTitle} &amp; {lang iirs_myattachments:attachmentDescription}</td>
+                                        <td>{lang iirs_myattachments:otherInfo}</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!--{loop $attachmentslist $attachments}-->
+                                        <tr>
+                                            <td class="imagedisplay">
+                                            <a href="attachments/{$attachments['attachment']}"><img src="attachments/{$attachments['attachment']}<!--{if $attachments['thumb']}-->.thumb.jpg<!--{/if}-->" onclick="zoom(this, 'attachments/{$attachments['attachment']}');return false;" alt="$attachments['filename']" /></a>
+                                            </td>
+                                            <td>
+                                            <!--{if $attachments['pid']}--><a href="redirect.php?goto=findpost&pid=$attachments['pid']" target="_blank">$attachments['subject']</a><!--{else}--><em style="color: red;">{lang iirs_myattachments:noThreadMatch}</em><!--{/if}-->
+                                            <!--{if $attachments['description']}--><br /><em style="color: #999999;">{lang iirs_myattachments:attachmentDescription}: {$attachments['description']}</em><!--{/if}-->
+                                            </td>
+                                            <td>
+                                            {lang iirs_myattachments:filename}: <a href="attachment.php?aid=$attachments['aidDownload']" target="_blank">{$attachments['filename']}</a> &nbsp; <em style="color: #999999;">({$attachments['filesize']})</em>
+                                            <br />{lang iirs_myattachments:uploadAt} {$attachments['dateline']} &nbsp; ( {$attachments['downloads']} {lang iirs_myattachments:downloadCount})
+                                            <!--{if $attachments['readperm']}--><br />{lang iirs_myattachments:readPrem}: {$attachments['readperm']}<!--{/if}-->
+                                            <!--{if $attachments['price']}--><br />{lang iirs_myattachments:attachPrice}: {$attachments['price']}&nbsp;[<a href="misc.php?action=viewattachpayments&aid={$attachments['aid']}" onclick="javascript: showWindow('attachpay', this.href, 'get', 1);return false;">{lang iirs_myattachments:viewAttachPay}</a>]<!--{/if}-->
+                                            <!--{if $attachments['remote']}--><br />{lang iirs_myattachments:remoteAttach}<!--{/if}-->
+                                        </tr>
+                                    <!--{/loop}-->
+                                </tbody>
+
+                            <!--{else}-->
+
+                                <thead class="colplural">
+                                    <tr>
+                                        <td>&nbsp;</td>
+                                        <th>{lang iirs_myattachments:filename}</th>
+                                        <th>{lang iirs_myattachments:threadTitle}</th>
+                                        <td>{lang iirs_myattachments:otherInfo}</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!--{loop $attachmentslist $attachments}-->
+                                        <tr>
+                                            <td>$attachments['filetype']</td>
+                                            <th>
+                                            <a href="attachment.php?aid=$attachments['aidDownload']" target="_blank">$attachments['filename']</a>&nbsp;<em style="color: #999999;">({$attachments['filesize']})</em>
+                                            <br /><em style="color: #999999;">{lang iirs_myattachments:uploadAt} {$attachments['dateline']} &nbsp; ( {$attachments['downloads']} {lang iirs_myattachments:downloadCount})</em>
+                                            <!--{if $attachments['description']}--><br /><em style="color: #999999;">{lang iirs_myattachments:attachmentDescription}: $attachments['description']</em><!--{/if}-->
+                                            </th>
+                                            <th><!--{if $attachments['pid']}--><a href="redirect.php?goto=findpost&pid=$attachments['pid']" target="_blank">$attachments['subject']</a><!--{else}--><em style="color: red;">{lang iirs_myattachments:noThreadMatch}</em><!--{/if}--></th>
+                                            <td>
+                                            <!--{if $attachments['readperm']}-->{lang iirs_myattachments:readPrem}: {$attachments['readperm']}<br /><!--{/if}-->
+                                            <!--{if $attachments['price']}-->{lang iirs_myattachments:attachPrice}: {$attachments['price']}<br />[<a href="misc.php?action=viewattachpayments&aid={$attachments['aid']}" onclick="javascript: showWindow('attachpay', this.href, 'get', 1);return false;">{lang iirs_myattachments:viewAttachPay}</a>]<br /><!--{/if}-->
+                                            <!--{if $attachments['remote']}-->{lang iirs_myattachments:remoteAttach}<br /><!--{/if}-->
+                                            </td>
+                                        </tr>
+                                    <!--{/loop}-->
+                                </tbody>
+                               
+                            <!--{/if}-->
+                               
+                        <!--{else}-->
+                            <tr><th colspan="4"><p class="nodata">{lang iirs_myattachments:noData}</p></th></tr>
+                        <!--{/if}-->
+                    </table> 
+			    </div>
+			    
+                <div class="forumcontrol s_clear"><!--{if !empty($multipage)}-->$multipage<!--{/if}--></div>
+
+            </div>
+        </div>
+    
+    
+        <div class="side">
+            {subtemplate personal_navbar}
+            <hr class="shadowline" />
+            <div class="sideinner">
+        	    <ul class="tabs">
+		            <li>
+                        <span style="font: normal 9px Verdana; font-weight: bold; display:block;">
+                        My Attachments Viewer For Discuz! 7.1
+                        </span>
+                        <span style="font: normal 9px Verdana; display:block;">
+                        Ver 0.0.5 Build 20091108 Rev 78
+                        <br /><br />Author: Horse Luke
+                        <br /><a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Licensed under the Apache License, Version 2.0 (the "License");</a>
+                        </span>
+		            </li>
+        	    </ul>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+{template footer}
