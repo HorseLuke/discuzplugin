@@ -1,4 +1,4 @@
-{template header}
+{subtemplate header}
 
 <!--{if $filetype=='onlyimage'}-->
     <style type="text/css">
@@ -6,6 +6,7 @@
             .imagedisplay img { border: none; max-width: 120px; max-height: 120px; width: expression(this.width > 120 && this.height < this.width ? 120: true); height: expression(this.height > 120 ? 120: true); vertical-align: middle; font-size: 1px; }
         -->
     </style>
+    <link rel="stylesheet" type="text/css" href="forumdata/cache/scriptstyle_{STYLEID}_viewthread.css?{VERHASH}" />
     <script type="text/javascript" src="{$jspath}viewthread.js?{VERHASH}"></script>
     <script type="text/javascript">zoomstatus = parseInt($zoomstatus);var imagemaxwidth = '{IMAGEMAXWIDTH}';var aimgcount = new Array();</script>
 <!--{/if}-->
@@ -46,7 +47,7 @@
                                     <!--{loop $attachmentslist $attachments}-->
                                         <tr>
                                             <td class="imagedisplay">
-                                            <a href="attachments/{$attachments['attachment']}"><img src="attachments/{$attachments['attachment']}<!--{if $attachments['thumb']}-->.thumb.jpg<!--{/if}-->" onclick="zoom(this, 'attachments/{$attachments['attachment']}');return false;" alt="$attachments['filename']" /></a>
+                                            <a href="attachments/{$attachments['attachment']}"><img id="aimg_{$attachments['aid']}" src="attachments/{$attachments['attachment']}<!--{if $attachments['thumb']}-->.thumb.jpg<!--{/if}-->" onclick="zoom(this, 'attachments/{$attachments['attachment']}');return false;" alt="$attachments['filename']" /></a>
                                             </td>
                                             <td>
                                             <!--{if $attachments['pid']}--><a href="redirect.php?goto=findpost&pid=$attachments['pid']" target="_blank">$attachments['subject']</a><!--{else}--><em style="color: red;">{lang iirs_myattachments:noThreadMatch}</em><!--{/if}-->
@@ -115,7 +116,7 @@
                         My Attachments Viewer For Discuz! 7.1
                         </span>
                         <span style="font: normal 9px Verdana; display:block;">
-                        Ver 0.0.5 Build 20091108 Rev 78
+                        Ver 0.0.5 Build 20091108 Rev 79
                         <br /><br />Author: Horse Luke
                         <br /><a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">Licensed under the Apache License, Version 2.0 (the "License");</a>
                         </span>
@@ -127,4 +128,4 @@
     </div>
 </div>
 
-{template footer}
+{subtemplate footer}
