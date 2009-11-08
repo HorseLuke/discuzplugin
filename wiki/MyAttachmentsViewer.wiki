@@ -4,5 +4,9 @@
 = Details =
 
 我的附件查询－MyAttachmentsViewer下载地址
+
 for 6.x：http://www.discuz.net/thread-1112048-1-1.html
-for 7：http://www.discuz.net/thread-1111536-1-1.html
+
+for 7.0：http://www.discuz.net/thread-1111536-1-1.html
+
+for 7.1: http://www.discuz.net/thread-1475431-1-1.html
