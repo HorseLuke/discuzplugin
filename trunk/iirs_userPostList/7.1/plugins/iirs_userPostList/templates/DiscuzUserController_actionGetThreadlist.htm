@@ -12,7 +12,6 @@
     <span>
         <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getThreadlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的主题]</a>
         <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的回复]</a>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getAttachmentlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的附件]</a>
         <!--{if !empty($infloat)  || !empty($inajax)}--><a href="javascript:;" class="float_close" onclick="hideWindow('$handlekey')" title="关闭">&nbsp;&nbsp;&nbsp;&nbsp;关闭</a><!--{/if}-->
     </span>
     </h3>

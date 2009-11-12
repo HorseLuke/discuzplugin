@@ -39,7 +39,8 @@ class DiscuzUserController extends BaseController{
         $multipage = '';
         $limitnum = 25;
         $startnum = ($this->_param['page'] - 1) * $limitnum;
-        $result = $targetUser->getPostlist( $startnum , $limitnum , $currentUser->getDisallowVisitFidList() );
+        $ignoreFidList = array_merge( $currentUser->getDisallowVisitFidList(), $GLOBALS['_DPLUGIN']['iirs_userPostList']['ignoreFidList']);;
+        $result = $targetUser->getPostlist( $startnum , $limitnum , $ignoreFidList );
 
         if($result['totalCount'] > 0){
             $multipage = multi($result['totalCount'], $limitnum, $this->_param['page'] , "plugin.php?id=iirs_userPostList:frontLoader&amp;action=getPostlist&amp;uid={$targetUser->uid}&amp;handlekey=iirs_userPostList_{$targetUser->uid}");
@@ -66,7 +67,8 @@ class DiscuzUserController extends BaseController{
         $multipage = '';
         $limitnum = 25;
         $startnum = ($this->_param['page'] - 1) * $limitnum;
-        $result = $targetUser->getThreadlist( $startnum , $limitnum , $currentUser->getDisallowVisitFidList() );
+        $ignoreFidList = array_merge( $currentUser->getDisallowVisitFidList(), $GLOBALS['_DPLUGIN']['iirs_userPostList']['ignoreFidList']);;
+        $result = $targetUser->getThreadlist( $startnum , $limitnum , $ignoreFidList );
 
         if($result['totalCount'] > 0){
             $multipage = multi($result['totalCount'], $limitnum, $this->_param['page'] , "plugin.php?id=iirs_userPostList:frontLoader&amp;action=getThreadlist&amp;uid={$targetUser->uid}&amp;handlekey=iirs_userPostList_{$targetUser->uid}");
@@ -78,22 +80,6 @@ class DiscuzUserController extends BaseController{
         $this->assign('uid',$targetUser->uid);
         $this->assign('username',$targetUser->username);
         $this->display('DiscuzUserController_actionGetThreadlist');
-    }
-    
-    
-    
-    /**
-     * action：获取用户上传的附件
-     *
-     */
-    public function actionGetAttachmentlist(){
-        require_once(APP_PATH.'/Model/DiscuzUserModel.php');
-        $targetUser = new DiscuzUserModel($this->_param['uid']);    //被操作的目标用户实例
-        $currentUser = new DiscuzUserModel($GLOBALS['discuz_uid']);      //当前用户实例
-        
-        $this->assign('uid',$targetUser->uid);
-        $this->assign('username',$targetUser->username);
-        $this->display('DiscuzUserController_actionGetAttachmentlist');
     }
     
 }

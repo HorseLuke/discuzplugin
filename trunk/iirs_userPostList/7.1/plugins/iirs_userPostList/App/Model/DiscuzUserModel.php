@@ -164,47 +164,5 @@ class DiscuzUserModel extends BaseModel{
         }
         return $result;
     }
-    
-    
-    /**
-     * 获取该用户的附件列表。返回的格式如下：
-     * （暂未定）
-     *
-     * @todo 返回该用户附件列表
-     * @param numeric $startnum 寻找的初始游标数值
-     * @param numeric $limitnum 预计寻找多少条记录
-     * @param array $ignoreFidList 不进行搜索的版块列表
-     * @return array 一个结果数组
-     */
-    public function getAttachmentlist($startnum,$limitnum,$ignoreFidList=array()){
-        $result = array('totalCount'=>0 , 'datalist'=>array() );
-        
-        //只要发现$ignoreFidList含有0，则禁用此功能，返回初始化数值
-        if(!in_array(0,$ignoreFidList)){
-            if(!empty($ignoreFidList)){
-                $ignoreFidListSQL=' AND p.fid NOT IN ('.implode(",",$ignoreFidList).') '; 
-            }else{
-                $ignoreFidListSQL='';
-            }
-            
-            //查询有多少条记录
-            $result['totalCount'] = $this->db->result_first("");
-            
-            //假如记录数大于0，则继续查询
-            if(!empty($result['totalCount'])){
 
-                $startnum = $startnum < $result['totalCount'] ? $startnum : 0 ;
-
-                $query = $this->db->query("");
-
-                while($attachment = $this->db->fetch_array($query)) {
-
-                }
-            }
-        }
-        return $result;
-    }
-    
-    
-    
 }

@@ -17,8 +17,11 @@ if(!defined('IN_DISCUZ')) {
 //dz非ajax安全简易修正
 $handlekey = ($handlekey && is_string($handlekey)) ? $handlekey : 'default_handlekey';
 
-//包含必要的dz文件，不需要在controller和action中指定。
+//包含必要的dz文件及相关缓存文件，不需要在controller和action中指定。
 require_once DISCUZ_ROOT.'./forumdata/cache/cache_forums.php';
+if(FALSE == @include_once(DISCUZ_ROOT.'./forumdata/cache/plugin_iirs_userPostList_ignoreFidList.php')){
+    $_DPLUGIN['iirs_userPostList']['ignoreFidList']  = array();
+}
 
 //包含微型MVC框架，并指定插件App的目录
 include(dirname(__FILE__).'/Lib/MiniMVC.php');
@@ -33,8 +36,6 @@ if( method_exists($controller,$actionName) ){
 }else{
     showmessage("控制器不存在此方法！请返回。", NULL,  'HALTED');
 }
-
-
 
 //Discuz View层输出
 if( defined ('APP_TPL_FILENAME') ){
