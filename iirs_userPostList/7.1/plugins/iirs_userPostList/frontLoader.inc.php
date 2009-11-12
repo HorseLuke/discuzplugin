@@ -6,7 +6,7 @@
  * @author Horse Luke<horseluke@126.com>
  * @copyright Horse Luke, 2009
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
- * @version $Id: frontLoader.inc.php 73 2009-11-06 20:30:00 horseluke $
+ * @version $Id: frontLoader.inc.php 85 2009-11-13 00:45:00 horseluke $
  * @package iirs_userPostList_Discuz_7.1
  */
 
@@ -34,7 +34,7 @@ $controller = new DiscuzUserController();
 if( method_exists($controller,$actionName) ){
     $controller->$actionName();
 }else{
-    showmessage("控制器不存在此方法！请返回。", NULL,  'HALTED');
+    showmessage('undefined_action', NULL,  'HALTED');
 }
 
 //Discuz View层输出

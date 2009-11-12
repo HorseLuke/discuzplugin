@@ -6,7 +6,7 @@
  * @author Horse Luke<horseluke@126.com>
  * @copyright Horse Luke, 2009
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
- * @version $Id: adminPermitEdit.inc.php 73 2009-11-06 20:30:00 horseluke $
+ * @version $Id: adminPermitEdit.inc.php 85 2009-11-13 00:45:00 horseluke $
  * @package iirs_userPostList_Discuz_7.1
  */
 
