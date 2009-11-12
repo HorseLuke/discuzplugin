@@ -24,7 +24,7 @@ class plugin_iirs_userPostList {
         if( is_array($GLOBALS['postlist']) ){
             foreach( $GLOBALS['postlist'] as $pid => $post ){
                 if($post['authorid'] > 0){
-                    $return[] = "<a href=\"plugin.php?id=iirs_userPostList:frontLoader&uid={$post['authorid']}\" onclick=\"javascript: showWindow('iirs_userPostList_{$post['authorid']}', this.href, 'get', 1);return false;\"><img src=\"plugins/iirs_userPostList/Public/Images/comments.gif\" alt=\"查看{$post['author']}发布的帖子\" title=\"查看{$post['author']}发布的帖子\" /></a>";
+                    $return[] = "<a href=\"plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$post['authorid']}\" onclick=\"javascript: showWindow('iirs_userPostList_{$post['authorid']}', this.href, 'get', 1);return false;\"><img src=\"plugins/iirs_userPostList/Public/Images/comments.gif\" alt=\"查看{$post['author']}发布的帖子\" title=\"查看{$post['author']}发布的帖子\" /></a>";
                 }
             }
         }
@@ -38,7 +38,7 @@ class plugin_iirs_userPostList {
      * @return string 一个链接，用于给用户查看该人的回复过的帖子
      */
     public function profile_side_top_output(){
-        $return = "<li class=\"searchpost\"><a href=\"plugin.php?id=iirs_userPostList:frontLoader&uid={$GLOBALS['member']['uid']}&action=getPostlist\" onclick=\"javascript: showWindow('iirs_userPostList_{$GLOBALS['member']['uid']}', this.href, 'get', 1);return false;\">查看回复过的帖子</a></li>";
+        $return = "<li class=\"searchpost\"><a href=\"plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$GLOBALS['member']['uid']}\" onclick=\"javascript: showWindow('iirs_userPostList_{$GLOBALS['member']['uid']}', this.href, 'get', 1);return false;\">查看回复过的帖子</a></li>";
         return $return;
     }
 

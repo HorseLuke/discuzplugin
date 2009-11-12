@@ -17,10 +17,13 @@ if(!defined('IN_DISCUZ')) {
 //dz非ajax安全简易修正
 $handlekey = ($handlekey && is_string($handlekey)) ? $handlekey : 'default_handlekey';
 
+//包含必要的dz文件，不需要在controller和action中指定。
+require_once DISCUZ_ROOT.'./forumdata/cache/cache_forums.php';
+
 //包含微型MVC框架，并指定插件App的目录
 include(dirname(__FILE__).'/Lib/MiniMVC.php');
 define('APP_PATH',dirname(__FILE__).'/App');
-$actionName = ($action && is_string($action)) ? $action.'Action' : 'getPostlistAction';
+$actionName = ($action && is_string($action)) ? 'action'.ucfirst($action) : 'actionGetPostlist';
 
 //本插件只有一个Controller，故直接指定之。
 require(APP_PATH.'/Controller/DiscuzUserController.php');
@@ -31,7 +34,9 @@ if( method_exists($controller,$actionName) ){
     showmessage("控制器不存在此方法！请返回。", NULL,  'HALTED');
 }
 
+
+
 //Discuz View层输出
 if( defined ('APP_TPL_FILENAME') ){
-    include plugintemplate(APP_TPL_FILENAME);
+    include template(APP_TPL_FILENAME, $identifier, './plugins/'.$pluginmodule['directory'].'templates');
 }
