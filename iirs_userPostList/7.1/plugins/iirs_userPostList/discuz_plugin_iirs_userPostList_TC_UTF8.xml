@@ -8,20 +8,20 @@
 		<item id="plugin">
 			<item id="available"><![CDATA[1]]></item>
 			<item id="adminid"><![CDATA[1]]></item>
-			<item id="name"><![CDATA[用户帖子信息列表]]></item>
+			<item id="name"><![CDATA[用戶帖子資訊列表]]></item>
 			<item id="identifier"><![CDATA[iirs_userPostList]]></item>
-			<item id="description"><![CDATA[本插件主要单独列出每个用户的发帖、回复，以便用户及时了解该人信息，以及方便管理员及时找出广告ID的帖子进行针对性的删除和移动。
-本插件仅允许PHP5和以上级别运行。
-本插件曾参考以下程序，一并致谢：
-- Discuz! 5.x/6.0 内置 Minispace]]></item>
+			<item id="description"><![CDATA[本插件主要單獨列出每個用戶的發帖、回復，以便用戶及時瞭解該人資訊，以及方便管理員及時找出廣告ID的帖子進行針對性的刪除和移動。
+本插件僅允許PHP5和以上級別運行。
+本插件曾參考以下程式，一併致謝：
+- Discuz! 5.x/6.0 內置 Minispace]]></item>
 			<item id="datatables"><![CDATA[]]></item>
 			<item id="directory"><![CDATA[iirs_userPostList/]]></item>
-			<item id="copyright"><![CDATA[Copyright [2009] Horse Luke(竹节虚). Licensed under the Apache License, Version 2.0]]></item>
+			<item id="copyright"><![CDATA[Copyright [2009] Horse Luke(竹節虛). Licensed under the Apache License, Version 2.0]]></item>
 			<item id="version"><![CDATA[0.0.1 Rev 84]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[adminIgnoreFidListEdit]]></item>
-					<item id="menu"><![CDATA[忽略版块设置]]></item>
+					<item id="menu"><![CDATA[忽略版塊設置]]></item>
 					<item id="type"><![CDATA[3]]></item>
 					<item id="adminid"><![CDATA[1]]></item>
 					<item id="displayorder"><![CDATA[0]]></item>
@@ -43,32 +43,32 @@
 		<item id="version"><![CDATA[7.1]]></item>
 		<item id="language">
 			<item id="installlang">
-				<item id="PHP_ENV_NOT_SUPPORTED"><![CDATA[你的服务器环境不是PHP5.0及以上版本，安装此插件失败！]]></item>
+				<item id="PHP_ENV_NOT_SUPPORTED"><![CDATA[你的伺服器環境不是PHP5.0及以上版本，安裝此插件失敗！]]></item>
 			</item>
 			<item id="scriptlang">
-			    <item id="multiple_select_forum"><![CDATA[版块选择（按Ctrl多选）]]></item>
-				<item id="deselect_forum_all"><![CDATA[取消版块选择（一旦选择此将清空设置）]]></item>
-				<item id="adminIgnoreFidListEdit_intro"><![CDATA[<li>由于Discuz!的权限设置及检查较为分散，出于效率的考虑，目前该插件无法自动禁止以下版块的帖子显示在列表中：
-                    <ol>1、设置了访问密码的版块</ol><ol>2、设置了权限表达式的版块</ol></li>
-                    <li>如果论坛有上述所说的版块，或者想额外忽略一些板块，请在这里手动设置。</li>
-                    <li>设置成功后，插件将强制忽略这些板块的帖子（不管用户是否存在对本版块的访问权限）。</li>]]></item>
-				<item id="set_ok"><![CDATA[设置成功！]]></item>
-				<item id="use_personal_center_to_see_own_threads"><![CDATA[要查看自己发布的帖子，请点击这里进入“个人中心”的“我的帖子”查看。]]></item>
-				<item id="view_his_posts"><![CDATA[查看回复的帖子]]></item>
-				<item id="view_his_threads"><![CDATA[查看发布的主题]]></item>
+			    <item id="multiple_select_forum"><![CDATA[版塊選擇（按Ctrl多選）]]></item>
+				<item id="deselect_forum_all"><![CDATA[取消版塊選擇（一旦選擇此將清空設置）]]></item>
+				<item id="adminIgnoreFidListEdit_intro"><![CDATA[<li>由於Discuz!的許可權設置及檢查較為分散，出於效率的考慮，目前該插件無法自動禁止以下版塊的帖子顯示在列表中：
+                    <ol>1、設置了訪問密碼的版塊</ol><ol>2、設置了許可權運算式的版塊</ol></li>
+                    <li>如果論壇有上述所說的版塊，或者想額外忽略一些板塊，請在這裏手動設置。</li>
+                    <li>設置成功後，插件將強制忽略這些板塊的帖子（不管用戶是否存在對本版塊的訪問許可權）。</li>]]></item>
+				<item id="set_ok"><![CDATA[設置成功！]]></item>
+				<item id="use_personal_center_to_see_own_threads"><![CDATA[要查看自己發佈的帖子，請點擊這裏進入“個人中心”的“我的帖子”查看。]]></item>
+				<item id="view_his_posts"><![CDATA[查看回復的帖子]]></item>
+				<item id="view_his_threads"><![CDATA[查看發佈的主題]]></item>
 			</item>
 			<item id="templatelang">
-				<item id="close"><![CDATA[关闭]]></item>
-				<item id="subject"><![CDATA[主题]]></item>
-				<item id="his_subjects"><![CDATA[的主题]]></item>
-				<item id="reply"><![CDATA[回复]]></item>
-				<item id="his_replies"><![CDATA[的回复]]></item>
-				<item id="forum"><![CDATA[版块]]></item>
-				<item id="lastpost"><![CDATA[最后回复]]></item>
-				<item id="nodata"><![CDATA[暂无数据]]></item>
-				<item id="not_enough_read_permission"><![CDATA[阅读权限不足，无权读取]]></item>
-				<item id="thread_in_recyclebin"><![CDATA[主题在回收站，无法读取]]></item>
-				<item id="post_auditing"><![CDATA[正在审核中，无法显示]]></item>
+				<item id="close"><![CDATA[關閉]]></item>
+				<item id="subject"><![CDATA[主題]]></item>
+				<item id="his_subjects"><![CDATA[的主題]]></item>
+				<item id="reply"><![CDATA[回復]]></item>
+				<item id="his_replies"><![CDATA[的回復]]></item>
+				<item id="forum"><![CDATA[版塊]]></item>
+				<item id="lastpost"><![CDATA[最後回復]]></item>
+				<item id="nodata"><![CDATA[暫無數據]]></item>
+				<item id="not_enough_read_permission"><![CDATA[閱讀許可權不足，無權讀取]]></item>
+				<item id="thread_in_recyclebin"><![CDATA[主題在回收站，無法讀取]]></item>
+				<item id="post_auditing"><![CDATA[正在審核中，無法顯示]]></item>
 			</item>
 		</item>
 		<item id="installfile"><![CDATA[install.php]]></item>

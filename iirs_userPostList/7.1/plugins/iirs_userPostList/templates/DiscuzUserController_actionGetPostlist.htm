@@ -1,18 +1,18 @@
 {template header}
 
 <!--{if empty($infloat) && empty($inajax)}-->
-<div id="nav"><a href="$indexname">$bbname</a> &raquo; {$username}的回复</div>
+<div id="nav"><a href="$indexname">$bbname</a> &raquo; {$username}{lang iirs_userPostList:his_replies}</div>
 <div id="wrap" class="wrap s_clear">
 	<div class="main"><div class="content nofloat">
 <!--{/if}-->
 
 <div class="fcontent">
     <h3 class="float_ctrl">
-    <em id="return_$handlekey">{$username}的回复</em>
+    <em id="return_$handlekey">{$username}{lang iirs_userPostList:his_replies}</em>
     <span>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getThreadlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的主题]</a>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的回复]</a>
-        <!--{if !empty($infloat)  || !empty($inajax)}--><a href="javascript:;" class="float_close" onclick="hideWindow('$handlekey')" title="关闭">&nbsp;&nbsp;&nbsp;&nbsp;关闭</a><!--{/if}-->
+        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getThreadlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}{lang iirs_userPostList:his_subjects}]</a>
+        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}{lang iirs_userPostList:his_replies}]</a>
+        <!--{if !empty($infloat)  || !empty($inajax)}--><a href="javascript:;" class="float_close" onclick="hideWindow('$handlekey')" title="{lang iirs_userPostList:close}">&nbsp;&nbsp;&nbsp;&nbsp;{lang iirs_userPostList:close}</a><!--{/if}-->
     </span>
     </h3>
 
@@ -20,19 +20,19 @@
         <table class="list" cellspacing="0" cellpadding="0">
             <thead class="colplural">
                 <tr>
-                    <td><b>标题</b></td>
-                    <td><b>版块</b></td>
+                    <td><b>{lang iirs_userPostList:subject}</b></td>
+                    <td><b>{lang iirs_userPostList:forum}</b></td>
                 </tr>
             </thead>
             
             <!--{if empty($datalist)}-->
-                <tr class="colplural"><td colspan="2">暂无数据。</td></tr>
+                <tr class="colplural"><td colspan="2">{lang iirs_userPostList:nodata}</td></tr>
             <!--{else}-->
                 <!--{loop $datalist $tid $thread}-->
                     <!--{if $thread['readperm'] && $thread['readperm'] > $readaccess}-->
-                        <tr class="colplural"><td colspan="2"><b><i>阅读权限不足，无权读取。</i></b></td></tr>
+                        <tr class="colplural"><td colspan="2"><b><i>{lang iirs_userPostList:not_enough_read_permission}</i></b></td></tr>
                     <!--{elseif ('-1' == $thread['displayorder'])}-->
-                        <tr class="colplural"><td colspan="2"><b><i>主题被移入回收站，无权读取。</i></b></td></tr>
+                        <tr class="colplural"><td colspan="2"><b><i>{lang iirs_userPostList:thread_in_recyclebin}</i></b></td></tr>
                     <!--{elseif !empty($thread['postlist'])}-->
                         <tr class="colplural">
                             <td><b><a href="viewthread.php?tid={$tid}" target="_blank">{$thread['subject']}</a></b></td>
@@ -41,7 +41,7 @@
                         <tr><td colspan="2" style="color: #999999;">
                         <!--{loop $thread['postlist'] $pid $post}-->
                             [{$post['sequence']}]<a href="redirect.php?goto=findpost&pid={$pid}" target="_blank">{$post['dateline']}</a>:&nbsp;
-                            <!--{if $post['invisible']}-->（未审核不能显示）<!--{else}-->{$post['message']}<!--{/if}--><br />
+                            <!--{if $post['invisible']}-->{lang iirs_userPostList:post_auditing}<!--{else}-->{$post['message']}<!--{/if}--><br />
                         <!--{/loop}-->
                         </td></tr>
                     <!--{/if}-->
