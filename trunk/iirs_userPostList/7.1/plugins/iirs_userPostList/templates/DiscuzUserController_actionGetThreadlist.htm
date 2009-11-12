@@ -1,18 +1,18 @@
 {template header}
 
 <!--{if empty($infloat) && empty($inajax)}-->
-<div id="nav"><a href="$indexname">$bbname</a> &raquo; {$username}的主题</div>
+<div id="nav"><a href="$indexname">$bbname</a> &raquo; {$username}{lang iirs_userPostList:his_subjects}</div>
 <div id="wrap" class="wrap s_clear">
 	<div class="main"><div class="content nofloat">
 <!--{/if}-->
 
 <div class="fcontent">
     <h3 class="float_ctrl">
-    <em id="return_$handlekey">{$username}的主题</em>
+    <em id="return_$handlekey">{$username}{lang iirs_userPostList:his_subjects}</em>
     <span>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getThreadlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的主题]</a>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的回复]</a>
-        <!--{if !empty($infloat)  || !empty($inajax)}--><a href="javascript:;" class="float_close" onclick="hideWindow('$handlekey')" title="关闭">&nbsp;&nbsp;&nbsp;&nbsp;关闭</a><!--{/if}-->
+        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getThreadlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}{lang iirs_userPostList:his_subjects}]</a>
+        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}{lang iirs_userPostList:his_replies}]</a>
+        <!--{if !empty($infloat)  || !empty($inajax)}--><a href="javascript:;" class="float_close" onclick="hideWindow('$handlekey')" title="{lang iirs_userPostList:close}">&nbsp;&nbsp;&nbsp;&nbsp;{lang iirs_userPostList:close}</a><!--{/if}-->
     </span>
     </h3>
 
@@ -21,19 +21,19 @@
             <thead class="colplural">
                 <tr>
                     <td class="icon">&nbsp;</td>
-                    <td class="subject"><b>主题</b></td>
-                    <td><b>版块</b></td>
-                    <td class="lastpost"><b>最后发表</b></td>
+                    <td class="subject"><b>{lang iirs_userPostList:subject}</b></td>
+                    <td><b>{lang iirs_userPostList:forum}</b></td>
+                    <td class="lastpost"><b>{lang iirs_userPostList:lastpost}</b></td>
                 </tr>
             </thead>
             
             <!--{if empty($datalist)}-->
-                <tr class="colplural"><td colspan="4">暂无数据。</td></tr>
+                <tr class="colplural"><td colspan="4">{lang iirs_userPostList:nodata}</td></tr>
             <!--{else}-->
                 <!--{loop $datalist $tid $thread}-->
                     <tr>
                         <td class="icon">$thread['icon']</td>
-                        <td class="subject"><a href="viewthread.php?tid={$tid}" target="_blank">{$thread['subject']}</a><!--{if $thread['readperm'] && $thread['readperm'] > $readaccess}--><em style="color: #999999;">[阅读权限不足]</em><!--{/if}--></td>
+                        <td class="subject"><a href="viewthread.php?tid={$tid}" target="_blank">{$thread['subject']}</a><!--{if $thread['readperm'] && $thread['readperm'] > $readaccess}--><em style="color: #999999;">[{lang iirs_userPostList:not_enough_read_permission}]</em><!--{/if}--></td>
                         <td><a href="forumdisplay.php?fid={$thread['fid']}" target="_blank">{$_DCACHE['forums'][$thread['fid']]['name']}</a></td>
                         <td class="lastpost">
                             <cite><!--{if $thread['lastposter']}--><a href="space.php?username={$thread[lastposterenc]}">{$thread[lastposter]}</a><!--{else}-->{lang anonymous}<!--{/if}--></cite>

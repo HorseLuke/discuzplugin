@@ -26,32 +26,32 @@ if(!submitcheck('ignoreFidListEditsubmit')) {
     
     require_once DISCUZ_ROOT.'./include/forum.func.php';
     $forumselect = '<select name="ignoreFidListnew[]" size="25" multiple="multiple">'
-    .'<option value="0">取消版块选择（一旦选择此将清空设置）</option>'
+    .'<option value="0">'.discuzPlugin_scriptlang('deselect_forum_all').'</option>'
     .discuzPlugin_forumselect(FALSE, 0, $_DPLUGIN['iirs_userPostList']['ignoreFidList'] , TRUE)
     .'</select>';
     
-    showtips('<li>由于Discuz!的权限设置及检查较为分散，出于效率的考虑，目前该插件无法自动禁止以下版块的帖子显示在列表中：'
-            .'<ol>1、设置了访问密码的版块</ol><ol>2、设置了权限表达式的版块</ol></li>'
-            .'<li>如果论坛有上述所说的版块，或者想额外忽略一些板块，请在这里手动设置。</li>'
-            .'<li>设置成功后，插件将强制忽略这些板块的帖子（不管用户是否存在对本版块的访问权限）。</li>');
+    showtips(discuzPlugin_scriptlang('adminIgnoreFidListEdit_intro'));
     showformheader("{$action}&operation={$operation}&identifier={$identifier}&mod={$mod}");
     showtableheader();
-    showsetting('板块选择', '', '', $forumselect);
+    showsetting(discuzPlugin_scriptlang('multiple_select_forum'), '', '', $forumselect);
     showsubmit('ignoreFidListEditsubmit');
     showtablefooter();
     showformfooter();
 
 }else{
+    
     //忽略板块列表数据检查和构造
     $_DPLUGIN['iirs_userPostList']['ignoreFidList']  = array();
-    foreach ($ignoreFidListnew as $key => $fid){
-        $fid = abs(intval($fid));
-        //若等于0时，则表示清空忽略版块设置
-        if($fid == 0){
-            $_DPLUGIN['iirs_userPostList']['ignoreFidList'] = array();
-            break;
-        }else{
-            $_DPLUGIN['iirs_userPostList']['ignoreFidList'][] = $fid;
+    if(is_array($ignoreFidListnew) && !empty($ignoreFidListnew)){
+        foreach ($ignoreFidListnew as $key => $fid){
+            $fid = abs(intval($fid));
+            //若等于0时，则表示清空忽略版块设置
+            if($fid == 0){
+                $_DPLUGIN['iirs_userPostList']['ignoreFidList'] = array();
+                break;
+            }else{
+                $_DPLUGIN['iirs_userPostList']['ignoreFidList'][] = $fid;
+            }
         }
     }
     
@@ -59,7 +59,7 @@ if(!submitcheck('ignoreFidListEditsubmit')) {
     $cachedata="if(!defined('IN_DISCUZ')) {exit('Access Denied');}\n\n\$_DPLUGIN['iirs_userPostList']['ignoreFidList']=".var_export($_DPLUGIN['iirs_userPostList']['ignoreFidList'],true).";";
     require_once './include/cache.func.php';
     writetocache('iirs_userPostList_ignoreFidList', '', $cachedata, 'plugin_');
-    cpmsg('设置成功！', "admincp.php?action={$action}&operation={$operation}&identifier={$identifier}&mod={$mod}" ,'succeed');
+    cpmsg(discuzPlugin_scriptlang('set_ok'), "admincp.php?action={$action}&operation={$operation}&identifier={$identifier}&mod={$mod}" ,'succeed');
 }
 
 

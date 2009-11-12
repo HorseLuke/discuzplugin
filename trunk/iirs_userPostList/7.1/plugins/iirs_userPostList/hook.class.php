@@ -12,6 +12,8 @@
 
 class plugin_iirs_userPostList {
     
+    protected $identifier='iirs_userPostList';
+    
     /**
      * 嵌入点：主题内容页个人资料框图标区域（output）
      *
@@ -38,8 +40,8 @@ class plugin_iirs_userPostList {
      * @return string 一个链接，用于给用户查看该人的回复过的帖子
      */
     public function profile_side_top_output(){
-        $return = "<li class=\"searchpost\"><a href=\"plugin.php?id=iirs_userPostList:frontLoader&action=getThreadlist&uid={$GLOBALS['member']['uid']}\" onclick=\"javascript: showWindow('iirs_userPostList_{$GLOBALS['member']['uid']}', this.href, 'get', 1);return false;\">查看发表的主题</a></li>"
-                  ."<li class=\"searchpost\"><a href=\"plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$GLOBALS['member']['uid']}\" onclick=\"javascript: showWindow('iirs_userPostList_{$GLOBALS['member']['uid']}', this.href, 'get', 1);return false;\">查看回复的帖子</a></li>";
+        $return = "<li class=\"searchpost\"><a href=\"plugin.php?id=iirs_userPostList:frontLoader&action=getThreadlist&uid={$GLOBALS['member']['uid']}\" onclick=\"javascript: showWindow('iirs_userPostList_{$GLOBALS['member']['uid']}', this.href, 'get', 1);return false;\">{$GLOBALS['scriptlang'][$this->identifier]['view_his_threads']}</a></li>"
+                  ."<li class=\"searchpost\"><a href=\"plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$GLOBALS['member']['uid']}\" onclick=\"javascript: showWindow('iirs_userPostList_{$GLOBALS['member']['uid']}', this.href, 'get', 1);return false;\">{$GLOBALS['scriptlang'][$this->identifier]['view_his_posts']}</a></li>";
         return $return;
     }
 

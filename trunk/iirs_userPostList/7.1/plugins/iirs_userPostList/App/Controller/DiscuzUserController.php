@@ -11,14 +11,15 @@ class DiscuzUserController extends BaseController{
      */
     public function __construct(){
         parent::__construct();
-        //假如查看的是自己，则引导他到个人中心查看
+        //假如查看的是自己，则引导到个人中心查看
         if( empty($GLOBALS['uid']) || !is_numeric($GLOBALS['uid']) || ($GLOBALS['uid'] < 1) ||$GLOBALS['uid'] == $GLOBALS['discuz_uid'] ){
-            showmessage('<b><a href="my.php?item=posts" target="_blank">要查看自己发布的帖子，请点击这里进入“个人中心”的“我的帖子”查看。</a></b>', NULL,  'HALTED');
+            showmessage('<b><a href="my.php?item=posts" target="_blank">'.$GLOBALS['scriptlang'][$GLOBALS['identifier']]['use_personal_center_to_see_own_threads'].'</a></b>', NULL,  'HALTED');
             //exit();
+        //没有阅读权限，禁止之
         }elseif(empty($GLOBALS['readaccess'])){
-            showmessage('阅读权限为0，该功能被禁用。请返回。', NULL,  'HALTED');
+            showmessage('group_nopermission', NULL,  'HALTED');
             //exit();
-        //假如没有权限查看他人信息，则禁止之
+        //没有权限查看他人信息，禁止之
         }elseif(!$GLOBALS['allowviewpro']){
             showmessage('group_nopermission', NULL, 'NOPERM');
         }else{

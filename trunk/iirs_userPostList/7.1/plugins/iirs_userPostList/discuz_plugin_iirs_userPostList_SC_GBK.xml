@@ -8,20 +8,20 @@
 		<item id="plugin">
 			<item id="available"><![CDATA[1]]></item>
 			<item id="adminid"><![CDATA[1]]></item>
-			<item id="name"><![CDATA[用户帖子信息列表]]></item>
+			<item id="name"><![CDATA[�û�������Ϣ�б�]]></item>
 			<item id="identifier"><![CDATA[iirs_userPostList]]></item>
-			<item id="description"><![CDATA[本插件主要单独列出每个用户的发帖、回复，以便用户及时了解该人信息，以及方便管理员及时找出广告ID的帖子进行针对性的删除和移动。
-本插件仅允许PHP5和以上级别运行。
-本插件曾参考以下程序，一并致谢：
-- Discuz! 5.x/6.0 内置 Minispace]]></item>
+			<item id="description"><![CDATA[�������Ҫ�����г�ÿ���û��ķ������ظ����Ա��û���ʱ�˽������Ϣ���Լ��������Ա��ʱ�ҳ����ID�����ӽ�������Ե�ɾ�����ƶ���
+�����������PHP5�����ϼ������С�
+��������ο����³���һ����л��
+- Discuz! 5.x/6.0 ���� Minispace]]></item>
 			<item id="datatables"><![CDATA[]]></item>
 			<item id="directory"><![CDATA[iirs_userPostList/]]></item>
-			<item id="copyright"><![CDATA[Copyright [2009] Horse Luke(竹节虚). Licensed under the Apache License, Version 2.0]]></item>
+			<item id="copyright"><![CDATA[Copyright [2009] Horse Luke(�����). Licensed under the Apache License, Version 2.0]]></item>
 			<item id="version"><![CDATA[0.0.1 Rev 84]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[adminIgnoreFidListEdit]]></item>
-					<item id="menu"><![CDATA[忽略版块设置]]></item>
+					<item id="menu"><![CDATA[���԰������]]></item>
 					<item id="type"><![CDATA[3]]></item>
 					<item id="adminid"><![CDATA[1]]></item>
 					<item id="displayorder"><![CDATA[0]]></item>
@@ -43,32 +43,32 @@
 		<item id="version"><![CDATA[7.1]]></item>
 		<item id="language">
 			<item id="installlang">
-				<item id="PHP_ENV_NOT_SUPPORTED"><![CDATA[你的服务器环境不是PHP5.0及以上版本，安装此插件失败！]]></item>
+				<item id="PHP_ENV_NOT_SUPPORTED"><![CDATA[��ķ�������������PHP5.0�����ϰ汾����װ�˲��ʧ�ܣ�]]></item>
 			</item>
 			<item id="scriptlang">
-			    <item id="multiple_select_forum"><![CDATA[版块选择（按Ctrl多选）]]></item>
-				<item id="deselect_forum_all"><![CDATA[取消版块选择（一旦选择此将清空设置）]]></item>
-				<item id="adminIgnoreFidListEdit_intro"><![CDATA[<li>由于Discuz!的权限设置及检查较为分散，出于效率的考虑，目前该插件无法自动禁止以下版块的帖子显示在列表中：
-                    <ol>1、设置了访问密码的版块</ol><ol>2、设置了权限表达式的版块</ol></li>
-                    <li>如果论坛有上述所说的版块，或者想额外忽略一些板块，请在这里手动设置。</li>
-                    <li>设置成功后，插件将强制忽略这些板块的帖子（不管用户是否存在对本版块的访问权限）。</li>]]></item>
-				<item id="set_ok"><![CDATA[设置成功！]]></item>
-				<item id="use_personal_center_to_see_own_threads"><![CDATA[要查看自己发布的帖子，请点击这里进入“个人中心”的“我的帖子”查看。]]></item>
-				<item id="view_his_posts"><![CDATA[查看回复的帖子]]></item>
-				<item id="view_his_threads"><![CDATA[查看发布的主题]]></item>
+			    <item id="multiple_select_forum"><![CDATA[���ѡ�񣨰�Ctrl��ѡ��]]></item>
+				<item id="deselect_forum_all"><![CDATA[ȡ�����ѡ��һ��ѡ��˽�������ã�]]></item>
+				<item id="adminIgnoreFidListEdit_intro"><![CDATA[<li>����Discuz!��Ȩ�����ü�����Ϊ��ɢ������Ч�ʵĿ��ǣ�Ŀǰ�ò���޷��Զ���ֹ���°���������ʾ���б��У�
+                    <ol>1�������˷�������İ��</ol><ol>2��������Ȩ�ޱ���ʽ�İ��</ol></li>
+                    <li>�����̳��������˵�İ�飬������������һЩ��飬���������ֶ����á�</li>
+                    <li>���óɹ��󣬲����ǿ�ƺ�����Щ�������ӣ������û��Ƿ���ڶԱ����ķ���Ȩ�ޣ���</li>]]></item>
+				<item id="set_ok"><![CDATA[���óɹ���]]></item>
+				<item id="use_personal_center_to_see_own_threads"><![CDATA[Ҫ�鿴�Լ����������ӣ�����������롰�������ġ��ġ��ҵ����ӡ��鿴��]]></item>
+				<item id="view_his_posts"><![CDATA[�鿴�ظ�������]]></item>
+				<item id="view_his_threads"><![CDATA[�鿴����������]]></item>
 			</item>
 			<item id="templatelang">
-				<item id="close"><![CDATA[关闭]]></item>
-				<item id="subject"><![CDATA[主题]]></item>
-				<item id="his_subjects"><![CDATA[的主题]]></item>
-				<item id="reply"><![CDATA[回复]]></item>
-				<item id="his_replies"><![CDATA[的回复]]></item>
-				<item id="forum"><![CDATA[版块]]></item>
-				<item id="lastpost"><![CDATA[最后回复]]></item>
-				<item id="nodata"><![CDATA[暂无数据]]></item>
-				<item id="not_enough_read_permission"><![CDATA[阅读权限不足，无权读取]]></item>
-				<item id="thread_in_recyclebin"><![CDATA[主题在回收站，无法读取]]></item>
-				<item id="post_auditing"><![CDATA[正在审核中，无法显示]]></item>
+				<item id="close"><![CDATA[�ر�]]></item>
+				<item id="subject"><![CDATA[����]]></item>
+				<item id="his_subjects"><![CDATA[������]]></item>
+				<item id="reply"><![CDATA[�ظ�]]></item>
+				<item id="his_replies"><![CDATA[�Ļظ�]]></item>
+				<item id="forum"><![CDATA[���]]></item>
+				<item id="lastpost"><![CDATA[���ظ�]]></item>
+				<item id="nodata"><![CDATA[��������]]></item>
+				<item id="not_enough_read_permission"><![CDATA[�Ķ�Ȩ�޲��㣬��Ȩ��ȡ]]></item>
+				<item id="thread_in_recyclebin"><![CDATA[�����ڻ���վ���޷���ȡ]]></item>
+				<item id="post_auditing"><![CDATA[��������У��޷���ʾ]]></item>
 			</item>
 		</item>
 		<item id="installfile"><![CDATA[install.php]]></item>

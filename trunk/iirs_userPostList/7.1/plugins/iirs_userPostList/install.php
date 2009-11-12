@@ -14,5 +14,9 @@ if(version_compare(PHP_VERSION,'5.0.0','<')){
     }
 
 }else{
+	$_DPLUGIN['iirs_userPostList']['ignoreFidList'] = array();
+	$cachedata="if(!defined('IN_DISCUZ')) {exit('Access Denied');}\n\n\$_DPLUGIN['iirs_userPostList']['ignoreFidList']=".var_export($_DPLUGIN['iirs_userPostList']['ignoreFidList'],true).";";
+    require_once './include/cache.func.php';
+    writetocache('iirs_userPostList_ignoreFidList', '', $cachedata, 'plugin_');
     $finish = TRUE;
 }

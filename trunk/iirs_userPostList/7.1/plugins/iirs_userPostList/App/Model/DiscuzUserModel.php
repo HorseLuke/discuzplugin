@@ -25,7 +25,7 @@ class DiscuzUserModel extends BaseModel{
         }else{
             $member = $this->db->fetch_first("SELECT uid,username,groupid,adminid FROM {$GLOBALS['tablepre']}members WHERE uid = '{$uid}'");
             if(!is_array($member)){
-                showmessage('不存在此用户，请返回。',null,'HALTED');
+                showmessage('member_nonexistence',null,'HALTED');
             }else{
                 $this->uid = $member['uid'];
                 $this->username = $member['username'];
@@ -146,7 +146,7 @@ class DiscuzUserModel extends BaseModel{
             $result['totalCount'] = $this->db->result_first("SELECT COUNT(*) FROM {$GLOBALS['tablepre']}threads t
                                                              WHERE t.authorid='{$this->uid}' {$ignoreFidListSQL} AND t.displayorder=0 ");
             
-            //假如记录数大于0，则继续查询
+            //假如记录数大于0，则继续查询.t.displayorder=0表示帖子处在可见状态。
             if(!empty($result['totalCount'])){
                 
                 $startnum = $startnum < $result['totalCount'] ? $startnum : 0 ;
