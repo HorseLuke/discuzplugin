@@ -1,4 +1,12 @@
 <?php
+/**
+ * DiscuzUser模型
+ * @author Horse Luke<horseluke@126.com>
+ * @copyright Horse Luke, 2009
+ * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
+ * @version $Id: DiscuzUserModel.php 85 2009-11-13 00:45:00 horseluke $
+ * @package iirs_userPostList_Discuz_7.1
+ */
 if(!defined('IN_DISCUZ')) {
     exit('Access Denied');
 }

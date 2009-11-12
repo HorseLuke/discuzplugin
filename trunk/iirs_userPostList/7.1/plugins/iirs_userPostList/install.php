@@ -1,4 +1,16 @@
 <?php
+/**
+ * 
+ * 用户帖子信息列表之——嵌入安装脚本
+ * 本文件主要用于在安装时，检查服务器是否为PHP5.0级以上，否的话则拒绝安装并强制卸载
+ * 本文件为遵循Discuz! 7.1架构下的嵌入安装脚本
+ * @author Horse Luke<horseluke@126.com>
+ * @copyright Horse Luke, 2009
+ * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
+ * @version $Id: install.php 85 2009-11-13 00:45:00 horseluke $
+ * @package iirs_userPostList_Discuz_7.1
+ */
+
 if(!defined('IN_DISCUZ') || !defined('IN_ADMINCP')) {
     exit('Access Denied');
 }
