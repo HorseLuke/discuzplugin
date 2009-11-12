@@ -18,7 +18,7 @@ if(!defined('IN_DISCUZ')) {
  *
  */
 class BaseModel{
-    public $db;
+    protected $db;
     public function __construct(){
         $this->db=$GLOBALS['db'];
     }
@@ -39,10 +39,9 @@ class BaseModel{
  */
 class BaseController{
     protected $_param = array();
-    protected $_tplVar = array();
     
     public function __construct(){
-        
+        $this->_param['inajax'] = ( empty($GLOBALS['inajax']) || ($GLOBALS['inajax'] != 1) ) ? 0 : 1;
     }
     
     /**
@@ -54,10 +53,16 @@ class BaseController{
     public function assign($name,$value=''){
         if(is_array($name)){
             foreach ($name as $k => $v){
-                $this->_tplVar[$k] = $v;
+                //只要存在键值为name的request数据，就直接覆盖，防止外部干扰view数据输出（dz历史原因，作此处理）。
+                if(isset($_REQUEST[$k]) || !isset($GLOBALS[$k])){
+                    $GLOBALS[$k] = $v;
+                }
             }
         }else{
-            $this->_tplVar[$name] = $value;
+            //只要存在键值为name的request数据，就直接覆盖，防止外部干扰view数据输出（dz历史原因，作此处理）。
+            if(isset($_REQUEST[$name]) || !isset($GLOBALS[$name])){
+                $GLOBALS[$name] = $value;
+            }
         }
     }
     
@@ -67,15 +72,6 @@ class BaseController{
      * @param string $tplFileName 模版名称
      */
     public function display($tplFileName){
-        if(!empty($this->_tplVar)){
-            foreach ($this->_tplVar as $name => $value){
-                //只要存在键值为name的request数据，就直接覆盖，防止外部干扰view数据输出（dz历史原因，作此处理）。
-                if(isset($_REQUEST[$name]) || !isset($GLOBALS[$name])){
-                    $GLOBALS[$name] = $value;
-                }
-            }
-        }
-        
         define ('APP_TPL_FILENAME',$tplFileName);
     }
     

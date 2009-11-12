@@ -1,14 +1,14 @@
 {template header}
 
 <!--{if empty($infloat) && empty($inajax)}-->
-<div id="nav"><a href="$indexname">$bbname</a> &raquo; {$username}的回复</div>
+<div id="nav"><a href="$indexname">$bbname</a> &raquo; {$username}的主题</div>
 <div id="wrap" class="wrap s_clear">
 	<div class="main"><div class="content nofloat">
 <!--{/if}-->
 
 <div class="fcontent">
     <h3 class="float_ctrl">
-    <em id="return_$handlekey">{$username}的回复</em>
+    <em id="return_$handlekey">{$username}的主题</em>
     <span>
         <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getThreadlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的主题]</a>
         <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}的回复]</a>
@@ -21,31 +21,26 @@
         <table class="list" cellspacing="0" cellpadding="0">
             <thead class="colplural">
                 <tr>
-                    <td><b>标题</b></td>
+                    <td class="icon">&nbsp;</td>
+                    <td class="subject"><b>主题</b></td>
                     <td><b>版块</b></td>
+                    <td class="lastpost"><b>最后发表</b></td>
                 </tr>
             </thead>
             
             <!--{if empty($datalist)}-->
-                <tr class="colplural"><td colspan="2">暂无数据。</td></tr>
+                <tr class="colplural"><td colspan="4">暂无数据。</td></tr>
             <!--{else}-->
                 <!--{loop $datalist $tid $thread}-->
-                    <!--{if $thread['readperm'] && $thread['readperm'] > $readaccess}-->
-                        <tr class="colplural"><td colspan="2"><b><i>阅读权限不足，无权读取。</i></b></td></tr>
-                    <!--{elseif ('-1' == $thread['displayorder'])}-->
-                        <tr class="colplural"><td colspan="2"><b><i>主题被移入回收站，无权读取。</i></b></td></tr>
-                    <!--{elseif !empty($thread['postlist'])}-->
-                        <tr class="colplural">
-                            <td><b><a href="viewthread.php?tid={$tid}" target="_blank">{$thread['subject']}</a></b></td>
-                            <td><a href="forumdisplay.php?fid={$thread['fid']}" target="_blank">{$_DCACHE['forums'][$thread['fid']]['name']}</a></td>
-                        </tr>
-                        <tr><td colspan="2" style="color: #999999;">
-                        <!--{loop $thread['postlist'] $pid $post}-->
-                            [{$post['sequence']}]<a href="redirect.php?goto=findpost&pid={$pid}" target="_blank">{$post['dateline']}</a>:&nbsp;
-                            <!--{if $post['invisible']}-->（未审核不能显示）<!--{else}-->{$post['message']}<!--{/if}--><br />
-                        <!--{/loop}-->
-                        </td></tr>
-                    <!--{/if}-->
+                    <tr>
+                        <td class="icon">$thread['icon']</td>
+                        <td class="subject"><a href="viewthread.php?tid={$tid}" target="_blank">{$thread['subject']}</a><!--{if $thread['readperm'] && $thread['readperm'] > $readaccess}--><em style="color: #999999;">[阅读权限不足]</em><!--{/if}--></td>
+                        <td><a href="forumdisplay.php?fid={$thread['fid']}" target="_blank">{$_DCACHE['forums'][$thread['fid']]['name']}</a></td>
+                        <td class="lastpost">
+                            <cite><!--{if $thread['lastposter']}--><a href="space.php?username={$thread[lastposterenc]}">{$thread[lastposter]}</a><!--{else}-->{lang anonymous}<!--{/if}--></cite>
+                            <em><a href="redirect.php?tid={$thread[tid]}&amp;goto=lastpost#lastpost">{$thread[lastpost]}</a></em>
+                        </td>
+                    </tr>
                 <!--{/loop}-->
             <!--{/if}-->
             
