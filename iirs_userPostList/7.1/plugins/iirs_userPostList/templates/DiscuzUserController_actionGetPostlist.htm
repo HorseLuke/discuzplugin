@@ -10,8 +10,8 @@
     <h3 class="float_ctrl">
     <em id="return_$handlekey">{$username}{lang iirs_userPostList:his_replies}</em>
     <span>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getThreadlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}{lang iirs_userPostList:his_subjects}]</a>
-        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;"">[{$username}{lang iirs_userPostList:his_replies}]</a>
+        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getThreadlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;">[{$username}{lang iirs_userPostList:his_subjects}]</a>
+        <a href="plugin.php?id=iirs_userPostList:frontLoader&action=getPostlist&uid={$uid}" onclick="javascript: showWindow('iirs_userPostList_{$uid}', this.href, 'get', 1);return false;">[{$username}{lang iirs_userPostList:his_replies}]</a>
         <!--{if !empty($infloat)  || !empty($inajax)}--><a href="javascript:;" class="float_close" onclick="hideWindow('$handlekey')" title="{lang iirs_userPostList:close}">&nbsp;&nbsp;&nbsp;&nbsp;{lang iirs_userPostList:close}</a><!--{/if}-->
     </span>
     </h3>
