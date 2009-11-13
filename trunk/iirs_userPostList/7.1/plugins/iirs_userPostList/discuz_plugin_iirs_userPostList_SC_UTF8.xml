@@ -17,7 +17,7 @@
 			<item id="datatables"><![CDATA[]]></item>
 			<item id="directory"><![CDATA[iirs_userPostList/]]></item>
 			<item id="copyright"><![CDATA[Copyright [2009] Horse Luke(竹节虚). Licensed under the Apache License, Version 2.0]]></item>
-			<item id="version"><![CDATA[0.0.1 Rev 85]]></item>
+			<item id="version"><![CDATA[0.0.1 Rev 87]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[adminIgnoreFidListEdit]]></item>
@@ -56,6 +56,7 @@
 				<item id="use_personal_center_to_see_own_threads"><![CDATA[要查看自己发布的帖子，请点击这里进入“个人中心”的“我的帖子”查看。]]></item>
 				<item id="view_his_posts"><![CDATA[查看回复的帖子]]></item>
 				<item id="view_his_threads"><![CDATA[查看发布的主题]]></item>
+				<item id="plugin_setting_cache_lost"><![CDATA[本插件原有设置的缓存丢失，将影响插件的运行。请管理员到后台重新设置该插件参数！]]></item>
 			</item>
 			<item id="templatelang">
 				<item id="close"><![CDATA[关闭]]></item>

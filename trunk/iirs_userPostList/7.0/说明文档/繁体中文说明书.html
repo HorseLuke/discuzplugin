@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>會員查看其他用戶主題和回復For Discuz! 7.0</title>
+<style type="text/css">
+<!--
+.STYLE2 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.STYLE3 {
+	font-size: 16pt;
+	font-weight: bold;
+}
+.redcolor {
+	color: #F00;
+}
+-->
+</style>
+</head>
+
+<body>
+<table width="90%" border="1" cellpadding="1" cellspacing="1" bordercolor="#999999">
+  <tr>
+    <td height="64"><div align="center" class="STYLE3">會員查看其他用戶主題和回復<br />
+        For Discuz! 7.0<br />
+        安裝使用說明書</div></td>
+  </tr>
+  <tr>
+    <td height="53"><strong>歡迎選用由Horse Luke（中文名稱：竹節虛）開發的插件！</strong></td>
+  </tr>
+  <tr>
+    <td><p><strong>插件名稱：</strong>會員查看其他用戶主題和回復For Discuz! 7.0<br />
+        <strong>版本：</strong>Ver 0.0.1 Build 20091113 Rev 87 For Discuz! 7.0<br />
+        <strong>插件有限支持鏈接：</strong><a href="http://code.google.com/p/discuzplugin-hl/wiki/MyAttachmentsViewer" target="_blank">http://code.google.com/p/discuzplugin-hl/wiki/MyAttachmentsViewer</a></p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>第一原作者: Horse Luke（中文名稱：竹節虛）</strong><br />
+    第一原作者基於Apache License協議授權開源。</p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>插件說明：<br />
+      </strong>該插件原模型來源於Discuz! 5.x/6.0 Minispace的一個子功能（同時也是Discuz! 7.2即將重返的功能）：會員可以查看其他用戶的主題和回復。
+        <p>對於用戶而言，此功能能更快捷地及時瞭解該人資訊；而對於管理員而言，則方便其及時找出廣告ID的帖子進行針對性的刪除和移動。</p>
+本插件同時支持Ajax和非Ajax讀取。</p>
+        <p class="redcolor"><strong>請注意，由於開發需求，本插件僅支持PHP5.0.0及以上版本。</strong></p>
+        <p>本插件採取面向過程（後臺檔）和麵向對象（前臺檔）的編程方法。</p>
+        <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>適合的論壇版本：</strong><br />
+      Discuz! 7.0</p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>安裝方法：</strong></p>
+        <p><strong>1、在論壇後臺確認你的伺服器運行著的PHP版本，若低於5.0.0（即為4.x.x）的，則不能安裝此插件。</strong><br />
+            <img src="images/install_1.JPG" width="474" height="186" />            <br />
+        </p>
+        <p><strong>2、不是繁體UTF8的論壇用戶可直接上傳upload檔夾內的的所有檔到論壇根目錄。</strong></p>
+        <p><strong>但是假如是</strong><span class="redcolor"><strong>繁體UTF8</strong></span><strong>的論壇，在上傳前，請進入upload檔夾內的plugins\iirs_userPostList\App\Lang，將檔“utf-8.php”刪除，然後將“TC-utf-8.php”改名為“utf-8.php”，最後才將upload檔夾內的的所有檔到論壇根目錄。</strong><br />
+        </p>
+        <p><strong>3、進入論壇後臺的插件欄目，按照你論壇的編碼將import檔夾對應的插件配置檔</strong><strong>導入。</strong> </p>
+        <p><strong>4、後臺配置插件（假如你不需要特別隱藏某些版塊的主題和回復，可省略）。</strong><br />
+            <img src="images/install_4.JPG" width="535" height="274" />            </p>
+        <p><strong>5、修改檔。<span class="redcolor">請注意做好備份！</span></strong>（修改檔部分.txt也有本片段）</p>
+        <p>（1）打開templates\default\viewpro_classic.htm。找到：<br />
+            <blockquote>&lt;li class=&quot;pm&quot;&gt;&lt;a href=&quot;pm.php?action=new&amp;amp;uid=$member[uid]&quot; onclick=&quot;floatwin('open_sendpm', this.href, 600, 410);return false;&quot;&gt;{lang send_pm}&lt;/a&gt;&lt;/li&gt;</blockquote><br />
+            並在上面加上：<br />
+            <blockquote>&lt;li class=&quot;searchpost&quot;&gt;&lt;a href=&quot;userpostlist.php?action=getThreadlist&amp;amp;uid={$member[uid]}&quot; onclick=&quot;floatwin('open_iirs_userPostList_{$uid}', this.href, 600, 410);return false;&quot;&gt;查看發表的主題&lt;/a&gt;&lt;/li&gt;<br />
+            &lt;li class=&quot;searchpost&quot;&gt;&lt;a href=&quot;userpostlist.php?action=getPostlist&amp;amp;uid={$member[uid]}&quot; onclick=&quot;floatwin('open_iirs_userPostList_{$uid}', this.href, 600, 410);return false;&quot;&gt;查看回復的帖子&lt;/a&gt;&lt;/li&gt;</blockquote><br />
+        </p>
+        <p>（2）打開templates\default\viewthread_node.htm。找到：<br />
+           <blockquote>&lt;a href=&quot;space.php?uid=$post[authorid]&quot; target=&quot;_blank&quot; title=&quot;{lang member_viewpro}&quot;&gt;&lt;img src=&quot;{IMGDIR}/userinfo.gif&quot; alt=&quot;{lang member_viewpro}&quot;  /&gt;&lt;/a&gt;</blockquote><br />
+            並在上面加上：<br />
+            <blockquote>&lt;a href=&quot;userpostlist.php?action=getPostlist&amp;amp;uid={$post['authorid']}&quot; onclick=&quot;floatwin('open_iirs_userPostList_{$post['authorid']}', this.href, 600, 410);return false;&quot;&gt;&lt;img src=&quot;plugins/iirs_userPostList/Public/Images/comments.gif&quot; alt=&quot;查看回復的帖子&quot; title=&quot;查看回復的帖子&quot; /&gt;&lt;/a&gt;</blockquote><br />
+        </p>
+        <p><br />
+        </p></td>
+  </tr>
+  <tr>
+    <td><p><strong>使用方法：</strong></p>
+        <p>（1）在看貼介面上，移動到每個人的頭像，在彈出的“主題內容頁個人資料框圖標區域”中有個新增的小圖示<img src="images/comments.gif" width="16" height="16" />，點擊後即可ajax查看其回復的內容。</p>
+        <p>（2）或者，在每個人的個人資料頁中，側邊頭部將有兩個新增的鏈接：“查看發表的主題”和“查看回復的帖子”。點擊即可ajax查看，或者右鍵非ajax查看。</p>
+<p>（3）關於後臺設置：<br />
+    　　由於Discuz!的許可權設置及檢查較為分散，出於效率的考慮，目前該插件無法自動禁止以下版塊的帖子顯示在列表中：<br />
+    　　　　1、設置了訪問密碼的版塊；2、設置了許可權運算式的版塊<br />
+    　　如果論壇有上述所說的版塊，或者想額外忽略一些板塊，請在這裏手動設置。<br />
+　　設置成功後，插件將強制忽略這些板塊的帖子（不管用戶是否存在對本版塊的訪問許可權）。</p>
+<p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>版本歷史：</strong></p>
+      <p><span class="STYLE2">Ver 0.0.1 Build 20091113 Rev 87（當前）：</span><br />
+          新增：將本插件從僅支持7.1進行代碼修改遷移，從而派生出新分支。該分支將支持Discuz! 7.0。<br />
+      </p>
+      <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>COPYRIGHT NOTICE</strong><br />
+        ----------------<br />
+        Copyright 2008 Horse Luke（竹節虛）.<br />
+        Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);<br />
+        you may not use this file except in compliance with the License.<br />
+        You may obtain a copy of the License at<br />
+        http://www.apache.org/licenses/LICENSE-2.0<br />
+        Unless required by applicable law or agreed to in writing, software<br />
+        distributed under the License is distributed on an &quot;AS IS&quot; BASIS,<br />
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br />
+        See the License for the specific language governing permissions and<br />
+    limitations under the License.</p>    </td>
+  </tr>
+</table>
+</body>
+</html>

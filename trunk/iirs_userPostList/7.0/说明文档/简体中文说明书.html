@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>会员查看其他用户主题和回复For Discuz! 7.0</title>
+<style type="text/css">
+<!--
+.STYLE2 {
+	color: #FF0000;
+	font-weight: bold;
+}
+.STYLE3 {
+	font-size: 16pt;
+	font-weight: bold;
+}
+.redcolor {
+	color: #F00;
+}
+-->
+</style>
+</head>
+
+<body>
+<table width="90%" border="1" cellpadding="1" cellspacing="1" bordercolor="#999999">
+  <tr>
+    <td height="64"><div align="center" class="STYLE3">会员查看其他用户主题和回复<br />
+        For Discuz! 7.0<br />
+        安装使用说明书</div></td>
+  </tr>
+  <tr>
+    <td height="53"><strong>欢迎选用由Horse Luke（中文名称：竹节虚）开发的插件！</strong></td>
+  </tr>
+  <tr>
+    <td><p><strong>插件名称：</strong>会员查看其他用户主题和回复For Discuz! 7.0<br />
+        <strong>版本：</strong>Ver 0.0.1 Build 20091113 Rev 87 For Discuz! 7.0<br />
+        <strong>插件有限支持链接：</strong><a href="http://code.google.com/p/discuzplugin-hl/wiki/MyAttachmentsViewer" target="_blank">http://code.google.com/p/discuzplugin-hl/wiki/MyAttachmentsViewer</a></p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>第一原作者: Horse Luke（中文名称：竹节虚）</strong><br />
+    第一原作者基于Apache License协议授权开源。</p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>插件说明：<br />
+      </strong>该插件原模型来源于Discuz! 5.x/6.0 Minispace的一个子功能（同时也是Discuz! 7.2即将重返的功能）：会员可以查看其他用户的主题和回复。
+        <p>对于用户而言，此功能能更快捷地及时了解该人信息；而对于管理员而言，则方便其及时找出广告ID的帖子进行针对性的删除和移动。</p>
+本插件同时支持Ajax和非Ajax读取。</p>
+        <p class="redcolor"><strong>请注意，由于开发需求，本插件仅支持PHP5.0.0及以上版本。</strong></p>
+        <p>本插件采取面向过程（后台文件）和面向对象（前台文件）的编程方法。</p>
+        <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>适合的论坛版本：</strong><br />
+      Discuz! 7.0</p>
+    <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>安装方法：</strong></p>
+        <p><strong>1、在论坛后台确认你的服务器运行着的PHP版本，若低于5.0.0（即为4.x.x）的，则不能安装此插件。</strong><br />
+            <img src="images/install_1.JPG" width="474" height="186" />            <br />
+        </p>
+        <p><strong>2、不是繁体UTF8的论坛用户可直接上传upload文件夹内的的所有文件到论坛根目录。</strong></p>
+        <p><strong>但是假如是</strong><span class="redcolor"><strong>繁体UTF8</strong></span><strong>的论坛，在上传前，请进入upload文件夹内的plugins\iirs_userPostList\App\Lang，将文件“utf-8.php”删除，然后将“TC-utf-8.php”改名为“utf-8.php”，最后才将upload文件夹内的的所有文件到论坛根目录。</strong><br />
+        </p>
+        <p><strong>3、进入论坛后台的插件栏目，按照你论坛的编码将import文件夹对应的插件配置文件</strong><strong>导入。</strong> </p>
+        <p><strong>4、后台配置插件（假如你不需要特别隐藏某些版块的主题和回复，可省略）。</strong><br />
+            <img src="images/install_4.JPG" width="535" height="274" />            </p>
+        <p><strong>5、修改文件。<span class="redcolor">请注意做好备份！</span></strong>（修改文件部分.txt也有本片段）</p>
+        <p>（1）打开templates\default\viewpro_classic.htm。找到：<br />
+            <blockquote>&lt;li class=&quot;pm&quot;&gt;&lt;a href=&quot;pm.php?action=new&amp;amp;uid=$member[uid]&quot; onclick=&quot;floatwin('open_sendpm', this.href, 600, 410);return false;&quot;&gt;{lang send_pm}&lt;/a&gt;&lt;/li&gt;</blockquote><br />
+            并在上面加上：<br />
+            <blockquote>&lt;li class=&quot;searchpost&quot;&gt;&lt;a href=&quot;userpostlist.php?action=getThreadlist&amp;amp;uid={$member[uid]}&quot; onclick=&quot;floatwin('open_iirs_userPostList_{$uid}', this.href, 600, 410);return false;&quot;&gt;查看发表的主题&lt;/a&gt;&lt;/li&gt;<br />
+            &lt;li class=&quot;searchpost&quot;&gt;&lt;a href=&quot;userpostlist.php?action=getPostlist&amp;amp;uid={$member[uid]}&quot; onclick=&quot;floatwin('open_iirs_userPostList_{$uid}', this.href, 600, 410);return false;&quot;&gt;查看回复的帖子&lt;/a&gt;&lt;/li&gt;</blockquote><br />
+        </p>
+        <p>（2）打开templates\default\viewthread_node.htm。找到：<br />
+           <blockquote>&lt;a href=&quot;space.php?uid=$post[authorid]&quot; target=&quot;_blank&quot; title=&quot;{lang member_viewpro}&quot;&gt;&lt;img src=&quot;{IMGDIR}/userinfo.gif&quot; alt=&quot;{lang member_viewpro}&quot;  /&gt;&lt;/a&gt;</blockquote><br />
+            并在上面加上：<br />
+            <blockquote>&lt;a href=&quot;userpostlist.php?action=getPostlist&amp;amp;uid={$post['authorid']}&quot; onclick=&quot;floatwin('open_iirs_userPostList_{$post['authorid']}', this.href, 600, 410);return false;&quot;&gt;&lt;img src=&quot;plugins/iirs_userPostList/Public/Images/comments.gif&quot; alt=&quot;查看回复的帖子&quot; title=&quot;查看回复的帖子&quot; /&gt;&lt;/a&gt;</blockquote><br />
+        </p>
+        <p><br />
+        </p></td>
+  </tr>
+  <tr>
+    <td><p><strong>使用方法：</strong></p>
+        <p>（1）在看贴界面上，移动到每个人的头像，在弹出的“主题内容页个人资料框图标区域”中有个新增的小图标<img src="images/comments.gif" width="16" height="16" />，点击后即可ajax查看其回复的内容。</p>
+        <p>（2）或者，在每个人的个人资料页中，侧边头部将有两个新增的链接：“查看发表的主题”和“查看回复的帖子”。点击即可ajax查看，或者右键非ajax查看。</p>
+<p>（3）关于后台设置：<br />
+    　　由于Discuz!的权限设置及检查较为分散，出于效率的考虑，目前该插件无法自动禁止以下版块的帖子显示在列表中：<br />
+    　　　　1、设置了访问密码的版块；2、设置了权限表达式的版块<br />
+    　　如果论坛有上述所说的版块，或者想额外忽略一些板块，请在这里手动设置。<br />
+　　设置成功后，插件将强制忽略这些板块的帖子（不管用户是否存在对本版块的访问权限）。</p>
+<p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>版本历史：</strong></p>
+      <p><span class="STYLE2">Ver 0.0.1 Build 20091113 Rev 87（当前）：</span><br />
+          新增：将本插件从仅支持7.1进行代码修改迁移，从而派生出新分支。该分支将支持Discuz! 7.0。<br />
+      </p>
+      <p>&nbsp;</p></td>
+  </tr>
+  <tr>
+    <td><p><strong>COPYRIGHT NOTICE</strong><br />
+        ----------------<br />
+        Copyright 2008 Horse Luke（竹节虚）.<br />
+        Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);<br />
+        you may not use this file except in compliance with the License.<br />
+        You may obtain a copy of the License at<br />
+        http://www.apache.org/licenses/LICENSE-2.0<br />
+        Unless required by applicable law or agreed to in writing, software<br />
+        distributed under the License is distributed on an &quot;AS IS&quot; BASIS,<br />
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<br />
+        See the License for the specific language governing permissions and<br />
+    limitations under the License.</p>    </td>
+  </tr>
+</table>
+</body>
+</html>

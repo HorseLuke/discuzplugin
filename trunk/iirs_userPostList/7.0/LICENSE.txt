@@ -1,79 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<root>
-	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
-	<item id="Version"><![CDATA[7.1]]></item>
-	<item id="Time"><![CDATA[2009-11-12 22:30]]></item>
-	<item id="From"><![CDATA[Testing Board (http://127.0.0.1/dz71utf8/)]]></item>
-	<item id="Data">
-		<item id="plugin">
-			<item id="available"><![CDATA[1]]></item>
-			<item id="adminid"><![CDATA[1]]></item>
-			<item id="name"><![CDATA[用戶帖子資訊列表]]></item>
-			<item id="identifier"><![CDATA[iirs_userPostList]]></item>
-			<item id="description"><![CDATA[本插件主要單獨列出每個用戶的發帖、回復，以便用戶及時瞭解該人資訊，以及方便管理員及時找出廣告ID的帖子進行針對性的刪除和移動。
-本插件僅允許PHP5和以上級別運行。
-本插件曾參考以下程式，一併致謝：
-- Discuz! 5.x/6.0 內置 Minispace]]></item>
-			<item id="datatables"><![CDATA[]]></item>
-			<item id="directory"><![CDATA[iirs_userPostList/]]></item>
-			<item id="copyright"><![CDATA[Copyright [2009] Horse Luke(竹節虛). Licensed under the Apache License, Version 2.0]]></item>
-			<item id="version"><![CDATA[0.0.1 Rev 87]]></item>
-			<item id="__modules">
-				<item id="0">
-					<item id="name"><![CDATA[adminIgnoreFidListEdit]]></item>
-					<item id="menu"><![CDATA[忽略版塊設置]]></item>
-					<item id="type"><![CDATA[3]]></item>
-					<item id="adminid"><![CDATA[1]]></item>
-					<item id="displayorder"><![CDATA[0]]></item>
-				</item>
-				<item id="1">
-					<item id="name"><![CDATA[hook]]></item>
-					<item id="type"><![CDATA[11]]></item>
-					<item id="adminid"><![CDATA[0]]></item>
-					<item id="displayorder"><![CDATA[0]]></item>
-				</item>
-				<item id="2">
-					<item id="name"><![CDATA[frontLoader]]></item>
-					<item id="type"><![CDATA[13]]></item>
-					<item id="adminid"><![CDATA[1]]></item>
-					<item id="displayorder"><![CDATA[0]]></item>
-				</item>
-			</item>
-		</item>
-		<item id="version"><![CDATA[7.1]]></item>
-		<item id="language">
-			<item id="installlang">
-				<item id="PHP_ENV_NOT_SUPPORTED"><![CDATA[你的伺服器環境不是PHP5.0及以上版本，安裝此插件失敗！]]></item>
-			</item>
-			<item id="scriptlang">
-			    <item id="multiple_select_forum"><![CDATA[版塊選擇（按Ctrl多選）]]></item>
-				<item id="deselect_forum_all"><![CDATA[取消版塊選擇（一旦選擇此將清空設置）]]></item>
-				<item id="adminIgnoreFidListEdit_intro"><![CDATA[<li>由於Discuz!的許可權設置及檢查較為分散，出於效率的考慮，目前該插件無法自動禁止以下版塊的帖子顯示在列表中：
-                    <ol>1、設置了訪問密碼的版塊</ol><ol>2、設置了許可權運算式的版塊</ol></li>
-                    <li>如果論壇有上述所說的版塊，或者想額外忽略一些板塊，請在這裏手動設置。</li>
-                    <li>設置成功後，插件將強制忽略這些板塊的帖子（不管用戶是否存在對本版塊的訪問許可權）。</li>]]></item>
-				<item id="set_ok"><![CDATA[設置成功！]]></item>
-				<item id="use_personal_center_to_see_own_threads"><![CDATA[要查看自己發佈的帖子，請點擊這裏進入“個人中心”的“我的帖子”查看。]]></item>
-				<item id="view_his_posts"><![CDATA[查看回復的帖子]]></item>
-				<item id="view_his_threads"><![CDATA[查看發佈的主題]]></item>
-				<item id="plugin_setting_cache_lost"><![CDATA[本插件原有設置的緩存丟失，將影響插件的運行。請管理員到後臺重新設置該插件參數！]]></item>
-			</item>
-			<item id="templatelang">
-				<item id="close"><![CDATA[關閉]]></item>
-				<item id="subject"><![CDATA[主題]]></item>
-				<item id="his_subjects"><![CDATA[的主題]]></item>
-				<item id="reply"><![CDATA[回復]]></item>
-				<item id="his_replies"><![CDATA[的回復]]></item>
-				<item id="forum"><![CDATA[版塊]]></item>
-				<item id="lastpost"><![CDATA[最後回復]]></item>
-				<item id="nodata"><![CDATA[暫無數據]]></item>
-				<item id="not_enough_read_permission"><![CDATA[閱讀許可權不足，無權讀取]]></item>
-				<item id="thread_in_recyclebin"><![CDATA[主題在回收站，無法讀取]]></item>
-				<item id="post_auditing"><![CDATA[正在審核中，無法顯示]]></item>
-			</item>
-		</item>
-		<item id="installfile"><![CDATA[install.php]]></item>
-		<item id="license"><![CDATA[
+
                                  Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
@@ -275,7 +200,3 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
-
-		]]></item>
-	</item>
-</root>

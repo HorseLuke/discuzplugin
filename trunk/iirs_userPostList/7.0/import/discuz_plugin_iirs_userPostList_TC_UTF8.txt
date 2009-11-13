@@ -1,0 +1,29 @@
+# Discuz! Plugin Dump
+# Version: Discuz! 7.0.0
+# Time: 2009-11-13 19:30  
+# From: Discuz! Board (http://127.0.0.1/dz7utf8/) 
+#
+# Discuz! Community: http://www.Discuz.net
+# Please visit our website for latest news about Discuz!
+# --------------------------------------------------------
+
+YToyOntzOjY6InBsdWdpbiI7YTo5OntzOjk6ImF2YWlsYWJsZSI7czoxOiIx
+IjtzOjc6ImFkbWluaWQiO3M6MToiMSI7czo0OiJuYW1lIjtzOjI0OiLnlKjm
+iLbluJblrZDos4foqIrliJfooagiO3M6MTA6ImlkZW50aWZpZXIiO3M6MTc6
+ImlpcnNfdXNlclBvc3RMaXN0IjtzOjExOiJkZXNjcmlwdGlvbiI7czozMTk6
+IuacrOaPkuS7tuS4u+imgeWWrueNqOWIl+WHuuavj+WAi+eUqOaItueahOeZ
+vOW4luOAgeWbnuW+qe+8jOS7peS+v+eUqOaItuWPiuaZgueereino+ipsuS6
+uuizh+ioiu+8jOS7peWPiuaWueS+v+euoeeQhuWToeWPiuaZguaJvuWHuuW7
+o+WRiklE55qE5biW5a2Q6YCy6KGM6Yed5bCN5oCn55qE5Yiq6Zmk5ZKM56e7
+5YuV44CCIArmnKzmj5Lku7blg4XlhYHoqLFQSFA15ZKM5Lul5LiK57Sa5Yil
+6YGL6KGM44CCIArmnKzmj5Lku7bmm77lj4PogIPku6XkuIvnqIvlvI/vvIzk
+uIDkvbXoh7TorJ3vvJogCi0gRGlzY3V6ISA1LngvNi4wIOWFp+e9riBNaW5p
+c3BhY2UiO3M6MTA6ImRhdGF0YWJsZXMiO3M6MDoiIjtzOjk6ImRpcmVjdG9y
+eSI7czoxODoiaWlyc191c2VyUG9zdExpc3QvIjtzOjk6ImNvcHlyaWdodCI7
+czo4NjoiQ29weXJpZ2h0IFsyMDA5XSBIb3JzZSBMdWtlKOerueevgOiZmyku
+IExpY2Vuc2VkIHVuZGVyIHRoZSBBcGFjaGUgTGljZW5zZSwgVmVyc2lvbiAy
+LjAiO3M6NzoibW9kdWxlcyI7czoxNTk6ImE6MTp7aTowO2E6NTp7czo0OiJu
+YW1lIjtzOjIyOiJhZG1pbklnbm9yZUZpZExpc3RFZGl0IjtzOjQ6Im1lbnUi
+O3M6MTg6IuW/veeVpeeJiOWhiuioree9riI7czo0OiJ0eXBlIjtzOjE6IjMi
+O3M6NzoiYWRtaW5pZCI7czoxOiIxIjtzOjEyOiJkaXNwbGF5b3JkZXIiO2k6
+MDt9fSI7fXM6NzoidmVyc2lvbiI7czo1OiI3LjAuMCI7fQ==
