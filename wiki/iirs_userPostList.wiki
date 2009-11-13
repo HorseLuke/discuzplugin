@@ -1,13 +1,14 @@
-#summary One-sentence summary of this page.
-
-= Introduction =
-
-Add your content here.
+#summary “会员查看其他用户主题和回复”插件下载地址
 
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+该插件原模型来源于Discuz! 5.x/6.0 Minispace的一个子功能（同时也是Discuz! 7.2即将重返的功能）：会员可以查看其他用户的主题和回复。
+
+对于用户而言，此功能能更快捷地及时了解该人信息；而对于管理员而言，则方便其及时找出广告ID的帖子进行针对性的删除和移动。
+
+本插件同时支持Ajax和非Ajax读取。
+
+for 7.0版本请到这里下载：http://www.discuz.net/viewthread.php?tid=1481646
+
+for 7.1版本请到这里下载：http://www.discuz.net/thread-1480699-1-1.html
