@@ -1,0 +1,67 @@
+{template header}
+
+<!--{if empty($infloat) && empty($inajax)}-->
+	{subtemplate header_nofloat}
+<!--{/if}-->
+
+<div class="float" style="height: 410px">
+<div class="floatbox">
+    <h3 class="float_ctrl">
+    <em id="return_$handlekey">{$username}{$templatelang[$identifier]['his_subjects']}</em>
+    <span>
+        <a href="userpostlist.php?action=getThreadlist&amp;uid={$uid}" onclick="floatwin('open_iirs_userPostList_{$uid}', this.href, 600, 410);return false;">[{$username}{$templatelang[$identifier]['his_subjects']}]</a>
+        <a href="userpostlist.php?action=getPostlist&amp;uid={$uid}" onclick="floatwin('open_iirs_userPostList_{$uid}', this.href, 600, 410);return false;">[{$username}{$templatelang[$identifier]['his_replies']}]</a>
+        <!--{if !empty($infloat)  || !empty($inajax)}--><a href="javascript:;" class="float_close" onclick="floatwin('close_{$handlekey}')" title="{$templatelang[$identifier]['close']}">&nbsp;&nbsp;&nbsp;&nbsp;{$templatelang[$identifier]['close']}</a><!--{/if}-->
+    </span>
+    </h3>
+
+    <div class="floatwrap">
+        <table class="list" cellspacing="0" cellpadding="0">
+            <thead class="colplural">
+                <tr>
+                    <td class="icon">&nbsp;</td>
+                    <td class="subject"><b>{$templatelang[$identifier]['subject']}</b></td>
+                    <td><b>{$templatelang[$identifier]['forum']}</b></td>
+                    <td class="lastpost"><b>{$templatelang[$identifier]['lastpost']}</b></td>
+                </tr>
+            </thead>
+            
+            <!--{if empty($datalist)}-->
+                <tr class="colplural"><td colspan="4">{$templatelang[$identifier]['nodata']}</td></tr>
+            <!--{else}-->
+                <!--{loop $datalist $tid $thread}-->
+                    <tr>
+                        <td class="icon">$thread['icon']</td>
+                        <td class="subject"><a href="viewthread.php?tid={$tid}" target="_blank">{$thread['subject']}</a><!--{if $thread['readperm'] && $thread['readperm'] > $readaccess}--><em style="color: #999999;">[{$templatelang[$identifier]['not_enough_read_permission']}]</em><!--{/if}--></td>
+                        <td><a href="forumdisplay.php?fid={$thread['fid']}" target="_blank">{$_DCACHE['forums'][$thread['fid']]['name']}</a></td>
+                        <td class="lastpost">
+                            <cite><!--{if $thread['lastposter']}--><a href="space.php?username={$thread[lastposterenc]}">{$thread[lastposter]}</a><!--{else}-->{lang anonymous}<!--{/if}--></cite>
+                            <em><a href="redirect.php?tid={$thread[tid]}&amp;goto=lastpost#lastpost">{$thread[lastpost]}</a></em>
+                        </td>
+                    </tr>
+                <!--{/loop}-->
+            <!--{/if}-->
+            
+        </table>
+    </div>
+
+    
+    <div class="pages">
+    <!--{if !empty($multipage)}-->$multipage<!--{/if}-->
+    </div>
+
+    <div class="postbox">
+        <span style="font: normal 9px Verdana; display:block;text-align:right;">
+               <b>User PostList </b> <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank" title="Author: Horse Luke. Automatically Licensed to {$sitename} Under the Apache License, Version 2.0">Ver 0.0.1 Build 20091113 Rev 87 For Discuz! 7.0</a>
+        </span>
+    </div>
+
+</div>
+
+</div>
+
+<!--{if empty($infloat)}-->
+	{subtemplate footer_nofloat}
+<!--{/if}-->
+
+{template footer}

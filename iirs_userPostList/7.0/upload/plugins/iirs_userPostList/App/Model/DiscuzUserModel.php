@@ -4,8 +4,8 @@
  * @author Horse Luke<horseluke@126.com>
  * @copyright Horse Luke, 2009
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
- * @version $Id: DiscuzUserModel.php 87 2009-11-13 19:15:00 horseluke $
- * @package iirs_userPostList_Discuz_7.1
+ * @version $Id: DiscuzUserModel.php 87 2009-11-13 16:00:00 horseluke $
+ * @package iirs_userPostList_Discuz_7.0
  */
 if(!defined('IN_DISCUZ')) {
     exit('Access Denied');
@@ -89,8 +89,6 @@ class DiscuzUserModel extends BaseModel{
             
             //假如记录数大于0，则继续查询
             if(!empty($result['totalCount'])){
-                
-                require_once DISCUZ_ROOT.'./include/post.func.php';
                 
                 $startnum = $startnum < $result['totalCount'] ? $startnum : 0 ;
                 
