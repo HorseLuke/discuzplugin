@@ -1,30 +1,27 @@
 # Discuz! Plugin Dump
 # Version: Discuz! 7.0.0
-# Time: 2009-11-13 19:30  
-# From: Discuz! Board (http://127.0.0.1/dz7utf8/) 
+# Time: 2009-11-14 21:06  
+# From: Discuz! Board (http://127.0.0.1/bbsother/dz7gbk/) 
 #
 # Discuz! Community: http://www.Discuz.net
 # Please visit our website for latest news about Discuz!
 # --------------------------------------------------------
 
-
 YToyOntzOjY6InBsdWdpbiI7YTo5OntzOjk6ImF2YWlsYWJsZSI7czoxOiIx
-IjtzOjc6ImFkbWluaWQiO3M6MToiMSI7czo0OiJuYW1lIjtzOjI0OiLnlKjm
-iLfluJblrZDkv6Hmga/liJfooagiO3M6MTA6ImlkZW50aWZpZXIiO3M6MTc6
-ImlpcnNfdXNlclBvc3RMaXN0IjtzOjExOiJkZXNjcmlwdGlvbiI7czozMTk6
-IuacrOaPkuS7tuS4u+imgeWNleeLrOWIl+WHuuavj+S4queUqOaIt+eahOWP
-keW4luOAgeWbnuWkje+8jOS7peS+v+eUqOaIt+WPiuaXtuS6huino+ivpeS6
-uuS/oeaBr++8jOS7peWPiuaWueS+v+euoeeQhuWRmOWPiuaXtuaJvuWHuuW5
-v+WRiklE55qE5biW5a2Q6L+b6KGM6ZKI5a+55oCn55qE5Yig6Zmk5ZKM56e7
-5Yqo44CCDQrmnKzmj5Lku7bku4XlhYHorrhQSFA15ZKM5Lul5LiK57qn5Yir
-6L+Q6KGM44CCDQrmnKzmj5Lku7bmm77lj4LogIPku6XkuIvnqIvluo/vvIzk
-uIDlubboh7TosKLvvJoNCi0gRGlzY3V6ISA1LngvNi4wIOWGhee9riBNaW5p
-c3BhY2UiO3M6MTA6ImRhdGF0YWJsZXMiO3M6MDoiIjtzOjk6ImRpcmVjdG9y
-eSI7czoxODoiaWlyc191c2VyUG9zdExpc3QvIjtzOjk6ImNvcHlyaWdodCI7
-czo4NjoiQ29weXJpZ2h0IFsyMDA5XSBIb3JzZSBMdWtlKOerueiKguiZmiku
-IExpY2Vuc2VkIHVuZGVyIHRoZSBBcGFjaGUgTGljZW5zZSwgVmVyc2lvbiAy
-LjAiO3M6NzoibW9kdWxlcyI7czoxNTk6ImE6MTp7aTowO2E6NTp7czo0OiJu
-YW1lIjtzOjIyOiJhZG1pbklnbm9yZUZpZExpc3RFZGl0IjtzOjQ6Im1lbnUi
-O3M6MTg6IuW/veeVpeeJiOWdl+iuvue9riI7czo0OiJ0eXBlIjtzOjE6IjMi
-O3M6NzoiYWRtaW5pZCI7czoxOiIxIjtzOjEyOiJkaXNwbGF5b3JkZXIiO2k6
-MDt9fSI7fXM6NzoidmVyc2lvbiI7czo1OiI3LjAuMCI7fQ==
+IjtzOjc6ImFkbWluaWQiO3M6MToiMSI7czo0OiJuYW1lIjtzOjE2OiLTw7un
+zPvX09DFz6LB0LHtIjtzOjEwOiJpZGVudGlmaWVyIjtzOjE3OiJpaXJzX3Vz
+ZXJQb3N0TGlzdCI7czoxMToiZGVzY3JpcHRpb24iO3M6MjIzOiKxvrLlvP7W
+99KqtaW2wMHQs/bDv7j208O7p7XEt6LM+6Giu9i4tKOs0tSx49PDu6e8sMqx
+wcu94rjDyMvQxc+io6zS1Lywt72x47ncwO3UsbywyrHV0rP2ueO45klEtcTM
++9fTvfjQ0NXrttTQ1LXEyb6z/brN0sa2r6GjCrG+suW8/r321MrQ7VBIUDW6
+zdLUyc+8trHw1MvQ0KGjCrG+suW8/tT4ss6/vNLUz8KzzNDyo6zSu7Ki1sLQ
+u6O6Ci0gRGlzY3V6ISA1LngvNi4wIMTa1sMgTWluaXNwYWNlIjtzOjEwOiJk
+YXRhdGFibGVzIjtzOjA6IiI7czo5OiJkaXJlY3RvcnkiO3M6MTg6ImlpcnNf
+dXNlclBvc3RMaXN0LyI7czo5OiJjb3B5cmlnaHQiO3M6ODM6IkNvcHlyaWdo
+dCBbMjAwOV0gSG9yc2UgTHVrZSjW8b3a0OkpLiBMaWNlbnNlZCB1bmRlciB0
+aGUgQXBhY2hlIExpY2Vuc2UsIFZlcnNpb24gMi4wIjtzOjc6Im1vZHVsZXMi
+O3M6MTUzOiJhOjE6e2k6MDthOjU6e3M6NDoibmFtZSI7czoyMjoiYWRtaW5J
+Z25vcmVGaWRMaXN0RWRpdCI7czo0OiJtZW51IjtzOjEyOiK69sLUsOa/6cno
+1sMiO3M6NDoidHlwZSI7czoxOiIzIjtzOjc6ImFkbWluaWQiO3M6MToiMSI7
+czoxMjoiZGlzcGxheW9yZGVyIjtpOjA7fX0iO31zOjc6InZlcnNpb24iO3M6
+NToiNy4wLjAiO30=
