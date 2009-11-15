@@ -3,8 +3,8 @@
 1、打开templates\default\viewpro_classic.htm。找到：
 <li class="pm"><a href="pm.php?action=new&amp;uid=$member[uid]" onclick="floatwin('open_sendpm', this.href, 600, 410);return false;">{lang send_pm}</a></li>
 并在上面加上：
-<li class="searchpost"><a href="userpostlist.php?action=getThreadlist&amp;uid={$member[uid]}" onclick="floatwin('open_iirs_userPostList_{$uid}', this.href, 600, 410);return false;">查看发表的主题</a></li>
-<li class="searchpost"><a href="userpostlist.php?action=getPostlist&amp;uid={$member[uid]}" onclick="floatwin('open_iirs_userPostList_{$uid}', this.href, 600, 410);return false;">查看回复的帖子</a></li>
+<li class="searchpost"><a href="userpostlist.php?action=getThreadlist&amp;uid={$member[uid]}" onclick="floatwin('open_iirs_userPostList_{$member[uid]}', this.href, 600, 410);return false;">查看发表的主题</a></li>
+<li class="searchpost"><a href="userpostlist.php?action=getPostlist&amp;uid={$member[uid]}" onclick="floatwin('open_iirs_userPostList_{$member[uid]}', this.href, 600, 410);return false;">查看回复的帖子</a></li>
 
 
 2、打开templates\default\viewthread_node.htm。找到：
