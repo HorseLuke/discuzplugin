@@ -70,8 +70,8 @@
         <p>（1）打开templates\default\viewpro_classic.htm。找到：<br />
             <blockquote>&lt;li class=&quot;pm&quot;&gt;&lt;a href=&quot;pm.php?action=new&amp;amp;uid=$member[uid]&quot; onclick=&quot;floatwin('open_sendpm', this.href, 600, 410);return false;&quot;&gt;{lang send_pm}&lt;/a&gt;&lt;/li&gt;</blockquote><br />
             并在上面加上：<br />
-            <blockquote>&lt;li class=&quot;searchpost&quot;&gt;&lt;a href=&quot;userpostlist.php?action=getThreadlist&amp;amp;uid={$member[uid]}&quot; onclick=&quot;floatwin('open_iirs_userPostList_{$uid}', this.href, 600, 410);return false;&quot;&gt;查看发表的主题&lt;/a&gt;&lt;/li&gt;<br />
-            &lt;li class=&quot;searchpost&quot;&gt;&lt;a href=&quot;userpostlist.php?action=getPostlist&amp;amp;uid={$member[uid]}&quot; onclick=&quot;floatwin('open_iirs_userPostList_{$uid}', this.href, 600, 410);return false;&quot;&gt;查看回复的帖子&lt;/a&gt;&lt;/li&gt;</blockquote><br />
+            <blockquote>&lt;li class=&quot;searchpost&quot;&gt;&lt;a href=&quot;userpostlist.php?action=getThreadlist&amp;amp;uid={$member[uid]}&quot; onclick=&quot;floatwin('open_iirs_userPostList_{$member[uid]}', this.href, 600, 410);return false;&quot;&gt;查看发表的主题&lt;/a&gt;&lt;/li&gt;<br />
+            &lt;li class=&quot;searchpost&quot;&gt;&lt;a href=&quot;userpostlist.php?action=getPostlist&amp;amp;uid={$member[uid]}&quot; onclick=&quot;floatwin('open_iirs_userPostList_{$member[uid]}', this.href, 600, 410);return false;&quot;&gt;查看回复的帖子&lt;/a&gt;&lt;/li&gt;</blockquote><br />
         </p>
         <p>（2）打开templates\default\viewthread_node.htm。找到：<br />
            <blockquote>&lt;a href=&quot;space.php?uid=$post[authorid]&quot; target=&quot;_blank&quot; title=&quot;{lang member_viewpro}&quot;&gt;&lt;img src=&quot;{IMGDIR}/userinfo.gif&quot; alt=&quot;{lang member_viewpro}&quot;  /&gt;&lt;/a&gt;</blockquote><br />
