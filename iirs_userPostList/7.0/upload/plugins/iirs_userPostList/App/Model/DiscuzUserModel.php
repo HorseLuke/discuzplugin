@@ -92,7 +92,7 @@ class DiscuzUserModel extends BaseModel{
                 
                 $startnum = $startnum < $result['totalCount'] ? $startnum : 0 ;
                 
-                $query = $this->db->query("SELECT t.subject, t.displayorder, t.readperm, p.fid, p.tid, p.first, p.pid, p.dateline, p.invisible, p.anonymous, p.message FROM {$GLOBALS['tablepre']}posts p
+                $query = $this->db->query("SELECT t.subject, t.displayorder, t.readperm, p.fid, p.tid, p.first, p.pid, p.dateline, p.invisible, p.anonymous, p.message, p.status FROM {$GLOBALS['tablepre']}posts p
                                            LEFT JOIN {$GLOBALS['tablepre']}threads t ON t.tid=p.tid
                                            WHERE p.authorid='{$this->uid}' {$ignoreFidListSQL} 
                                            ORDER BY p.dateline DESC LIMIT {$startnum},{$limitnum}");
@@ -109,7 +109,7 @@ class DiscuzUserModel extends BaseModel{
                         if('0' == $post['anonymous']){
                             $result['datalist'][$post['tid']]['postlist'][$post['pid']]['sequence'] = $sequence++;
                             $result['datalist'][$post['tid']]['postlist'][$post['pid']]['dateline'] = gmdate('y-n-j H:i', $post['dateline'] + $GLOBALS['timeoffset'] * 3600);
-                            $result['datalist'][$post['tid']]['postlist'][$post['pid']]['invisible'] = $post['invisible'];
+                            $result['datalist'][$post['tid']]['postlist'][$post['pid']]['invisible'] = ($post['invisible'] || $post['status']) ? 1 : 0;
                             $result['datalist'][$post['tid']]['postlist'][$post['pid']]['message'] = messagecutstr($post['message'], 100);
                         }
 
