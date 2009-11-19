@@ -3,6 +3,9 @@
  * 函数库包，来源自各种不同的程序
  * 本函数库包仅适用于7.0
  */
+if(!defined('IN_DISCUZ')) {
+    exit('Access Denied');
+}
 
 /**
  * 来源自：Discuz 7.1!
