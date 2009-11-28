@@ -32,7 +32,7 @@
             <!--{else}-->
                 <!--{loop $datalist $tid $thread}-->
                     <tr>
-                        <td class="icon">$thread['icon']</td>
+                        <td class="icon"><!--{if $thread['iconid']>0 && isset($_DCACHE['icons'][$thread['iconid']]) }--><img src="images/icons/{$_DCACHE['icons'][$thread['iconid']]}" onerror="this.onerror=null;this.src='plugins/iirs_userPostList/Public/Images/icon1.gif'" class="icon" /><!--{else}-->&nbsp;<!--{/if}--></td>
                         <td class="subject"><a href="viewthread.php?tid={$tid}" target="_blank">{$thread['subject']}</a><!--{if $thread['readperm'] && $thread['readperm'] > $readaccess}--><em style="color: #999999;">[{lang iirs_userPostList:not_enough_read_permission}]</em><!--{/if}--></td>
                         <td><a href="forumdisplay.php?fid={$thread['fid']}" target="_blank">{$_DCACHE['forums'][$thread['fid']]['name']}</a></td>
                         <td class="lastpost">

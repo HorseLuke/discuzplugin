@@ -6,7 +6,7 @@
  * @author Horse Luke<horseluke@126.com>
  * @copyright Horse Luke, 2009
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
- * @version $Id: userpostlist.php 89 2009-11-13 15:00:00 horseluke $
+ * @version $Id: userpostlist.php 95 2009-11-28 13:45:00 horseluke $
  * @package iirs_userPostList_Discuz_7.0
  */
 
@@ -34,6 +34,7 @@ include(dirname(__FILE__)."/plugins/{$identifier}/Lib/compatibleFunctionTo70.php
 
 //包含必要的dz文件及相关缓存文件，不需要在controller和action中指定。
 require_once DISCUZ_ROOT.'./forumdata/cache/cache_forums.php';
+@include_once DISCUZ_ROOT.'./forumdata/cache/cache_icons.php';
 if(FALSE == @include_once(DISCUZ_ROOT.'./forumdata/cache/plugin_iirs_userPostList_ignoreFidList.php')){
     $_DPLUGIN['iirs_userPostList']['ignoreFidList']  = array();
     if (1 == $adminid) {

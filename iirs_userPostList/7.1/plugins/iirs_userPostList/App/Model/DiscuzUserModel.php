@@ -4,7 +4,7 @@
  * @author Horse Luke<horseluke@126.com>
  * @copyright Horse Luke, 2009
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
- * @version $Id: DiscuzUserModel.php 87 2009-11-13 19:15:00 horseluke $
+ * @version $Id: DiscuzUserModel.php 95 2009-11-28 13:45:00 horseluke $
  * @package iirs_userPostList_Discuz_7.1
  */
 if(!defined('IN_DISCUZ')) {
@@ -94,7 +94,7 @@ class DiscuzUserModel extends BaseModel{
                 
                 $startnum = $startnum < $result['totalCount'] ? $startnum : 0 ;
                 
-                $query = $this->db->query("SELECT t.subject, t.displayorder, t.readperm, p.fid, p.tid, p.first, p.pid, p.dateline, p.invisible, p.anonymous, p.message FROM {$GLOBALS['tablepre']}posts p
+                $query = $this->db->query("SELECT t.subject, t.displayorder, t.readperm, p.fid, p.tid, p.first, p.pid, p.dateline, p.invisible, p.anonymous, p.message, p.status FROM {$GLOBALS['tablepre']}posts p
                                            LEFT JOIN {$GLOBALS['tablepre']}threads t ON t.tid=p.tid
                                            WHERE p.authorid='{$this->uid}' {$ignoreFidListSQL} 
                                            ORDER BY p.dateline DESC LIMIT {$startnum},{$limitnum}");
@@ -111,8 +111,14 @@ class DiscuzUserModel extends BaseModel{
                         if('0' == $post['anonymous']){
                             $result['datalist'][$post['tid']]['postlist'][$post['pid']]['sequence'] = $sequence++;
                             $result['datalist'][$post['tid']]['postlist'][$post['pid']]['dateline'] = gmdate('y-n-j H:i', $post['dateline'] + $GLOBALS['timeoffset'] * 3600);
-                            $result['datalist'][$post['tid']]['postlist'][$post['pid']]['invisible'] = $post['invisible'];
-                            $result['datalist'][$post['tid']]['postlist'][$post['pid']]['message'] = messagecutstr($post['message'], 100);
+                            if($post['invisible'] || $post['status']){    //此主题是否被审核或者屏蔽
+                                $result['datalist'][$post['tid']]['postlist'][$post['pid']]['invisible'] = 1;
+                                $result['datalist'][$post['tid']]['postlist'][$post['pid']]['message'] = '';
+                            }else{
+                                $result['datalist'][$post['tid']]['postlist'][$post['pid']]['invisible'] = 0;
+                                $result['datalist'][$post['tid']]['postlist'][$post['pid']]['message'] = messagecutstr($post['message'], 100);
+                            }
+
                         }
 
                     }
@@ -159,7 +165,6 @@ class DiscuzUserModel extends BaseModel{
                                            WHERE t.authorid='{$this->uid}' {$ignoreFidListSQL} AND t.displayorder=0 
                                            ORDER BY t.dateline DESC LIMIT {$startnum},{$limitnum}");
                 while($thread = $this->db->fetch_array($query)) {
-                    $thread['icon'] = '<img src="images/icons/icon'.$thread['iconid'].'.gif" onerror="this.onerror=null;this.src=\'plugins/iirs_userPostList/Public/Images/icon1.gif\'" class="icon" />';
                     $thread['lastpost'] = gmdate('y-n-j H:i', $thread['lastpost'] + $GLOBALS['timeoffset'] * 3600);
                     $thread['lastposterenc'] = rawurlencode($thread['lastposter']);
                     $result['datalist'][$thread['tid']] = $thread;
