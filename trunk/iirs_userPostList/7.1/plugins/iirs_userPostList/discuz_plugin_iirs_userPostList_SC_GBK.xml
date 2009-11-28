@@ -17,7 +17,7 @@
 			<item id="datatables"><![CDATA[]]></item>
 			<item id="directory"><![CDATA[iirs_userPostList/]]></item>
 			<item id="copyright"><![CDATA[Copyright [2009] Horse Luke(Öñ½ÚÐé). Licensed under the Apache License, Version 2.0]]></item>
-			<item id="version"><![CDATA[0.0.1 Rev 87]]></item>
+			<item id="version"><![CDATA[0.0.1 Rev 95]]></item>
 			<item id="__modules">
 				<item id="0">
 					<item id="name"><![CDATA[adminIgnoreFidListEdit]]></item>

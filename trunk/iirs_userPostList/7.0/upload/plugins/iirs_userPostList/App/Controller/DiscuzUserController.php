@@ -4,7 +4,7 @@
  * @author Horse Luke<horseluke@126.com>
  * @copyright Horse Luke, 2009
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
- * @version $Id: DiscuzUserController.php 85 2009-11-13 16:45:00 horseluke $
+ * @version $Id: DiscuzUserController.php 95 2009-11-28 13:45:00 horseluke $
  * @package iirs_userPostList_Discuz_7.0
  */
 if(!defined('IN_DISCUZ')) {
@@ -48,7 +48,12 @@ class DiscuzUserController extends BaseController{
         $multipage = '';
         $limitnum = 25;
         $startnum = ($this->_param['page'] - 1) * $limitnum;
-        $ignoreFidList = array_merge( $currentUser->getDisallowVisitFidList(), $GLOBALS['_DPLUGIN']['iirs_userPostList']['ignoreFidList']);;
+        //后台设置中勾选“隐藏敏感帖子内容”的“帖子内容”后，将对禁言用户、禁访用户、禁止IP用户组不进行任何显示（管理员除外）。
+        if( ($GLOBALS['bannedmessages'] & 1) && ($currentUser->adminid != 1) && (in_array($targetUser->groupid,array('4','5','6'))) ){
+            $ignoreFidList = array(0);
+        }else{
+            $ignoreFidList = array_merge( $currentUser->getDisallowVisitFidList(), $GLOBALS['_DPLUGIN']['iirs_userPostList']['ignoreFidList']);
+        }
         $result = $targetUser->getPostlist( $startnum , $limitnum , $ignoreFidList );
 
         if($result['totalCount'] > 0){
