@@ -15,5 +15,3 @@
 
 svn下载方法:
   * http://discuzplugin-hl.googlecode.com/svn/trunk/dz_pdoMysql/
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
