@@ -1,0 +1,19 @@
+#summary 针对Discuz! 6.1F和7.2的PDO连接Mysql数据库类
+
+= Introduction =
+
+针对Discuz! 6.1F和7.2的PDO连接Mysql数据库类
+
+
+= Details =
+
+
+普通下载方法和讨论:
+  * http://www.phpchina.com/bbs/thread-169738-1-1.html
+  * http://www.freediscuz.net/bbs/thread-5659-1-1.html
+  * http://www.alan888.com/Discuz/thread-178006-1-1.html
+
+svn下载方法:
+  * http://discuzplugin-hl.googlecode.com/svn/trunk/dz_pdoMysql/
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
