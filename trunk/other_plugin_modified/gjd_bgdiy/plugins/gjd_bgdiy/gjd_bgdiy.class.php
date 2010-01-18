@@ -20,18 +20,37 @@ class plugin_gjd_bgdiy {
 	
 	function viewthread_postbottom_output() {
 	    global $postlist, $db, $tablepre, $timestamp, $boardurl;
+		$return = array();
+		$bgdiy_users_info = array();
+		//获取这页帖子中的所有发帖用户uid
+		$authorids=array();
+		foreach((array)$postlist as $pid => $pinfo){ isset($pinfo['authorid']) && $authorids[] = (int)$pinfo['authorid']; }
 		
-		$return = array();	
-		foreach($postlist as $key => $val) {
-			if($this->vars['bgfloor']==0||$this->vars['bgfloor']>=$val['number']){
-				$query_con = $db->fetch_first("SELECT * FROM {$tablepre}bgdiy_users WHERE uid ='".$val['authorid']."' and expiration>'$timestamp' and inuse='1' and position='0'");
-				$query_con['bgstyle'] = unserialize($query_con['bgstyle']);
-				$query_mem = $db->fetch_first("SELECT * FROM {$tablepre}bgdiy_users WHERE uid ='".$val['authorid']."' and expiration>'$timestamp' and inuse='1' and position='1'");
-				$query_mem['bgstyle'] = unserialize($query_mem['bgstyle']);
-				include $this->_template('bgdiy_viewthread_postbottom');
-				$return[] = $html;
+		//根据$authorids，一次性获取这些用户的背景diy设置。
+		if(!empty($authorids)){
+			$authorids = array_unique( $authorids );
+			$query = $db->query("SELECT * FROM {$tablepre}bgdiy_users WHERE uid  IN (".implode(',',$authorids).") and expiration>'$timestamp' and inuse='1' ");
+			while($user = $db->fetch_array($query)){
+				$user['bgstyle'] = unserialize($user['bgstyle']);
+				if($user['position'] == 0){
+					$bgdiy_users_info[$user['uid']]['query_con'] = $user;
+				}elseif($user['position'] == 1){
+					$bgdiy_users_info[$user['uid']]['query_mem'] = $user;
+				}
 			}
-		}	
+		}
+
+		foreach((array)$postlist as $key => $val) {
+			if( ($this->vars['bgfloor']==0 || $this->vars['bgfloor']>=$val['number'])  && !$val['anonymous'] ){
+				$query_con = isset($bgdiy_users_info[$val['authorid']]['query_con']) ? $bgdiy_users_info[$val['authorid']]['query_con'] : null;
+				$query_mem = isset($bgdiy_users_info[$val['authorid']]['query_mem']) ? $bgdiy_users_info[$val['authorid']]['query_mem'] : null;
+				include $this->_template('bgdiy_viewthread_postbottom');
+				$return[] = $html;	
+			}else{
+                $return[] = '';
+			}
+		}
+			
 		return $return;
 	}
 	
