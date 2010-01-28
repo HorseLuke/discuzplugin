@@ -157,9 +157,10 @@ class plugin_czw_postplus {
 			$authorids=array_unique($authorids);
 			$authorinfo=array();
 			foreach($authorids as $authorid){
-				$authorinfo[$authorid][flower]=$db->result_first("select sum(a.flower) from {$tablepre}czwpostplus_posts a,{$tablepre}posts b where a.pid=b.pid and b.authorid='$authorid'");
-				$authorinfo[$authorid][egg]=$db->result_first("select sum(a.egg) from {$tablepre}czwpostplus_posts a,{$tablepre}posts b where a.pid=b.pid and b.authorid='$authorid'");
-				$authorinfo[$authorid][authorid]=$authorid;
+				$tempResult = $db->fetch_first("SELECT sum(a.flower) AS sumflower, sum(a.egg) AS sumegg FROM {$tablepre}czwpostplus_posts a,{$tablepre}posts b WHERE a.pid=b.pid AND b.authorid='$authorid'");
+				$authorinfo[$authorid]['flower'] = isset($tempResult['sumflower']) ? $tempResult['sumflower'] : 0;
+				$authorinfo[$authorid]['egg'] = isset($tempResult['sumegg']) ? $tempResult['sumegg'] : 0;
+				$authorinfo[$authorid]['authorid']=$authorid;
 			}
 			foreach($pids as $floorid=>$pid){
 				if($this->fastreply) $floorid++;
