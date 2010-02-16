@@ -1,0 +1,42 @@
+#summary 有关Discuz!的彩蛋
+
+
+= Details =
+
+*彩蛋一:WE WILL WIN THE FUTURE（7.2版本）* [http://www.freediscuz.net/bbs/viewthread.php?tid=5710 讨论链接]
+  * include/cache.func.php
+{{{
+                        if(!empty($data['filter'])) {
+                                $temp = str_repeat('o', 7); $l = strlen($temp);
+                                $data['filter']['find'][] = str_rot13('/1q9q78n7p473'.'o3q1925oo7p'.'5o6sss2sr/v');
+                                $data['filter']['replace'][] = str_rot13(str_replace($l, ' ', '****7JR7JVYY7JVA7'.
+                                        'GUR7SHGHER7****\aCbjrerq7ol7Pebffqnl7Qvfphm!7Obneq7I')).$l;
+                        }
+}}}
+  * forumdata\cache\cache_censor.php
+{{{
+<?php
+//Discuz! cache file, DO NOT modify me!
+//Created: Feb 16, 2010, 15:38
+//Identify: fe137e7bff47026d273dcda7f7cb1ecc
+
+$_DCACHE['censor'] = array (
+  'filter' => 
+  array (
+    'find' => 
+    array (
+      0 => '/测试屏蔽/i',
+      1 => '/1d9d78a7c473b3d1925bb7c5b6fff2fe/i',
+    ),
+    'replace' => 
+    array (
+      0 => '测试屏蔽a',
+      1 => '**** WE WILL WIN THE FUTURE ****\\nPowered by Crossday Discuz! Board V7',
+    ),
+  ),
+  'banned' => '/(测试屏蔽2)/i',
+  'mod' => '',
+);
+
+?>
+}}}
