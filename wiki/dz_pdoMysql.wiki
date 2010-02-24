@@ -1,4 +1,4 @@
-#summary 针对Discuz! 6.1F和7.2的PDO连接Mysql数据库类
+#summary [开发者工具]针对Discuz! 6.1F和7.2的PDO连接Mysql数据库类
 
 = Introduction =
 
