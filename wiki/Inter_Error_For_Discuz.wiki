@@ -1,0 +1,18 @@
+#summary Inter Error错误调试类For Discuz!
+
+= Introduction =
+
+本debug工具为改进本人的一个错误debug类而来。
+
+由于DZ本身运行时有大量的NOTICE错误（这是dz的编写习惯导致），因此本次发布的debug工具为适应dz版（屏蔽NOTICE错误版本）。
+
+[http://horseluke-code.googlecode.com/svn/trunk/InterFramework/Lib/Inter/Error.php 如果需要原版，请使用这个链接的文件]
+
+
+= Details =
+
+下载地址
+  * http://www.freediscuz.net/bbs/thread-5742-1-1.html
+  * http://www.discuz.net/viewthread.php?tid=1575565
+
+svn里面也有更新。
