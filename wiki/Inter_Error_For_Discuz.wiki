@@ -1,4 +1,4 @@
-#summary Inter Error错误调试类For Discuz!
+#summary [开发者工具]Inter Error错误调试类For Discuz!
 
 = Introduction =
 
