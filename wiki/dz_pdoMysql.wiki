@@ -1,4 +1,5 @@
 #summary [开发者工具]针对Discuz! 6.1F和7.2的PDO连接Mysql数据库类
+#labels Featured
 
 = 简介 =
 针对Discuz! 6.1F和7.2的PDO连接Mysql数据库类。其它版本尚未尝试，理论上可用。
