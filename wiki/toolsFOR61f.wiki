@@ -1,5 +1,5 @@
 #summary 在DZ6.1F寻找回dztool工具的修复功能
-#labels Phase-Implementation,Phase-Deploy
+#labels Phase-Implementation,Phase-Deploy,Featured
 
 = Introduction =
 
