@@ -1,0 +1,8 @@
+本程序修改自《Comsenz 系统维护工具箱 2009贺岁版》，仅能用于Discuz! 6.1F！如果用于其他版本后果自负！
+繁体BIG5由taiwan08修改，在此特别感谢！
+
+讨论地址：
+http://code.google.com/p/discuzplugin-hl/wiki/toolsFOR61f
+http://www.freediscuz.net/bbs/thread-4676-1-2.html
+
+Horse Luke Repacked AT 2010-07-04 13:35
