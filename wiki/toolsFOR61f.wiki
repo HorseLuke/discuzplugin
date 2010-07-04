@@ -1,0 +1,60 @@
+#summary 在DZ6.1F寻找回dztool工具的修复功能
+#labels Phase-Implementation,Phase-Deploy
+
+= Introduction =
+
+DZ 6.1F事实上和dz6的数据库是非常相似的，因此，《Comsenz 系统维护工具箱 2009贺岁版》完全可以通过以dz6的运行模式来兼容运行在6.1f上。本文就是教导如何改动代码使得该工具能够在dz6.1F下面使用。
+
+
+= Details =
+
+==修改方法==
+   如下修改在GBK版本上通过。
+  * 到如下地方下载《Comsenz 系统维护工具箱Tools 2009贺岁版》(目前仅有GBK版本)：http://www.discuz.net/thread-1152819-1-1.html
+  * 解压并打开文件tools.php
+  * 搜索如下代码：
+{{{
+$dz_version = DISCUZ_VERSION;
+}}}
+    并将其替换为
+{{{
+$dz_version = '6.0.0';
+}}}
+  * 该步骤修改完毕后，tools的大部分功能均可以使用。*但是，修复功能“找回管理员”是绝对不能用的！否则，管理员没找到，反而变成更多的帐户无法登录了！*
+    那么该如何做？还需进一步修改。搜索：
+{{{
+                                                if($dz_version < 610){
+                                                        $psw = md5($_POST['password']);
+                                                         mysql_query("update {$tablepre}members set password='$psw' where $_POST[loginfield] = '$_POST[where]' limit 1");
+}}}
+    将这段代码替换为
+{{{
+                                                if($dz_version < 610){
+                                                        $salt = substr(md5(time()), 0, 6);
+                                                        $psw = md5(md5($_POST['password']).$salt);                                
+                                                         mysql_query("update {$tablepre}members set password='$psw' ,salt='$salt',secques='' where $_POST[loginfield] = '$_POST[where]' limit 1");
+}}}
+  * 经过这步骤修改后，也就能正常使用“找回管理员”修复功能了（请注意：必须在“是否清除安全提问”时选择“是”）。
+
+
+
+
+==注意事项==
+   * 感谢FreeDiscuz taiwan08的指出：
+    如果你需要将修改后的tools.php文件中的中文转化为繁体并转码为BIG5版本使用，那么还需注意“許功蓋”的问题。也就是说：
+    # 就把*許*改成*許\*
+    # 就把*功*改成*功\*
+
+
+
+
+
+==下载地址==
+    如果你懒得修改，可以在如下页面找到下载：
+    # http://www.freediscuz.net/bbs/thread-4676-1-2.html
+
+
+
+
+==寻求帮助==
+请在Issues页面提出，或者到如下地址进行讨论：http://www.freediscuz.net/bbs/thread-4676-1-2.html
