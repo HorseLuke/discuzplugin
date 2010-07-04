@@ -51,6 +51,7 @@ $dz_version = '6.0.0';
 
 ==下载地址==
     如果你懒得修改，可以在如下页面找到下载：
+    # http://code.google.com/p/discuzplugin-hl/downloads/detail?name=tools_for_6.1f.zip&can=2&q=#makechanges
     # http://www.freediscuz.net/bbs/thread-4676-1-2.html
 
 
