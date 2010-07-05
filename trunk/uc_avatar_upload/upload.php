@@ -1,6 +1,5 @@
 <?php
 
-
 //设置区
 $config = array(
     'tmpdir' => 'tempUpload',           //临时文件夹（相对于本文件的位置而言）。开头和结尾请不要加反斜杆
