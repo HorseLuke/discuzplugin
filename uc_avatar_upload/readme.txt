@@ -3,6 +3,7 @@
 =================
 版本：$Id$
 程序名称：剥离UCenter的flash上传头像程序为单独程序
+更新地址：http://code.google.com/p/discuzplugin-hl/
 
 =================
 ！！！ 警告 ！！！
