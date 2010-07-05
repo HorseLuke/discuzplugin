@@ -48,7 +48,7 @@ class Controller_AvatarFlashUpload extends Controller_Base{
         if( $uid === null || $uid == 0 ){
             return -1;
         }
-        $returnhtml = (int)common::getgpc('returnhtml', 'G');
+        $returnhtml = common::getgpc('returnhtml', 'G');
         if( $returnhtml === null  ){
             $returnhtml =  1;
         }
@@ -95,9 +95,9 @@ class Controller_AvatarFlashUpload extends Controller_Base{
      * @return string
      */
     function uploadavatarAction() {
-        @header("Expires: 0");
-        @header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
-        @header("Pragma: no-cache");
+        header("Expires: 0");
+        header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
+        header("Pragma: no-cache");
         //header("Content-type: application/xml; charset=utf-8");
         $this->init_input(common::getgpc('agent', 'G'));
         $uid = $this->input('uid');
@@ -107,32 +107,31 @@ class Controller_AvatarFlashUpload extends Controller_Base{
         if(empty($_FILES['Filedata'])) {
             return -3;
         }
-        $imgtype = array(1 => '.gif', 2 => '.jpg', 3 => '.png');
+        
         $imgext = strtolower('.'. common::fileext($_FILES['Filedata']['name']));
-        if(!in_array($imgext, $imgtype)) {
-            @unlink($_FILES['Filedata']['tmp_name']);
+        if(!in_array($imgext, $this->config->imgtype)) {
+            unlink($_FILES['Filedata']['tmp_name']);
             return -2;
         }
         
         if( $_FILES['Filedata']['size'] > ($this->config->uploadsize * 1024) ){
-            @unlink($_FILES['Filedata']['tmp_name']);
+            unlink($_FILES['Filedata']['tmp_name']);
             return 'Inage is TOO BIG, PLEASE UPLOAD NO MORE THAN '. $this->config->uploadsize .'KB';
         }
         
         list($width, $height, $type, $attr) = getimagesize($_FILES['Filedata']['tmp_name']);
         
-        $filetype = $imgtype[$type];
-        //此处的UC_DATADIR被$this->config->tmpdir替代
+        $filetype = $this->config->imgtype[$type];
         $tmpavatar = realpath($this->config->tmpdir).'/upload'.$uid.$filetype;
-        file_exists($tmpavatar) && @unlink($tmpavatar);
-        if(@is_uploaded_file($_FILES['Filedata']['tmp_name']) && @move_uploaded_file($_FILES['Filedata']['tmp_name'], $tmpavatar)) {
+        file_exists($tmpavatar) && unlink($tmpavatar);
+        if(is_uploaded_file($_FILES['Filedata']['tmp_name']) && move_uploaded_file($_FILES['Filedata']['tmp_name'], $tmpavatar)) {
             list($width, $height, $type, $attr) = getimagesize($tmpavatar);
             if($width < 10 || $height < 10 || $type == 4) {
-                @unlink($tmpavatar);
+                unlink($tmpavatar);
                 return -2;
             }
         } else {
-            @unlink($_FILES['Filedata']['tmp_name']);
+            unlink($_FILES['Filedata']['tmp_name']);
             return -4;
         }
         $avatarurl = $this->config->uc_api. '/'. $this->config->tmpdir.'/upload'.$uid.$filetype;
@@ -146,50 +145,40 @@ class Controller_AvatarFlashUpload extends Controller_Base{
      * @return string
      */
     function rectavatarAction() {
-        @header("Expires: 0");
-        @header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
-        @header("Pragma: no-cache");
+        header("Expires: 0");
+        header("Cache-Control: private, post-check=0, pre-check=0, max-age=0", FALSE);
+        header("Pragma: no-cache");
         header("Content-type: application/xml; charset=utf-8");
         $this->init_input(common::getgpc('agent'));
         $uid = abs((int)$this->input('uid'));
         if( empty($uid) || 0 == $uid ) {
             return '<root><message type="error" value="-1" /></root>';
         }
-        
-        return '<?xml version="1.0" ?><root><face success="1"/></root>';
-        //继续调试
-        
-        $home = $this->get_home($uid);
-        if(!is_dir(UC_DATADIR.'./avatar/'.$home)) {
-            $this->set_home($uid, UC_DATADIR.'./avatar/');
+
+        $avatarpath = $this->get_avatar_path($uid) ;
+        $avatarrealdir  = realpath( $this->config->avatardir. DIRECTORY_SEPARATOR . $avatarpath );
+        if(!is_dir( $avatarrealdir )) {
+            $this->make_avatar_path( $uid, realpath($this->config->avatardir) );
         }
         $avatartype = common::getgpc('avatartype', 'G') == 'real' ? 'real' : 'virtual';
-        $bigavatarfile = UC_DATADIR.'./avatar/'.$this->get_avatar($uid, 'big', $avatartype);
-        $middleavatarfile = UC_DATADIR.'./avatar/'.$this->get_avatar($uid, 'middle', $avatartype);
-        $smallavatarfile = UC_DATADIR.'./avatar/'.$this->get_avatar($uid, 'small', $avatartype);
+        $bigavatarfile = realpath( $this->config->avatardir) . DIRECTORY_SEPARATOR. $this->get_avatar_filepath($uid, 'big', $avatartype);
+        $middleavatarfile = realpath( $this->config->avatardir) . DIRECTORY_SEPARATOR. $this->get_avatar_filepath($uid, 'middle', $avatartype);
+        $smallavatarfile = realpath( $this->config->avatardir) . DIRECTORY_SEPARATOR. $this->get_avatar_filepath($uid, 'small', $avatartype);
         $bigavatar = $this->_flashdata_decode(common::getgpc('avatar1', 'P'));
         $middleavatar = $this->_flashdata_decode(common::getgpc('avatar2', 'P'));
         $smallavatar = $this->_flashdata_decode(common::getgpc('avatar3', 'P'));
         if(!$bigavatar || !$middleavatar || !$smallavatar) {
             return '<root><message type="error" value="-2" /></root>';
         }
-        
+
         $success = 1;
-        $fp = @fopen($bigavatarfile, 'wb');
-        @fwrite($fp, $bigavatar);
-        @fclose($fp);
+        file_put_contents( $bigavatarfile, $bigavatar, LOCK_EX );
+        file_put_contents( $middleavatarfile, $middleavatar, LOCK_EX );
+        file_put_contents( $smallavatarfile, $smallavatar, LOCK_EX );
 
-        $fp = @fopen($middleavatarfile, 'wb');
-        @fwrite($fp, $middleavatar);
-        @fclose($fp);
-
-        $fp = @fopen($smallavatarfile, 'wb');
-        @fwrite($fp, $smallavatar);
-        @fclose($fp);
-
-        $biginfo = @getimagesize($bigavatarfile);
-        $middleinfo = @getimagesize($middleavatarfile);
-        $smallinfo = @getimagesize($smallavatarfile);
+        $biginfo = getimagesize($bigavatarfile);
+        $middleinfo = getimagesize($middleavatarfile);
+        $smallinfo = getimagesize($smallavatarfile);
         if(!$biginfo || !$middleinfo || !$smallinfo || $biginfo[2] == 4 || $middleinfo[2] == 4 || $smallinfo[2] == 4) {
             file_exists($bigavatarfile) && unlink($bigavatarfile);
             file_exists($middleavatarfile) && unlink($middleavatarfile);
@@ -197,9 +186,12 @@ class Controller_AvatarFlashUpload extends Controller_Base{
             $success = 0;
         }
 
-        $filetype = '.jpg';       //bug gif上传之后不能删除
-        @unlink($this->config->tmpdir.'/upload'.$uid.$filetype);
-
+        //原uc bugfix  gif上传之后不能删除
+        foreach ( $this->config->imgtype as $key => $imgtype ){
+            $tmpavatar = realpath($this->config->tmpdir.'/upload'. $uid. $imgtype);
+            file_exists($tmpavatar) && unlink($tmpavatar);
+        }
+        
         if($success) {
             return '<?xml version="1.0" ?><root><face success="1"/></root>';
         } else {
@@ -227,4 +219,58 @@ class Controller_AvatarFlashUpload extends Controller_Base{
         return $r;
     }
     
+
+    /**
+     * 获取指定uid的头像规范存放目录格式
+     * 来源：Ucenter base类的get_home方法
+     * 
+     * @param int $uid uid编号
+     * @return string 头像规范存放目录格式
+     */
+    public function get_avatar_path($uid) {
+        $uid = sprintf("%09d", $uid);
+        $dir1 = substr($uid, 0, 3);
+        $dir2 = substr($uid, 3, 2);
+        $dir3 = substr($uid, 5, 2);
+        return $dir1.'/'.$dir2.'/'.$dir3;
+    }
+
+    /**
+     * 在指定目录内，依据uid创建指定的头像规范存放目录
+     * 来源：Ucenter base类的set_home方法
+     * 
+     * @param int $uid uid编号
+     * @param string $dir 需要在哪个目录创建？
+     */
+    public function make_avatar_path($uid, $dir = '.') {
+        $uid = sprintf("%09d", $uid);
+        $dir1 = substr($uid, 0, 3);
+        $dir2 = substr($uid, 3, 2);
+        $dir3 = substr($uid, 5, 2);
+        !is_dir($dir.'/'.$dir1) && mkdir($dir.'/'.$dir1, 0777);
+        !is_dir($dir.'/'.$dir1.'/'.$dir2) && mkdir($dir.'/'.$dir1.'/'.$dir2, 0777);
+        !is_dir($dir.'/'.$dir1.'/'.$dir2.'/'.$dir3) && mkdir($dir.'/'.$dir1.'/'.$dir2.'/'.$dir3, 0777);
+    }
+
+    /**
+     * 获取指定uid的头像文件规范路径
+     * 来源：Ucenter base类的get_avatar方法
+     *
+     * @param int $uid
+     * @param string $size 头像尺寸，可选为'big', 'middle', 'small'
+     * @param string $type 类型，可选为real或者virtual
+     * @return unknown
+     */
+	function get_avatar_filepath($uid, $size = 'big', $type = '') {
+		$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'big';
+		$uid = abs(intval($uid));
+		$uid = sprintf("%09d", $uid);
+		$dir1 = substr($uid, 0, 3);
+		$dir2 = substr($uid, 3, 2);
+		$dir3 = substr($uid, 5, 2);
+		$typeadd = $type == 'real' ? '_real' : '';
+		return  $dir1.'/'.$dir2.'/'.$dir3.'/'.substr($uid, -2).$typeadd."_avatar_$size.jpg";
+	}
+
+
 }
