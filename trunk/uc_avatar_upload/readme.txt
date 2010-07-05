@@ -33,6 +33,8 @@ This is NOT a freeware, use is subject to license terms
 
 由于版权原因，本程序不建议使用到生产环境，仅用于了解其flash头像上传的原理。
 
+类似的剥离请查看别人的成果：http://www.phpchina.com/bbs/thread-187941-1-1.html
+
 =================
 使用方法
 =================
@@ -40,10 +42,10 @@ This is NOT a freeware, use is subject to license terms
 你可以将upload.php改为任意名字，而不影响该程序的运行。
 
 2、打开upload.php，对config数组进行修改，其中：
-（1）'tmpdir'：临时存放第一次上传文件的文件夹（相对于本文件的位置而言），开头和结尾请不要加反斜杆。
-请务必将该文件夹和upload.php存放于同一分区，并且设置为可读可写，否则将出错！
-（2）'avatardir'：存储头像的文件夹（相对于本文件的位置而言），开头和结尾请不要加反斜杆。
-请务必将该文件夹和upload.php存放于同一分区，并且设置为可读可写，否则将出错！
+（1）'tmpdir'：临时存放第一次上传文件的文件夹（相对于upload.php的位置而言），开头和结尾请不要加反斜杆。
+请务必将该文件夹和upload.php存放于同一分区，同时不要超过upload.php所运行的网址的顶端目录，并且设置为可读可写，否则将出错！
+（2）'avatardir'：存储头像的文件夹（相对于upload.php的位置而言），开头和结尾请不要加反斜杆。
+请务必将该文件夹和upload.php存放于同一分区，同时不要超过upload.php所运行的网址的顶端目录，并且设置为可读可写，否则将出错！
 （3）'authkey'：通讯密钥，推荐进行修改。
 此项目必须填写，否则脚本将无法运行。
 （4）'debug'：是否开启debug记录？
@@ -94,6 +96,12 @@ foreach ( $avatarsize as $size ){
                    '</div><br />';
     }
 }
+
+$result .= '<script type="text/javascript">
+function updateavatar() {
+	window.location.reload();
+}
+</script>';
 ----->>>>>代码结束<<<<<-----
 
 然后在Lib/Controller/AvatarFlashUpload.php中的：
@@ -113,7 +121,7 @@ foreach ( $avatarsize as $size ){
 ----->>>>>代码开始<<<<<-----
             require('showuploadAction.html');
 ----->>>>>代码结束<<<<<-----
-即可实时查看结果（不过每次上传成功后都需要手动刷新一次）。
+即可实时查看结果了（上传成功会自动刷新）。
 
 4、其它事项，请阅读文件最开始的“警告”。
 
