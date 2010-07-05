@@ -1,0 +1,31 @@
+#summary 剥离UCenter的flash上传头像程序为单独程序
+
+= ！！警告！！ =
+该文件有代码包含了康盛创想（北京）科技有限公司Discuz!/UCenter的代码。根据相关协议的规定：
+  * 禁止在 Discuz! / UCenter 的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于重新分发。
+故在此声明如下：
+  * 本程序仅为作者学习和研究软件内含的设计思想和原理而作，不以盈利为目的，同时也无意侵犯第三方软件作者/公司的权益。
+  * 如若侵犯权益，请发邮件告知。在本人接获通知的48小时之内将会把自己所发布的代码进行撤回操作。
+  * 同时提醒第三方下载者和使用者使用这些代码时考虑本程序的法律风险，第三方下载者和使用者的一切行为与本人无关。
+
+Discuz!/UCenter头文件注释：
+  * (C)2001-2009 Comsenz Inc.
+  * This is NOT a freeware, use is subject to license terms
+
+
+= 概述 =
+
+欢迎查看Horse Luke（中文名称：微碌）所编写/修改的程序。
+
+本程序受朋友邀请所写，主要是*剥离UCenter的Flash头像上传程序为独立的程序*，经过初步测试有效。
+其中的swf文件来源自Discuz!NT程序。原因是Discuz!NT程序的同功能Flash文件，可指定任意的头像上传入口（即uc_api + 当前执行脚本文件名）。
+
+本程序允许在PHP5.0及以上版本运行，编码为UTF-8。在Windows Server 2003 + IIS平台下测试通过。
+本程序需要开启SPL库（因为config类继承了SPL的ArrayObject类；PHP5.0默认开启了SPL）
+
+由于版权原因，本程序不建议使用到生产环境，仅用于了解其flash头像上传的原理。
+
+
+= 下载地址和程序使用说明 =
+
+    * http://code.google.com/p/discuzplugin-hl/downloads/detail?name=uc_avatar_upload_rev135.zip&can=2&q=#makechanges
