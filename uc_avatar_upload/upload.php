@@ -1,4 +1,12 @@
 <?php
+/**
+ * 程序入口文件，参考过以下程序，在此一并致谢！
+ *     - Comsenz UCenter {@link http://www.comsenz.com}
+ *
+ * @author Horse Luke<horseluke@126.com>
+ * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
+ * @version $Id$
+ */
 
 //设置区
 $config = array(
@@ -35,7 +43,7 @@ if( !isset($_GET['a']) || empty($_GET['a']) || !is_string($_GET['a']) ){
 //因为这个程序只有一个控制器，所以直接实例化了
 $controller = new Controller_AvatarFlashUpload();
 $controller->config->set($config);
-//运行该脚本的网址，存储于config中
+//运行该脚本的网址（不含脚本名称），存储于config中
 $controller->config->uc_api = ( $_SERVER['HTTPS'] == 'on' ? 'https' : 'http' ). 
                               '://'. 
                               $_SERVER['HTTP_HOST']. 

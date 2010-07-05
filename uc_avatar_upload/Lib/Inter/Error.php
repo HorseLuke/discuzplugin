@@ -10,7 +10,7 @@
  * @author Horse Luke<horseluke@126.com>
  * @copyright Horse Luke, 2009
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
- * @version $Id: Error.php 115 2010-06-27 11:19:54Z horseluke@126.com $
+ * @version $Id$
  * @package Inter_PHP_Framework
  */
 
