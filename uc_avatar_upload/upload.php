@@ -15,22 +15,24 @@ $config = array(
     'authkey' => 'safsdfsda5643dgsdfgrew',          //通讯密钥，必须填写，否则脚本无法运行！
     'debug' => true,    //开启debug记录？
     'uploadsize' => 1024,   //上传图片文件的最大值，单位是KB
+    'imgtype' => array(1 => '.gif', 2 => '.jpg', 3 => '.png'),        //允许上传的类型，请勿修改此处设置，否则会引起安全隐患问题！
 );
-
 
 //脚本运行区
 //定义运行开始
 define('IN_INTER', true);
 define('SYSTEM_PATH', dirname(__FILE__). '/Lib');
-//error_reporting(0);
 
 //错误调试区
 if( true === $config['debug'] ){
     set_exception_handler(array('Inter_Error', 'exception_handler'));
     set_error_handler(array('Inter_Error', 'error_handler'), E_ALL);
     Inter_Error::$conf['debugMode'] = false;
-    Inter_Error::$conf['logType'] = 'simple';
+    Inter_Error::$conf['logType'] = 'detail';
     Inter_Error::$conf['logDir'] = dirname(__FILE__). '/Log';
+    //Inter_Error::$conf['logDir'] = 'R:\TEMP';
+}else{
+    error_reporting(0);
 }
 
 //获取动作名称
