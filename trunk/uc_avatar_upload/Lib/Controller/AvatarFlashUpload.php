@@ -90,7 +90,7 @@ class Controller_AvatarFlashUpload extends Controller_Base{
     }
 
     /**
-     * 头像上传第一步，上传到临时文件夹（ok）
+     * 头像上传第一步，上传原文件到临时文件夹（ok）
      *
      * @return string
      */
@@ -134,13 +134,13 @@ class Controller_AvatarFlashUpload extends Controller_Base{
             unlink($_FILES['Filedata']['tmp_name']);
             return -4;
         }
-        $avatarurl = $this->config->uc_api. '/'. $this->config->tmpdir.'/upload'.$uid.$filetype;
+        $avatarurl = $this->config->uc_api. '/'. $this->config->tmpdir. '/upload'.$uid.$filetype;
 
         return $avatarurl;
     }
     
     /**
-     * 头像上传第二步，上传到实际位置
+     * 头像上传第二步，上传到头像存储位置
      *
      * @return string
      */
@@ -161,32 +161,34 @@ class Controller_AvatarFlashUpload extends Controller_Base{
             $this->make_avatar_path( $uid, realpath($this->config->avatardir) );
         }
         $avatartype = common::getgpc('avatartype', 'G') == 'real' ? 'real' : 'virtual';
-        $bigavatarfile = realpath( $this->config->avatardir) . DIRECTORY_SEPARATOR. $this->get_avatar_filepath($uid, 'big', $avatartype);
-        $middleavatarfile = realpath( $this->config->avatardir) . DIRECTORY_SEPARATOR. $this->get_avatar_filepath($uid, 'middle', $avatartype);
-        $smallavatarfile = realpath( $this->config->avatardir) . DIRECTORY_SEPARATOR. $this->get_avatar_filepath($uid, 'small', $avatartype);
-        $bigavatar = $this->_flashdata_decode(common::getgpc('avatar1', 'P'));
-        $middleavatar = $this->_flashdata_decode(common::getgpc('avatar2', 'P'));
-        $smallavatar = $this->_flashdata_decode(common::getgpc('avatar3', 'P'));
-        if(!$bigavatar || !$middleavatar || !$smallavatar) {
-            return '<root><message type="error" value="-2" /></root>';
-        }
-
+        
+        $avatarsize = array( 1 => 'big', 2 => 'middle', 3 => 'small');
+        
         $success = 1;
-        file_put_contents( $bigavatarfile, $bigavatar, LOCK_EX );
-        file_put_contents( $middleavatarfile, $middleavatar, LOCK_EX );
-        file_put_contents( $smallavatarfile, $smallavatar, LOCK_EX );
-
-        $biginfo = getimagesize($bigavatarfile);
-        $middleinfo = getimagesize($middleavatarfile);
-        $smallinfo = getimagesize($smallavatarfile);
-        if(!$biginfo || !$middleinfo || !$smallinfo || $biginfo[2] == 4 || $middleinfo[2] == 4 || $smallinfo[2] == 4) {
-            file_exists($bigavatarfile) && unlink($bigavatarfile);
-            file_exists($middleavatarfile) && unlink($middleavatarfile);
-            file_exists($smallavatarfile) && unlink($smallavatarfile);
-            $success = 0;
+        
+        foreach( $avatarsize as $key => $size ){
+            $avatarrealpath = realpath( $this->config->avatardir) . DIRECTORY_SEPARATOR. $this->get_avatar_filepath($uid, $size, $avatartype);
+            $avatarcontent = $this->_flashdata_decode(common::getgpc('avatar'.$key, 'P'));
+            if(!$avatarcontent){
+                $success = 0;
+                return '<root><message type="error" value="-2" /></root>';
+                break;
+            }
+            $writebyte = file_put_contents( $avatarrealpath, $avatarcontent, LOCK_EX );
+            if( $writebyte <= 0 ){
+                $success = 0;
+                return '<root><message type="error" value="-2" /></root>';
+                break;
+            }
+            $avatarinfo = getimagesize($avatarrealpath);
+            if(!$avatarinfo || $avatarinfo[2] == 4 ){
+                $this->clear_avatar_file( $uid, $avatartype );
+                $success = 0;
+                break;
+            }
         }
 
-        //原uc bugfix  gif上传之后不能删除
+        //原uc bugfix  gif/png上传之后不能删除
         foreach ( $this->config->imgtype as $key => $imgtype ){
             $tmpavatar = realpath($this->config->tmpdir.'/upload'. $uid. $imgtype);
             file_exists($tmpavatar) && unlink($tmpavatar);
@@ -261,7 +263,7 @@ class Controller_AvatarFlashUpload extends Controller_Base{
      * @param string $type 类型，可选为real或者virtual
      * @return unknown
      */
-	function get_avatar_filepath($uid, $size = 'big', $type = '') {
+	public function get_avatar_filepath($uid, $size = 'big', $type = '') {
 		$size = in_array($size, array('big', 'middle', 'small')) ? $size : 'big';
 		$uid = abs(intval($uid));
 		$uid = sprintf("%09d", $uid);
@@ -271,6 +273,23 @@ class Controller_AvatarFlashUpload extends Controller_Base{
 		$typeadd = $type == 'real' ? '_real' : '';
 		return  $dir1.'/'.$dir2.'/'.$dir3.'/'.substr($uid, -2).$typeadd."_avatar_$size.jpg";
 	}
+	
+	/**
+	 * 一次性清空指定uid用户已经存储的头像
+	 *
+	 * @param int $uid
+	 */
+	public function clear_avatar_file( $uid ){
+	    $avatarsize = array( 1 => 'big', 2 => 'middle', 3 => 'small');
+	    $avatartype = array( 'real', 'virtual' );
+	    foreach ( $avatarsize as $size ){
+	        foreach ( $avatartype as $type ){
+	            $avatarrealpath = realpath( $this->config->avatardir) . DIRECTORY_SEPARATOR. $this->get_avatar_filepath($uid, $size, $type);
+	            file_exists($avatarrealpath) && unlink($avatarrealpath);
+	        }
 
+	    }
+	    return true;
+	}
 
 }

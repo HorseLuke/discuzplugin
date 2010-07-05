@@ -1,6 +1,7 @@
 <?php
 /**
- * 程序入口文件，参考过以下程序，在此一并致谢！
+ * 程序入口文件。该文件的文件名可以乱改。
+ * 参考过以下程序，在此一并致谢！
  *     - Comsenz UCenter {@link http://www.comsenz.com}
  *
  * @author Horse Luke<horseluke@126.com>
@@ -28,7 +29,7 @@ if( true === $config['debug'] ){
     set_exception_handler(array('Inter_Error', 'exception_handler'));
     set_error_handler(array('Inter_Error', 'error_handler'), E_ALL);
     Inter_Error::$conf['debugMode'] = false;
-    Inter_Error::$conf['logType'] = 'detail';
+    Inter_Error::$conf['logType'] = 'simple';
     Inter_Error::$conf['logDir'] = dirname(__FILE__). '/Log';
     //Inter_Error::$conf['logDir'] = 'R:\TEMP';
 }else{
@@ -53,6 +54,7 @@ $controller->config->uc_api = ( $_SERVER['HTTPS'] == 'on' ? 'https' : 'http' ).
                               substr( $_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') );
 
 //运行控制器指定的动作
+
 if(method_exists($controller, $action)){
     /*
     if(method_exists($controller, $action.'Before')){
