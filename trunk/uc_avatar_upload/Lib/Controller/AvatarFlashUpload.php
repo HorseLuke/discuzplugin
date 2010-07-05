@@ -60,8 +60,8 @@ class Controller_AvatarFlashUpload extends Controller_Base{
                              );
         
         $uc_avatarflash = $this->config->uc_api.'/images/camera.swf?input='.$uc_input.'&agent='.md5($_SERVER['HTTP_USER_AGENT']).'&ucapi='.urlencode($this->config->uc_api. substr( $_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') ) ).'&uploadSize='.$this->config->uploadsize;
-        if($returnhtml) {
-            return '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="450" height="253" id="mycamera" align="middle">
+        if( $returnhtml == 1 ) {
+            $result = '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="450" height="253" id="mycamera" align="middle">
 			<param name="allowScriptAccess" value="always" />
 			<param name="scale" value="exactfit" />
 			<param name="wmode" value="transparent" />
@@ -71,6 +71,7 @@ class Controller_AvatarFlashUpload extends Controller_Base{
 			<param name="menu" value="false" />
 			<embed src="'.$uc_avatarflash.'" quality="high" bgcolor="#ffffff" width="450" height="253" name="mycamera" align="middle" allowScriptAccess="always" allowFullScreen="false" scale="exactfit"  wmode="transparent" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" />
 		</object>';
+            return $result;
         } else {
             return array(
             'width', '450',
@@ -287,7 +288,6 @@ class Controller_AvatarFlashUpload extends Controller_Base{
 	            $avatarrealpath = realpath( $this->config->avatardir) . DIRECTORY_SEPARATOR. $this->get_avatar_filepath($uid, $size, $type);
 	            file_exists($avatarrealpath) && unlink($avatarrealpath);
 	        }
-
 	    }
 	    return true;
 	}
