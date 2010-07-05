@@ -31,10 +31,6 @@ class Controller_AvatarFlashUpload extends Controller_Base{
         if( $uid === null || $uid == 0 ){
             return -1;
         }
-        $type = common::getgpc('type', 'G') !== null ? common::getgpc('type', 'G') : 'virtual';
-        if( $type === null ){
-            $type = 'virtual';
-        }
         $returnhtml = common::getgpc('returnhtml', 'G') !== null ?common::getgpc('returnhtml', 'G') : 1;
         if( $returnhtml === null  ){
             $returnhtml =  1;
@@ -46,7 +42,7 @@ class Controller_AvatarFlashUpload extends Controller_Base{
                                                    'ENCODE', $this->config->authkey)
                              );
         
-        $uc_avatarflash = $this->config->uc_api.'/images/camera.swf?input='.$uc_input.'&agent='.md5($_SERVER['HTTP_USER_AGENT']).'&ucapi='.urlencode(str_replace( ( $_SERVER['HTTPS'] == 'on' ? 'https://' : 'http://' ), '', $this->config->uc_api)).'&avatartype='.$type.'&uploadSize='.$this->config->uploadsize;
+        $uc_avatarflash = $this->config->uc_api.'/images/camera.swf?input='.$uc_input.'&agent='.md5($_SERVER['HTTP_USER_AGENT']).'&ucapi='.urlencode($this->config->uc_api. substr( $_SERVER['PHP_SELF'], strrpos($_SERVER['PHP_SELF'], '/') ) ).'&uploadSize='.$this->config->uploadsize;
         if($returnhtml) {
             return '<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="450" height="253" id="mycamera" align="middle">
 			<param name="allowScriptAccess" value="always" />
