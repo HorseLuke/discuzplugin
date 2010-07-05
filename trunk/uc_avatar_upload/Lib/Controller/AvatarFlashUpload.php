@@ -1,11 +1,28 @@
 <?php
 
 !defined('IN_INTER') && exit('Fobbiden!');
-
 /**
+ * ================================================================================
+ * 该文件有代码包含了康盛创想（北京）科技有限公司Discuz!/UCenter的代码。根据相关协议的规定：
+ *     “禁止在 Discuz! / UCenter 的整体或任何部分基础上以发展任何派生版本、修改版本或第三方版本用于重新分发。”
+ * 故在此声明如下：
+ *     本程序仅为作者学习和研究软件内含的设计思想和原理而作，不以盈利为目的，同时也无意侵犯第三方软件作者/公司的权益。
+ *     如若侵犯权益，请发邮件告知。在本人接获通知的48小时之内将会把自己所发布的代码进行撤回操作。
+ *     同时提醒第三方下载者和使用者使用这些代码时考虑本程序的法律风险，第三方下载者和使用者的一切行为与本人无关。
+ * 
+ * Discuz!/UCenter头文件注释：
+ * (C)2001-2009 Comsenz Inc.
+ * This is NOT a freeware, use is subject to license terms
+ * ================================================================================
+ * 
  * flash头像上传类，剥离自UCenter
- * 适用环境：PHP 5.0和以上
+ * 本文件的参考过以下程序，在此一并致谢！
+ *     - Comsenz UCenter {@link http://www.comsenz.com}
+ *     - Comsenz Discuz!NT {@link http://nt.discuz.net}
  *
+ * @author Horse Luke<horseluke@126.com>
+ * @license Mixed License. See the description above. 
+ * @version $Id$
  */
 
 class Controller_AvatarFlashUpload extends Controller_Base{
@@ -31,7 +48,7 @@ class Controller_AvatarFlashUpload extends Controller_Base{
         if( $uid === null || $uid == 0 ){
             return -1;
         }
-        $returnhtml = common::getgpc('returnhtml', 'G') !== null ?common::getgpc('returnhtml', 'G') : 1;
+        $returnhtml = (int)common::getgpc('returnhtml', 'G');
         if( $returnhtml === null  ){
             $returnhtml =  1;
         }

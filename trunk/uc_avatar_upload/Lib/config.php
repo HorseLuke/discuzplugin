@@ -3,8 +3,16 @@
 !defined('IN_INTER') && exit('Fobbiden!');
 /**
  * 参数类
+ * 本文件参考过以下程序，在此一并致谢！
+ *     - PHP框架LotusPHP{@link http://code.google.com/p/lotusphp/}
  *
+ * @author Horse Luke<horseluke@126.com>
+ * @copyright Horse Luke, 2009
+ * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
+ * @version $Id$
+ * @package Inter_PHP_Framework
  */
+
 class config extends ArrayObject{
 
     /**
