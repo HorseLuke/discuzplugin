@@ -13,6 +13,7 @@ Discuz!/UCenter头文件注释：
   * This is NOT a freeware, use is subject to license terms
 
 
+
 = 概述 =
 
 欢迎查看Horse Luke（中文名称：微碌）所编写/修改的程序。
@@ -27,9 +28,15 @@ Discuz!/UCenter头文件注释：
 
 类似的剥离请查看别人的成果：http://www.phpchina.com/bbs/thread-187941-1-1.html
 
+
+
 = 下载地址和程序使用说明 =
 
     * http://code.google.com/p/discuzplugin-hl/downloads/detail?name=uc_avatar_upload_rev138.zip&can=2&q=#makechanges
     * freediscuz!论坛下载和讨论：http://www.freediscuz.net/bbs/thread-5863-1-1.html
     * ppc论坛下载和讨论：http://www.phpchina.com/bbs/thread-187977-1-1.html
     * alan888论坛下载和讨论（香港/繁体）：http://www.alan888.com/Discuz/thread-183821-1-1.html
+
+
+= 剥离手记 =
+    * http://hi.baidu.com/horseluke/blog/item/8ed0803ec4cc43f7838b136b.html
