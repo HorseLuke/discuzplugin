@@ -6,7 +6,7 @@
  * @author Horse Luke<horseluke@126.com>
  * @copyright Horse Luke, 2009
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
- * @version $Id: frontLoader.inc.php 95 2009-11-28 13:45:00 horseluke $
+ * @version $Id$
  * @package iirs_userPostList_Discuz_7.1
  */
 
