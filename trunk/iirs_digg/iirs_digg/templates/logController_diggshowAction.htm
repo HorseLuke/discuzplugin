@@ -1,0 +1,82 @@
+{template header}
+<!--{if empty($infloat)}-->
+<div id="nav"><a href="$indexname">$bbname</a> $navigation</div>
+<div id="wrap" class="wrap s_clear">
+	<div class="main"><div class="content nofloat">
+<!--{/if}-->
+
+
+<div class="fcontent">
+	<h3 class="float_ctrl">
+		<em id="return_$handlekey">
+            确认操作
+		</em>
+		<span><a href="javascript: void(0);" class="float_close" onclick="hideWindow('$handlekey')" title="{lang close}">{lang close}</a></span>
+</h3>
+<form method="POST" name="diggsubmit" action="plugin.php?id=iirs_digg:frontLoader&c=log&a=digg&logtype={$logtype}&pid={$piddata['pid']}&page={$page}&tid={$piddata['tid']}">
+		<input type="hidden" name="formhash" value="{FORMHASH}" />
+		<input type="hidden" name="referer" value="$referer" />
+
+<div class="postbox">
+<div class="rateopt">
+
+	<div class="hasdropdownbtn ratelist s_clear">
+		<div class="mainbox formbox">
+		<strong>你确认要&nbsp;
+		    <!--{if $logtype == 'diggup'}-->
+		        送鲜花 <img src="plugins/iirs_digg/images/diggup.gif" border="0" align="absmiddle" alt="送鲜花">
+		    <!--{else}-->
+		        扔鸡蛋 <img src="plugins/iirs_digg/images/diggdown.gif" border="0" align="absmiddle" alt="扔鸡蛋">
+		    <!--{/if}-->
+		    &nbsp;给&nbsp;
+		    <!--{if $piddata['authorid'] == 0}-->
+		        游客
+		    <!--{elseif $piddata['anonymous']}-->
+		        匿名
+		    <!--{else}-->
+		        $piddata['author']
+		    <!--{/if}-->
+            &nbsp;吗？</strong>
+            
+		</div>		
+	</div>
+
+
+<div class="topicadminlog">
+	<h4>赠送留言(选填):
+	</h4>
+	<p><textarea id="extramessage" name="extramessage" class="txtarea"></textarea></p>
+	<p>
+	
+    <input type="hidden" name="logtype" value="{$logtype}">
+    <input type="hidden" name="pid" value="$piddata['pid']">
+    
+<div>&nbsp;&nbsp;请注意：一旦确认将<strong>自动扣除你的&nbsp;{$extcredits[$credit_type]['title']}&nbsp;{$credit_num}{$extcredits[$credit_type]['unit']}</strong>&nbsp;
+<br />&nbsp;&nbsp;此操作将不可逆。</div>
+</div>
+    
+	<button type="submit" name="diggsubmit" value="true" id="diggsubmit">{lang submit}</button>
+
+	</p>
+</div>
+
+</div>
+</form>
+</div>
+
+<!--{if empty($infloat)}-->
+	</div></div>
+</div>
+<!--{/if}-->
+
+<script type="text/javascript" reload="1">
+function submithandle_$handlekey(locationhref) {
+	ajaxget('viewthread.php?tid={$piddata['tid']}&viewpid={$piddata['pid']}', 'post_{$piddata['pid']}', 'post_{$piddata['pid']}');
+	hideWindow('$handlekey');
+	showCreditPrompt();
+}
+</script>
+
+
+
+{template footer}

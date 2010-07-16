@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<root>
+	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
+	<item id="Version"><![CDATA[7.1]]></item>
+	<item id="Time"><![CDATA[2010-07-17 02:39]]></item>
+	<item id="From"><![CDATA[Discuz! Board (http://www.local.test/bbsother/dz71utf8/)]]></item>
+	<item id="Data">
+		<item id="plugin">
+			<item id="available"><![CDATA[1]]></item>
+			<item id="adminid"><![CDATA[1]]></item>
+			<item id="name"><![CDATA[鲜花鸡蛋]]></item>
+			<item id="identifier"><![CDATA[iirs_digg]]></item>
+			<item id="description"><![CDATA[]]></item>
+			<item id="datatables"><![CDATA[]]></item>
+			<item id="directory"><![CDATA[iirs_digg/]]></item>
+			<item id="copyright"><![CDATA[Copyright [2009] Horse Luke(竹节虚). Licensed under the Apache License, Version 2.0]]></item>
+			<item id="version"><![CDATA[]]></item>
+			<item id="__modules">
+				<item id="0">
+					<item id="name"><![CDATA[hook]]></item>
+					<item id="type"><![CDATA[11]]></item>
+					<item id="adminid"><![CDATA[0]]></item>
+					<item id="displayorder"><![CDATA[0]]></item>
+				</item>
+			</item>
+		</item>
+		<item id="version"><![CDATA[7.1]]></item>
+		<item id="vars">
+			<item id="0">
+				<item id="displayorder"><![CDATA[0]]></item>
+				<item id="title"><![CDATA[允许使用的用户组]]></item>
+				<item id="description"><![CDATA[允许使用鲜花鸡蛋的用户组]]></item>
+				<item id="variable"><![CDATA[allow_usergroup]]></item>
+				<item id="type"><![CDATA[groups]]></item>
+				<item id="extra"><![CDATA[]]></item>
+				<item id="__value">
+					<item id="0"><![CDATA[10]]></item>
+					<item id="1"><![CDATA[11]]></item>
+					<item id="2"><![CDATA[12]]></item>
+					<item id="3"><![CDATA[13]]></item>
+					<item id="4"><![CDATA[14]]></item>
+					<item id="5"><![CDATA[15]]></item>
+					<item id="6"><![CDATA[16]]></item>
+					<item id="7"><![CDATA[1]]></item>
+					<item id="8"><![CDATA[2]]></item>
+					<item id="9"><![CDATA[3]]></item>
+				</item>
+			</item>
+			<item id="1">
+				<item id="displayorder"><![CDATA[1]]></item>
+				<item id="title"><![CDATA[购买的积分类型]]></item>
+				<item id="description"><![CDATA[用哪个积分进行鲜花鸡蛋的购买？]]></item>
+				<item id="variable"><![CDATA[credit_type]]></item>
+				<item id="type"><![CDATA[extcredit]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="2">
+				<item id="displayorder"><![CDATA[2]]></item>
+				<item id="title"><![CDATA[购买鲜花价格]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[credit_diggup_num]]></item>
+				<item id="type"><![CDATA[number]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="3">
+				<item id="displayorder"><![CDATA[3]]></item>
+				<item id="title"><![CDATA[购买鸡蛋价格]]></item>
+				<item id="description"><![CDATA[]]></item>
+				<item id="variable"><![CDATA[credit_diggdown_num]]></item>
+				<item id="type"><![CDATA[number]]></item>
+				<item id="value"><![CDATA[3]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+			<item id="4">
+				<item id="displayorder"><![CDATA[4]]></item>
+				<item id="title"><![CDATA[匿名时不记入总数]]></item>
+				<item id="description"><![CDATA[若设置为“是”，则表示当某用户发了匿名帖子后，其它用户给该匿名帖子的鲜花鸡蛋操作将不计入该用户拥有的鲜花鸡蛋总数。]]></item>
+				<item id="variable"><![CDATA[count_disable_when_anonymous]]></item>
+				<item id="type"><![CDATA[radio]]></item>
+				<item id="value"><![CDATA[1]]></item>
+				<item id="extra"><![CDATA[]]></item>
+			</item>
+		</item>
+	</item>
+</root>
