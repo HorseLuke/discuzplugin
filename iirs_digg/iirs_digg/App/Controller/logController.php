@@ -24,16 +24,20 @@ class logController extends mini_Controller {
      */
     
     public function diggshowAction(){
+        
+        //验证用户的可操作性
+        $credit_type = (int)common::config('get', 'credit_type');
+        $credit_num = (int)common::config('get', 'credit_'. $logtype. '_num');
+        $this->check_user_accessable( $credit_type, $credit_num );
+        
         $pid = (int)common::input('pid');
         $this->check_pid_accessable($pid);
-        //验证用户的可操作性
+
+        
         $logtype = (string)common::input( 'logtype', 'GET', 'diggup' );
         if($logtype !== 'diggdown'){
             $logtype = 'diggup';
         }
-        $credit_type = (int)common::config('get', 'credit_type');
-        $credit_num = (int)common::config('get', 'credit_'. $logtype. '_num');
-        $this->check_user_accessable( $credit_type, $credit_num );
         
         $this->assign('logtype', $logtype);
         $this->assign('piddata', $this->logModel->piddata);
@@ -49,17 +53,21 @@ class logController extends mini_Controller {
      */
     public function diggAction(){
         $this->checkpost('diggsubmit');
+        
+        //验证用户的可操作性
+        $credit_type = (int)common::config('get', 'credit_type');
+        $credit_num = (int)common::config('get', 'credit_'. $logtype. '_num');
+        $this->check_user_accessable( $credit_type, $credit_num );
+        
         $pid = (int)common::input('pid', 'POST', 0);
         $this->check_pid_accessable($pid);
         
-        //验证用户的可操作性
+
         $logtype = (string)common::input( 'logtype', 'POST', 'diggup' );
         if($logtype !== 'diggdown'){
             $logtype = 'diggup';
         }
-        $credit_type = (int)common::config('get', 'credit_type');
-        $credit_num = (int)common::config('get', 'credit_'. $logtype. '_num');
-        $this->check_user_accessable( $credit_type, $credit_num );
+
 
         
         //验证完毕，开始写入操作
