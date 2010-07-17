@@ -1,0 +1,70 @@
+#summary 鲜花鸡蛋For Discuz! 7.1 UTF-8 / Discuz! 7.2 UTF-8（非完全绿色插件版）
+
+
+
+
+=特别鸣谢=
+  * 江湖大虾仁 的 [http://www.discuz.net/thread-1374692-1-1.html 帖子强化包]。已征得同意使用其图片。
+  * [http://www.discuz.net/ Discuz!]
+  * [http://www.thinkphp.cn/ PHP框架ThinkPHP 2.0]
+  * [http://ecmall.shopex.cn/ ECMALL]
+
+
+
+=一、开发原因=
+  # *关于Discuz!新插件内核机制的思考*
+      # 嵌入点的设计，是否只是为了方便了站长的安装/卸载操作，而让站长忽视了自己的实际动手能力和故障排除能力？
+      # 嵌入点的存在，使得插件作者在编写代码的时候，是否容易出现为实现功能而实现功能，代码中是否容易出现冗余的循环查询和操作，结果导致论坛在高负载下效率变差，甚至引起MySQL宕机？
+      # 嵌入点的模板，在循环的include template(‘xxx:yyy’)后会否引起多次的I/O操作？
+      # 若论坛是作为一个项目来管理，是采取传统的修改文件方法，还是采取新插件内核机制？（特别是PHP核心部分）
+  # *关于Discuz!插件框架*
+      # 有没有必要设计属于自己的Discuz!插件框架？
+      # Discuz!的自成框架体系下，如何以最小侵入方式设计和运行？
+      # Discuz!插件框架在高负载下运行效率如何？
+  # *编程感觉*
+      # 个人问题，要找回感觉（众人：汗......）
+
+
+
+
+=二、关于本插件=
+  # 本插件实现了对某一帖子（包括主题贴和回复帖）进行送鲜花或者扔鸡蛋的操作。
+  # 本插件作为某论坛的项目开发，为非完全绿色版，具体如下：
+      # 数据库部分对两个Discuz!主表分别新增了两列
+      # 需要修改Discuz!论坛文件
+      # 嵌入点的设计仅是为了展示鲜花/鸡蛋数量（即仅作View层使用）；并且没有使用include template(‘xxx:yyy’)模板技术（不推荐插件作者在制作通用型插件时不使用官方推荐的模板技术）
+      # 没有使用语言包技术（时间关系没时间弄；不推荐插件作者在制作通用型插件时不使用官方推荐的语言包）
+      # 没有使用新内核安装/卸载技术（由于需要修改论坛核心文件，故没有使用该技术；不推荐插件作者在制作通用型插件时不使用官方推荐的新内核安装/卸载技术）
+  # 本插件在Discuz! 7.1 UTF-8和Discuz! 7.2 UTF-8下运行通过。
+  # 本插件*仅推荐*如下用户群使用（由高到低排序）：
+      # 插件作者之间的交流
+      # 熟悉Discuz!程序的PHP开发者
+      # 将论坛当作长期正式项目来做、并且已经修改了程序内核的站长和公司
+      # 对论坛负载非常敏感并已经存在在使用类似绿色插件后有负荷问题的站长，该站长需同时具备手动修改论坛文件和数据库的能力
+  # 本插件*极度不推荐*如下用户群使用（排序不分先后）：
+      # 处在刚开始运营和发展阶段的论坛（比如：每日PV少于4000的论坛）
+      # 对负载不敏感的论坛、或者可通过投入硬件资源解决问题的论坛
+      # 不熟悉PHP代码、或者不熟悉数据库操作的站长
+      # 不喜欢修改论坛核心、或者认为绿色核心插件才是最好的站长
+
+
+
+
+=三、安装方法=
+请注意本插件不是绿色插件！如有需要，请到如下链接下载：
+http://code.google.com/p/discuzplugin-hl/downloads/detail?name=iirs_digg_for_dz_7.1%20utf8%20%2B%20dz7.2%20utf8_rev_144.zip&can=2&q=#makechanges
+
+{{{
+COPYRIGHT NOTICE
+----------------
+Copyright 2010 Horse Luke（微碌）.
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+}}}
