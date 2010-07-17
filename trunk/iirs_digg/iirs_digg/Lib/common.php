@@ -8,6 +8,7 @@ if(!defined('IN_DISCUZ')) {
  *
  * @author Horse Luke<horseluke@126.com>
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
+ * $Id$
  */
 class common{
     
@@ -56,15 +57,19 @@ class common{
      * @param string $k 指定索引
      * @param string $var 获取来源。默认为'GET'（即$_GET），可选值'POST'（对应$_POST）或者'REQUEST'（对应$_REQUEST）
      * @param string $default 默认值。如果该索引变量无设置，那么就返回此值。默认为null
+     * @param boolen $emptyCheck 是否进行空值检测？默认为否。
      * @return mixed
      */
-    public static function input($k, $var='GET', $default = null ) {
+    public static function input($k, $var='GET', $default = null, $emptyCheck = false ) {
         $var = '_'. $var;
-        if( isset($GLOBALS[$var][$k]) && isset($GLOBALS[$k]) /* && !empty($GLOBALS[$k]) */ ){
-            return $GLOBALS[$k];
-        }else{
-            return $default;
+        $result = $default;
+        if( isset($GLOBALS[$var][$k]) && isset($GLOBALS[$k]) ){
+            $result = $GLOBALS[$k];
         }
+        if( true === $emptyCheck && empty($result) ){
+            $result = $default;
+        }
+        return $result;
     }
     
     
