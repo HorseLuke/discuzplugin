@@ -52,7 +52,7 @@
 
 =三、安装方法=
 请注意本插件不是绿色插件！如有需要，请到如下链接下载：
-http://code.google.com/p/discuzplugin-hl/downloads/detail?name=iirs_digg_for_dz_7.1%20utf8%20%2B%20dz7.2%20utf8_rev_146.zip&can=2&q=#makechanges
+http://code.google.com/p/discuzplugin-hl/downloads/detail?name=iirs_digg_for_dz_7.1%20utf8%20%2B%20dz7.2%20utf8_rev_148.zip&can=2&q=#makechanges
 
 {{{
 COPYRIGHT NOTICE
