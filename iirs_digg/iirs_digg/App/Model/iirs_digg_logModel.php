@@ -195,9 +195,8 @@ class iirs_digg_logModel extends mini_Model {
             }else{
                 $logtype_message = $GLOBALS['discuz_user']. '向你扔一个鸡蛋';
             }
-            $message = $logtype_message. '，并对你说：'. (string)common::input('extramessage', 'POST', '无');
-            $message = dhtmlspecialchars($message). "<br /><br /><a href=\"redirect.php?goto=findpost&pid={$this->data['authorid']}\">被操作帖子请点击这里</a>";
-            //sendpm( $this->data['authorid'], dhtmlspecialchars($logtype_message), $message );
+            $message = $logtype_message. '，并对你说：'. (string)common::input('extramessage', 'POST', '无', true);
+            $message = dhtmlspecialchars($message). "<br /><br /><a href=\"redirect.php?goto=findpost&pid={$this->data['pid']}\">被操作帖子请点击这里</a>";
             $message= '<div>'. dhtmlspecialchars($logtype_message). ' {time}<br />'. $message. '</div>';
             sendnotice($this->data['authorid'], $message, 'systempm');
         }
