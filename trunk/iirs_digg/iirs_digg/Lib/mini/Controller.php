@@ -13,8 +13,13 @@ if(!defined('IN_DISCUZ')) {
  * 最后必须$this->display('模板名')，此时将会自动生成一个APP_TPL_FILENAME常量。
  * 在执行完控制器后，frontLoader（引导文件）将会自动判断是否存在该常量，
  * 如果存在，则根据APP_TPL_FILENAME值include template指定的总模板。
+ * 
+ * @author Horse Luke<horseluke@126.com>
+ * @copyright Horse Luke, 2009
+ * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
+ * @version $Id$
+ * @package iirs_mini_framework_Discuz_7.1
  */
-
 class mini_Controller{
     
     public function __construct(){
@@ -27,7 +32,7 @@ class mini_Controller{
      */
     public function checkpost( $id ){
         if (!submitcheck($id)) {
-        	showmessage('undefined_action', NULL,  'HALTED');
+        	showmessage('POST CHECK FAIL! ACTION IS TERMINATED!', NULL,  'HALTED');
         	exit;
         }
     }
