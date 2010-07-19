@@ -68,7 +68,7 @@ class mini_Model{
             if( $property == 'tableName' ){
                 $this->settableName( $value );
             }else{
-                $property == '_'. $property;
+                $property = '_'. $property;
                 $this->$property = $value;
             }
         }
