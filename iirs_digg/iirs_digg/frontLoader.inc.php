@@ -24,16 +24,14 @@ $handlekey = ($handlekey && is_string($handlekey)) ? $handlekey : 'default_handl
 //包含必要的dz文件及相关缓存文件，不需要在controller和action中指定。
 
 
-if( FALSE == @include_once(DISCUZ_ROOT.'./forumdata/cache/plugin_iirs_digg.php') ){
-    showmessage( '设置丢失！请重新在后台设定！' , NULL,  'HALTED');
-}
+@include_once(DISCUZ_ROOT.'./forumdata/cache/plugin_iirs_digg.php');
 
 if( !isset($_DPLUGIN['iirs_digg']['vars']) || empty($_DPLUGIN['iirs_digg']['vars']) ){
     showmessage( '设置丢失！请重新在后台设定！' , NULL,  'HALTED');
 }
 
 //包含微型MVC框架，并指定插件App的目录（考虑是否使用runtime）
-if( !defined('USE_RUNTIME') ){
+if( !defined('USE_RUNTIME') || USE_RUNTIME != 1 ){
     require_once(dirname(__FILE__).'/Lib/mini/Controller.php');
     require_once(dirname(__FILE__).'/Lib/mini/Model.php');
     require_once(dirname(__FILE__).'/Lib/common.php');
