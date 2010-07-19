@@ -10,6 +10,11 @@
   * [http://ecmall.shopex.cn/ ECMALL]
 
 
+=特别注意=
+    本插件仅允许在PHP5.0及以上环境运行！
+
+    最新版本为rev 152版本。相比rev 148版本，rev 152版本尽量优化了流程，并且将前台操作全面ajax化，以达到更加实际的效果。
+
 
 =一、开发原因=
   # *关于Discuz!新插件内核机制的思考*
@@ -51,8 +56,10 @@
 
 
 =三、安装方法=
-请注意本插件不是绿色插件！如有需要，请到如下链接下载：
-http://code.google.com/p/discuzplugin-hl/downloads/detail?name=iirs_digg_for_dz_7.1%20utf8%20%2B%20dz7.2%20utf8_rev_148.zip&can=2&q=#makechanges
+请注意本插件不是绿色插件！
+
+请到如下链接下载最新的rev 152版本：
+http://code.google.com/p/discuzplugin-hl/downloads/detail?name=iirs_digg_for_dz_7.1_utf8_dz7.2_utf8_rev_152.zip&can=2&q=#makechanges
 
 {{{
 COPYRIGHT NOTICE
