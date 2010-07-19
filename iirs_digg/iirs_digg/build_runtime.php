@@ -30,7 +30,9 @@ function build_runtime($filepath = array(), $dest = ''){
     foreach ( $filepath as $file ){
         $content .= compile($file);
     }
-    file_put_contents($dest ,strip_whitespace('<?php'.$content));
+    
+    //因为要为该文件进行svn Id编号，所以需要加一个注释。
+    file_put_contents($dest, strip_whitespace( '<?php'. $content ). "\n/*\$Id\$*/" );
 }
 
 //[RUNTIME]

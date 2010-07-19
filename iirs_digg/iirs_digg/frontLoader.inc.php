@@ -7,7 +7,7 @@
  * @copyright Horse Luke, 2009
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
  * @version $Id$
- * @package iirs_userPostList_Discuz_7.1
+ * @package iirs_mini_framework_Discuz_7.1
  */
 
 if(!defined('IN_DISCUZ')) {
@@ -16,14 +16,13 @@ if(!defined('IN_DISCUZ')) {
 
 define('USE_RUNTIME', 1);
 
+
 $identifier = 'iirs_digg';
 
 //dz非ajax安全简易修正
 $handlekey = ($handlekey && is_string($handlekey)) ? $handlekey : 'default_handlekey';
 
 //包含必要的dz文件及相关缓存文件，不需要在controller和action中指定。
-
-
 @include_once(DISCUZ_ROOT.'./forumdata/cache/plugin_iirs_digg.php');
 
 if( !isset($_DPLUGIN['iirs_digg']['vars']) || empty($_DPLUGIN['iirs_digg']['vars']) ){
@@ -50,7 +49,7 @@ common::config('set', $_DPLUGIN[$identifier]['vars']);
 //controller实例化
 $controllerName = (string)common::input('c', 'GET', null);
 if( !preg_match("/^[a-z0-9_\-]+$/i", $controllerName) ){
-    showmessage('undefined_action', NULL,  'HALTED');
+    showmessage('控制器没有定义！', NULL,  'HALTED');
 }else{
     $controllerName = $controllerName. 'Controller';
 }
@@ -63,7 +62,7 @@ if( method_exists($controller, $actionName. 'Action') ){
     $actionName = $actionName. 'Action';
     $controller->$actionName();
 }else{
-    showmessage('undefined_action', NULL,  'HALTED');
+    showmessage('控制器里面没有定义该动作！', NULL,  'HALTED');
 }
 
 //Discuz View层输出

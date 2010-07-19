@@ -36,7 +36,7 @@ class logController extends mini_Controller {
         $this->check_user_accessable( $credit_type, $credit_num );
         
         $pid = (int)common::input('pid');
-        $this->check_pid_accessable($pid);
+        $this->check_pid_accessable($pid, false);
 
         $this->assign('logtype', $logtype);
         $this->assign('piddata', $this->logModel->piddata);
@@ -68,10 +68,10 @@ class logController extends mini_Controller {
         //验证完毕，开始写入操作
         $result = $this->logModel->diggupdate( $logtype );
         if( $result === false ){
-            showmessage('操作失败！', NULL,  'HALTED');
+            showmessage('操作失败！请和管理员联系', NULL,  'HALTED');
         }else{
-            $tid = (int)common::input('tid');
-            $page = (int)common::input('page');
+            $tid = (int)common::input('tid', 'POST');
+            $page = (int)common::input('page', 'POST');
             $urlforward = "viewthread.php?tid={$tid}&page={$page}#pid{$pid}";
             showmessage('操作成功！', $urlforward);
         }
@@ -79,27 +79,27 @@ class logController extends mini_Controller {
     }
     
     
-    public function check_pid_accessable( $pid ){
+    public function check_pid_accessable( $pid, $deep = true ){
         
-        $pidCheckResult = $this->logModel->check_pid_accessable( $pid );
+        $pidCheckResult = $this->logModel->check_pid_accessable( $pid, $deep );
         switch ($pidCheckResult){
             case -1:
-                showmessage('帖子不存在！', NULL,  'HALTED');
+                showmessage('帖子不存在，请返回。', NULL,  'HALTED');
                 break;
             case -2:
-                showmessage('帖子被隐藏或者在审核中，不能进行操作！', NULL,  'HALTED');
+                showmessage('帖子被隐藏或者在审核中，请返回。', NULL,  'HALTED');
                 break;
             case -3:
-                showmessage('不能自己给自己操作！', NULL,  'HALTED');
+                showmessage('不能自己给自己送鲜花或者扔鸡蛋，请返回。', NULL,  'HALTED');
                 break;
             case -4:
-                showmessage('帖子被删除入回收站，不能进行操作！', NULL,  'HALTED');
+                showmessage('帖子被删除入回收站，不能进行鲜花鸡蛋操作，请返回。', NULL,  'HALTED');
                 break;
             case -5:
-                showmessage('帖子被关闭，不能进行操作！', NULL,  'HALTED');
+                showmessage('帖子被关闭，不能进行鲜花鸡蛋操作，请返回。', NULL,  'HALTED');
                 break;
             case -6:
-                showmessage('你已经给该帖子送了鲜花或者扔了鸡蛋了，不能重复操作！', NULL,  'HALTED');
+                showmessage('你已经给该帖子送了鲜花或者扔了鸡蛋了，不能重复操作，请返回。', NULL,  'HALTED');
                 break;
             default:
                 break;
@@ -112,10 +112,10 @@ class logController extends mini_Controller {
         $result = $this->logModel->check_user_accessable( $credit_type, $credit_num );
         switch ($result){
             case -1:
-                showmessage('你所在的用户组不允许鲜花鸡蛋操作！', NULL,  'HALTED');
+                showmessage('你所在的用户组不允许鲜花鸡蛋操作，请返回。', NULL,  'HALTED');
                 break;
             case -2:
-                showmessage('你没有足够的余额进行鲜花鸡蛋操作！', NULL,  'HALTED');
+                showmessage('你没有足够的余额进行鲜花鸡蛋操作，请返回。', NULL,  'HALTED');
                 break;
             default:
                 break;

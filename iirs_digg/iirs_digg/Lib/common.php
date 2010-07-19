@@ -5,10 +5,11 @@ if(!defined('IN_DISCUZ')) {
 
 /**
  * 各种公用函数的集合类，可使用静态方法调用
- *
  * @author Horse Luke<horseluke@126.com>
+ * @copyright Horse Luke, 2009
  * @license the Apache License, Version 2.0 (the "License"). {@link http://www.apache.org/licenses/LICENSE-2.0}
- * $Id$
+ * @version $Id$
+ * @package iirs_mini_framework_Discuz_7.1
  */
 class common{
     

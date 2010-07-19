@@ -9,13 +9,13 @@ if(!defined('IN_DISCUZ')) {
  */
 class iirs_digg_logModel extends mini_Model {
     
-    protected $_fields = array(
+    protected $_field = array(
                               'pid',
                               'authorid',
                               'loguid',
                               'logtype',
                               'dateline',
-                              '_pk' => 'pid',
+                              '_pk' => '',
                               '_autoinc' => false,
                               );
     
@@ -28,13 +28,14 @@ class iirs_digg_logModel extends mini_Model {
     /**
      * 检查要进行digg的pid可访问性
      *
-     * @param unknown_type $pid
+     * @param int $pid
+     * @param boolen $deep 是否进行包括帖子访问权限、板块访问权限等的深度检查？默认为true
      */
-    public function check_pid_accessable( $pid ){
+    public function check_pid_accessable( $pid, $deep = true ){
         $this->piddata = $this->select(  array(
                                                    'field' => 'pid, fid, tid, author, authorid, invisible, anonymous, status',
                                                    'table' => '__TABLEPRE__posts',
-                                                   'extra' => ' WHERE pid =  '. (int)$pid ,
+                                                   'where' => 'pid =  '. (int)$pid ,
                                                    'limit_offset' => 1,
                                                    )
                                              );
@@ -59,10 +60,10 @@ class iirs_digg_logModel extends mini_Model {
             $this->count_disable = 1;
         }
         
-        //检查该pid的当前登录帐户是否已经发送了鲜花鸡蛋？（游客除外）
+        //检查当前登录帐户是否已经向该pid发送了鲜花鸡蛋？（如果有游客发送了的话也算进去，也就是说有且仅有一个游客有权限发送一次鲜花鸡蛋）
         $this->data = $this->select(  array(
                                                    'field' => 'loguid',
-                                                   'extra' => 'WHERE pid =  '. (int)$this->piddata['pid']. ' AND loguid ='. (int)$GLOBALS['discuz_uid'] ,
+                                                   'where' => 'pid =  '. (int)$this->piddata['pid']. ' AND loguid ='. (int)$GLOBALS['discuz_uid'] ,
                                                    'limit_offset' => 1,
                                                    )
                                              );
@@ -70,47 +71,51 @@ class iirs_digg_logModel extends mini_Model {
         	return -6;
         }
 
-        $this->tiddata = $this->select(  array(
-                                                   'field' => 'tid, closed, displayorder',
-                                                   'table' => '__TABLEPRE__threads',
-                                                   'extra' => ' WHERE tid =  '. (int)$this->piddata['tid'] ,
-                                                   'limit_offset' => 1,
-                                                   )
-                                             );
+        //执行深度检查
+        if( true === $deep ){
+            $this->tiddata = $this->select(  array(
+                                                       'field' => 'tid, closed, displayorder',
+                                                       'table' => '__TABLEPRE__threads',
+                                                       'where' => 'tid =  '. (int)$this->piddata['tid'] ,
+                                                       'limit_offset' => 1,
+                                                       )
+                                                 );
 
-        //检查pid所在的tid是否存在？
-        if( empty($this->tiddata) ){
-            return -1;
-        }
+            //检查pid所在的tid是否存在？
+            if( empty($this->tiddata) ){
+                return -1;
+            }
         
-        //检查pid所在的tid是否是被删除入回收站？
-        if( $this->tiddata['displayorder'] != 0 ){
-            return -4;
+            //检查pid所在的tid是否是被删除入回收站？
+            if( $this->tiddata['displayorder'] != 0 ){
+                return -4;
             
-        //检查pid所在的tid是否是被关闭？    
-        }elseif( $this->tiddata['closed'] != 0 ){
-            return -5;
-        }
+            //检查pid所在的tid是否是被关闭？    
+            }elseif( $this->tiddata['closed'] != 0 ){
+                return -5;
+            }
         
-        $this->fiddata = $this->select(  array(
-                                                   'field' => 'f.fid, f.viewperm, f.formulaperm, a.allowview',
-                                                   'table' => '__TABLEPRE__forumfields f',
-                                                   'extra' => 'LEFT JOIN __TABLEPRE__access a ON a.fid = f.fid 
-                                                               WHERE f.fid =  '. (int)$this->piddata['fid'] ,
-                                                   'limit_offset' => 1,
-                                                   )
-                                             );
+            $this->fiddata = $this->select(  array(
+                                                       'field' => 'f.fid, f.viewperm, f.formulaperm, a.allowview',
+                                                       'table' => '__TABLEPRE__forumfields f',
+                                                       'before_where' => 'LEFT JOIN __TABLEPRE__access a ON a.fid = f.fid',
+                                                       'where' => 'f.fid =  '. (int)$this->piddata['fid'] ,
+                                                       'limit_offset' => 1,
+                                                       )
+                                                 );
         
-        //检查pid所在的tid是否存在？
-        if( empty($this->fiddata) ){
-            return -1;
-        }
+            //检查pid所在的fid是否存在？
+            if( empty($this->fiddata) ){
+                return -1;
+            }
         
-        //检查pid所在的fid是否允许该用户访问？（改动自dz代码）
-        if($this->fiddata['viewperm'] && !forumperm($this->fiddata['viewperm']) && !$this->fiddata['allowview']) {
-            showmessagenoperm('viewperm', $this->fiddata['fid']);
-        } elseif ($this->fiddata['formulaperm']) {
-            formulaperm($this->fiddata['formulaperm']);
+            //检查pid所在的fid是否允许该用户访问？（改动自dz代码）[此处违反了model原则，不过改起来有点麻烦，所以还算了]
+            if($this->fiddata['viewperm'] && !forumperm($this->fiddata['viewperm']) && !$this->fiddata['allowview']) {
+                showmessagenoperm('viewperm', $this->fiddata['fid']);
+            } elseif ($this->fiddata['formulaperm']) {
+                formulaperm($this->fiddata['formulaperm']);
+            }
+        
         }
         
         return 0;
@@ -161,7 +166,7 @@ class iirs_digg_logModel extends mini_Model {
         
         $this->data = common::addslashes($data, 1, true);
         
-        $this->insert( $this->data, array(), 'REPLACE' );
+        $this->insert( $this->data, array(), 'INSERT' );
         
         $logtype_count = common::addslashes($logtype.'_count', 1);
         $this->data[$logtype_count] = $logtype_count . ' + 1 ';
@@ -169,7 +174,7 @@ class iirs_digg_logModel extends mini_Model {
         $this->update( $this->data, array(
                                              'field' => "pid, {$logtype_count}",
                                              'table' => '__TABLEPRE__posts',
-                                             'extra' => " WHERE pid = '{$this->data['pid']}'"
+                                             'where' => "pid = '{$this->data['pid']}'"
                                          )
                      );
                      
@@ -178,7 +183,7 @@ class iirs_digg_logModel extends mini_Model {
             $this->update( $this->data, array(
                                              'field' => "uid, {$logtype_count}",
                                              'table' => '__TABLEPRE__memberfields',
-                                             'extra' => " WHERE uid = '{$this->data['authorid']}'"
+                                             'where' => "uid = '{$this->data['authorid']}'"
                                          )
                          );
         }
@@ -196,7 +201,7 @@ class iirs_digg_logModel extends mini_Model {
                 $logtype_message = $GLOBALS['discuz_user']. '向你扔一个鸡蛋';
             }
             $message = $logtype_message. '，并对你说：'. (string)common::input('extramessage', 'POST', '无', true);
-            $message = dhtmlspecialchars($message). "<br /><br /><a href=\"redirect.php?goto=findpost&pid={$this->data['pid']}\">被操作帖子请点击这里</a>";
+            $message = dhtmlspecialchars($message). "<br /><a href=\"redirect.php?goto=findpost&pid={$this->data['pid']}\">[被操作帖子请点击这里]</a>";
             $message= '<div>'. dhtmlspecialchars($logtype_message). ' {time}<br />'. $message. '</div>';
             sendnotice($this->data['authorid'], $message, 'systempm');
         }
