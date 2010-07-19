@@ -1,70 +1,73 @@
 {template header}
 <!--{if empty($infloat)}-->
-<div id="nav"><a href="$indexname">$bbname</a> $navigation</div>
+<div id="nav">
+    <a href="$indexname">$bbname</a> $navigation
+</div>
 <div id="wrap" class="wrap s_clear">
 	<div class="main"><div class="content nofloat">
 <!--{/if}-->
 
 
 <div class="fcontent">
-	<h3 class="float_ctrl" id="return_$handlekey">
-		<em>
-            确认操作
-		</em>
+	<h3 class="float_ctrl">
+		<em>对帖子PID&nbsp;$piddata['pid']&nbsp;发动操作</em>
 		<span><a href="javascript: void(0);" class="float_close" onclick="hideWindow('$handlekey')" title="{lang close}">{lang close}</a></span>
-</h3>
-<form id="diggsubmit_form" method="POST" name="diggsubmit" action="plugin.php?id=iirs_digg:frontLoader&c=log&a=digg">
-		<input type="hidden" name="formhash" value="{FORMHASH}" />
-
+    </h3>
+    
 <div class="postbox">
-<div class="rateopt">
 
-	<div class="hasdropdownbtn ratelist s_clear">
-		<div class="mainbox formbox">
-		<strong>你确认要&nbsp;
-		    <!--{if $logtype == 'diggup'}-->
+    <div class="rateopt">
+	    <div class="hasdropdownbtn ratelist s_clear">
+		    <div class="mainbox formbox">
+		        <strong>你确认要&nbsp;
+		        <!--{if $logtype == 'diggup'}-->
 		        送鲜花 <img src="plugins/iirs_digg/images/diggup.gif" border="0" align="absmiddle" alt="送鲜花">
-		    <!--{else}-->
+		        <!--{else}-->
 		        扔鸡蛋 <img src="plugins/iirs_digg/images/diggdown.gif" border="0" align="absmiddle" alt="扔鸡蛋">
-		    <!--{/if}-->
-		    &nbsp;给&nbsp;
-		    <!--{if $piddata['authorid'] == 0}-->
+		        <!--{/if}-->
+		        &nbsp;给&nbsp;
+		        <!--{if $piddata['authorid'] == 0}-->
 		        游客
-		    <!--{elseif $piddata['anonymous']}-->
+		        <!--{elseif $piddata['anonymous']}-->
 		        匿名
-		    <!--{else}-->
+		        <!--{else}-->
 		        $piddata['author']
-		    <!--{/if}-->
-            &nbsp;吗？</strong>
-            
-		</div>		
-	</div>
+		        <!--{/if}-->
+                &nbsp;吗？</strong>
+		    </div>		
+	    </div>
+    </div>
+    
+    <div class="rateopt"  id="return_$handlekey">
+	    <form id="diggsubmit_form" method="POST" name="diggsubmit" action="plugin.php?id=iirs_digg:frontLoader&c=log&a=digg" onsubmit="ajaxpost('diggsubmit_form', 'return_{$handlekey}', null, null, null, function (){showCreditPrompt();});return false;">
+	    
+	    <div class="topicadminlog">
+	        <h4>赠送留言(选填):</h4>
+	        <p><textarea id="extramessage" name="extramessage" class="txtarea"></textarea></p>
+            <p>请注意：一旦确认将<strong>自动扣除你的&nbsp;{$extcredits[$credit_type]['title']}&nbsp;{$credit_num}&nbsp;{$extcredits[$credit_type]['unit']}</strong>&nbsp;
+<br />此操作将不可逆。</p>
+	    </div>
+	    
+        <input type="hidden" name="formhash" value="{FORMHASH}" />
+	    <input type="hidden" name="logtype" value="{$logtype}">
+	    <input type="hidden" name="pid" value="{$piddata['pid']}">
+	    <input type="hidden" name="page" value="{$page}">
+	    <input type="hidden" name="tid" value="{$piddata['tid']}">
+	    <input type="hidden" name="handlekey" value="{$handlekey}">
+	    <input type="hidden" name="diggsubmit" value="yes">
+	    <!--{if empty($infloat)}-->
+	    <input type="hidden" name="infloat" value="yes">
+	    <!--{/if}-->
 
-
-<div class="topicadminlog">
-	<h4>赠送留言(选填):
-	</h4>
-	<p><textarea id="extramessage" name="extramessage" class="txtarea"></textarea></p>
-	<p>
+	    <button type="submit" name="diggsubmit" value="true" id="diggsubmit">{lang submit}</button>
+        </form>
 	
-    <input type="hidden" name="logtype" value="{$logtype}">
-    <input type="hidden" name="pid" value="{$piddata['pid']}">
-    <input type="hidden" name="page" value="{$page}">
-    <input type="hidden" name="tid" value="{$piddata['tid']}">
-    <input type="hidden" name="handlekey" value="{$handlekey}">
+	    </div>
+    </div>
     
-<div>&nbsp;&nbsp;请注意：一旦确认将<strong>自动扣除你的&nbsp;{$extcredits[$credit_type]['title']}&nbsp;{$credit_num}{$extcredits[$credit_type]['unit']}</strong>&nbsp;
-<br />&nbsp;&nbsp;此操作将不可逆。</div>
 </div>
-    
-	<button type="submit" name="diggsubmit" value="true" id="diggsubmit">{lang submit}</button>
-
-	</p>
 </div>
 
-</div>
-</form>
-</div>
 
 <!--{if empty($infloat)}-->
 	</div></div>

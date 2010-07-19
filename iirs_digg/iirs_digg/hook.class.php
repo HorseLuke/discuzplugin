@@ -93,8 +93,8 @@ EOF;
         $img_diggup = '<img border="0" align="absmiddle" src="./plugins/iirs_digg/images/send_diggup.gif" title="本楼已有鲜花：'. $post['diggup_count']. '"  />';
         $img_diggdown = '<img border="0" align="absmiddle" src="./plugins/iirs_digg/images/send_diggdown.gif" title="本楼已有鸡蛋：'. $post['diggdown_count']. '"  />';
         if( $post['authorid'] != $GLOBALS['discuz_uid'] ){
-            $img_diggup = "<a href='plugin.php?id=iirs_digg:frontLoader&c=log&a=diggshow&logtype=diggup&pid={$post['pid']}&page={$GLOBALS['page']}&tid={$GLOBALS['tid']}' onclick=\"showWindow('iirs_digg_{$post[pid]}', this.href);doane(event);\">". $img_diggup. '</a>'; 
-            $img_diggdown = "<a href='plugin.php?id=iirs_digg:frontLoader&c=log&a=diggshow&logtype=diggdown&pid={$post['pid']}&page={$GLOBALS['page']}&tid={$GLOBALS['tid']}' onclick=\"showWindow('iirs_digg_{$post[pid]}', this.href);doane(event);\">". $img_diggdown. '</a>'; 
+            $img_diggup = "<a href='plugin.php?id=iirs_digg:frontLoader&c=log&a=diggshow&logtype=diggup&pid={$post['pid']}&page={$GLOBALS['page']}&tid={$GLOBALS['tid']}' onclick=\"showWindow('iirs_digg_{$post[pid]}_diggup', this.href);doane(event);\">". $img_diggup. '</a>'; 
+            $img_diggdown = "<a href='plugin.php?id=iirs_digg:frontLoader&c=log&a=diggshow&logtype=diggdown&pid={$post['pid']}&page={$GLOBALS['page']}&tid={$GLOBALS['tid']}' onclick=\"showWindow('iirs_digg_{$post[pid]}_diggdown', this.href);doane(event);\">". $img_diggdown. '</a>'; 
         }
         return $img_diggup.$img_diggdown;
         

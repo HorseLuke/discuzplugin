@@ -16,7 +16,6 @@ if(!defined('IN_DISCUZ')) {
 
 define('USE_RUNTIME', 1);
 
-
 $identifier = 'iirs_digg';
 
 //dz非ajax安全简易修正
@@ -42,9 +41,6 @@ define('APP_PATH',dirname(__FILE__).'/App');
 
 //导入设置
 common::config('set', $_DPLUGIN[$identifier]['vars']);
-
-
-//showmessage( '完成！请继续开发！' , NULL,  'HALTED');
 
 //controller实例化
 $controllerName = (string)common::input('c', 'GET', null);
