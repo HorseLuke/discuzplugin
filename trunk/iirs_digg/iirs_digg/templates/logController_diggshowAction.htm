@@ -39,7 +39,7 @@
     </div>
     
     <div class="rateopt"  id="return_$handlekey">
-	    <form id="diggsubmit_form" method="POST" name="diggsubmit" action="plugin.php?id=iirs_digg:frontLoader&c=log&a=digg" onsubmit="ajaxpost('diggsubmit_form', 'return_{$handlekey}', null, null, null, function (){showCreditPrompt();});return false;">
+	    <form id="diggsubmit_form_{$handlekey}" method="POST" name="diggsubmit" action="plugin.php?id=iirs_digg:frontLoader&c=log&a=digg" onsubmit="ajaxpost('diggsubmit_form_{$handlekey}', 'return_{$handlekey}', null, null, null, function (){showPrompt(null, null, '<span>积分变动刷新后提示</span>', 2000, 1);});return false;">
 	    
 	    <div class="topicadminlog">
 	        <h4>赠送留言(选填):</h4>
