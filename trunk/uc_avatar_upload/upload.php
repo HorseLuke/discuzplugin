@@ -47,12 +47,12 @@ if( !isset($_GET['a']) || empty($_GET['a']) || !is_string($_GET['a']) ){
 $controller = new Controller_AvatarFlashUpload();
 $controller->config->set($config);
 //运行该脚本的网址（不含脚本名称），存储于config中
-$controller->config->uc_api = ( $_SERVER['HTTPS'] == 'on' ? 'https' : 'http' ). 
+$controller->config->uc_api = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http' ). 
                               '://'. 
                               $_SERVER['HTTP_HOST']. 
                               ( $_SERVER['SERVER_PORT'] == '80' ? '' : ':'.$_SERVER['SERVER_PORT'] ). 
-                              substr( $_SERVER['PHP_SELF'], 0, strrpos($_SERVER['PHP_SELF'], '/') );
-
+                              substr( $_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/') );
+                              
 //运行控制器指定的动作
 
 if(method_exists($controller, $action)){
