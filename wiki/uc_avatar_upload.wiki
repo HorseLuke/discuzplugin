@@ -40,3 +40,17 @@ Discuz!/UCenter头文件注释：
 
 = 剥离手记 =
     * http://hi.baidu.com/horseluke/blog/item/8ed0803ec4cc43f7838b136b.html
+
+= 更新历史 =
+=================
+rev 156
+=================
+[bug修正]在apache2开启PATH_INFO后存在头像上传后空白的问题。
+
+代码更改对比请查看如下链接：
+http://code.google.com/p/discuzplugin-hl/source/detail?r=156
+
+=================
+rev 138
+=================
+说明书中增加上传成功会自动刷新的代码，供开发者选择。
