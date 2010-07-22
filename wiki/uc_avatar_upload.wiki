@@ -32,7 +32,7 @@ Discuz!/UCenter头文件注释：
 
 = 下载地址和程序使用说明 =
 
-    * http://code.google.com/p/discuzplugin-hl/downloads/detail?name=uc_avatar_upload_rev138.zip&can=2&q=#makechanges
+    * http://code.google.com/p/discuzplugin-hl/downloads/detail?name=uc_avatar_upload_rev156.zip&can=2&q=
     * freediscuz!论坛下载和讨论：http://www.freediscuz.net/bbs/thread-5863-1-1.html
     * ppc论坛下载和讨论：http://www.phpchina.com/bbs/thread-187977-1-1.html
     * alan888论坛下载和讨论（香港/繁体）：http://www.alan888.com/Discuz/thread-183821-1-1.html
