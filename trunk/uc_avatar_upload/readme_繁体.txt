@@ -41,7 +41,10 @@ This is NOT a freeware, use is subject to license terms
 1、本程式部分遵循MVC架構開發，upload.php是該程式的指定唯一入口。
 你可以將upload.php改為任意名字，而不影響該程式的運行。
 
-2、打開upload.php，對config陣列進行修改，其中：
+2、打開upload.php，對config陣列進行修改。
+請使用Editplus等軟體打開，不要使用Windows自帶的記事本打開；
+否則當保存時，windows記事本將自動往該檔加utf8 bom，從而可能導致本腳本無法運行（因為本腳本的編碼是utf8）！
+config陣列含義：
 （1）'tmpdir'：臨時存放第一次上傳檔的檔夾（相對於upload.php的位置而言），開頭和結尾請不要加反斜杆。
 請務必將該文件夾和upload.php存放於同一分區，同時不要超過upload.php所運行的網址的頂端目錄，並且設置為可讀可寫，否則將出錯！
 （2）'avatardir'：存儲頭像的檔夾（相對於upload.php的位置而言），開頭和結尾請不要加反斜杆。
@@ -55,6 +58,9 @@ Inter_Error::$conf['logDir'] = dirname(__FILE__). '/Log';
 Inter_Error類的其他說明請參考對應附錄。
 （5）'uploadsize'：上傳圖片檔的最大值，單位是KB。
 請勿超過php.ini所允許的最大上傳值，否則flash將在上傳過程中出現邏輯混亂而無法運行。
+（6）'uc_api'：運行該腳本的網址，末尾請不要加反斜杠（比如http://www.aaa.com/avatar/upload）。
+如果為空，系統將自動生成一個。但自動生成的話可能會有錯誤，導致無法上傳頭像。如果遇到此情況，請修改這裏的值。
+
 
 其他沒提到的設置，屬於系統設置。請不要隨便進行修改，否則將引起程式安全隱患！
 
