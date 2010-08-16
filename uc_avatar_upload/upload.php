@@ -16,6 +16,7 @@ $config = array(
     'authkey' => 'safsdfsda5643dgsdfgrew',          //通讯密钥，必须填写，否则脚本无法运行！
     'debug' => true,    //开启debug记录？
     'uploadsize' => 1024,   //上传图片文件的最大值，单位是KB
+    'uc_api' => '',          //运行该脚本的网址，末尾请不要加反斜杠（比如http://www.aaa.com/uc_avatar_upload）。详情请看说明
     'imgtype' => array(1 => '.gif', 2 => '.jpg', 3 => '.png'),        //允许上传的类型，请勿修改此处设置，否则会引起安全隐患问题！
 );
 
@@ -46,13 +47,15 @@ if( !isset($_GET['a']) || empty($_GET['a']) || !is_string($_GET['a']) ){
 //因为这个程序只有一个控制器，所以直接实例化了
 $controller = new Controller_AvatarFlashUpload();
 $controller->config->set($config);
-//运行该脚本的网址（不含脚本名称），存储于config中
-$controller->config->uc_api = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http' ). 
-                              '://'. 
-                              $_SERVER['HTTP_HOST']. 
-                              ( $_SERVER['SERVER_PORT'] == '80' ? '' : ':'.$_SERVER['SERVER_PORT'] ). 
-                              substr( $_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/') );
-                              
+//如果没有设置则自动生成运行该脚本的网址（不含脚本名称）
+if( empty($controller->config->uc_api) ){
+    $controller->config->uc_api = ( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' ? 'https' : 'http' ). 
+                                  '://'. 
+                                  /* $_SERVER['HTTP_HOST'].  */
+                                  ( isset($_SERVER['HTTP_X_FORWARDED_HOST']) ? $_SERVER['HTTP_X_FORWARDED_HOST'] : (isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '') ). 
+                                  substr( $_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/') );
+}
+ 
 //运行控制器指定的动作
 
 if(method_exists($controller, $action)){
