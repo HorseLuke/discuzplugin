@@ -19,9 +19,11 @@ Discuz!/UCenter头文件注释：
 欢迎查看Horse Luke（中文名称：微碌）所编写/修改的程序。
 
 本程序受朋友邀请所写，主要是*剥离UCenter的Flash头像上传程序为独立的程序*，经过初步测试有效。
+
 其中的swf文件来源自Discuz!NT程序。原因是Discuz!NT程序的同功能Flash文件，可指定任意的头像上传入口（即uc_api + 当前执行脚本文件名）。
 
 本程序允许在PHP5.0及以上版本运行，编码为UTF-8。在Windows Server 2003 + IIS平台下测试通过。
+
 本程序需要开启SPL库（因为config类继承了SPL的ArrayObject类；PHP5.0默认开启了SPL）
 
 由于版权原因，本程序不建议使用到生产环境，仅用于了解其flash头像上传的原理。
@@ -42,6 +44,19 @@ Discuz!/UCenter头文件注释：
     * http://hi.baidu.com/horseluke/blog/item/8ed0803ec4cc43f7838b136b.html
 
 = 更新历史 =
+=================
+rev 159
+=================
+[增加]config数组增加uc_api参数，手动指定“运行该脚本的网址”（末尾不要加/）
+
+如果为空，系统将自动生成一个。但自动生成的话可能会有错误，导致无法上传头像。如果遇到此情况，请修改这里的值。
+
+[bug修正]非80端口自动生成错误的运行脚本网址
+
+代码更改对比请查看如下链接：
+http://code.google.com/p/discuzplugin-hl/source/detail?r=159
+
+
 =================
 rev 156
 =================
