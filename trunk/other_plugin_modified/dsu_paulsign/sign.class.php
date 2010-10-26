@@ -4,6 +4,8 @@
 */
 class plugin_dsu_paulsign{
 	function global_footer() {
+		@session_start();
+		
 		global $_G;
 		if(function_exists('date_default_timezone_set'))@date_default_timezone_set("Asia/Shanghai");
 		$tdtime = mktime(0,0,0,dgmdate($_G['timestamp'], 'n'),dgmdate($_G['timestamp'], 'j'),dgmdate($_G['timestamp'], 'Y'));
@@ -13,11 +15,19 @@ class plugin_dsu_paulsign{
 		$groups = unserialize($var['groups']);
 		if($var['ifopen'] && $var['ftopen'] && !defined('IN_dsu_paulsign') && !$_G['gp_infloat'] && !$_G['inajax'] && $_G['uid'] && in_array($_G['groupid'], $tzgroupid) && !in_array($_G['uid'],$read_ban) && in_array($_G['groupid'], $groups)) {
 			$signtime = $_SESSION['signtime'];
+			
+			if (! isset ( $_SESSION ['signtime'] ) || ! isset ( $_SESSION ['signuid'] ) || ($_G ['uid'] != $_SESSION ['signuid'])) {
+				$_SESSION['signtime'] = $signtime = 0;
+				$_SESSION ['signuid'] = 0;
+			}
+			
 			if(!$signtime){
 				$qiandaodb = DB::fetch_first("SELECT time FROM ".DB::table('dsu_paulsign')." WHERE uid='$_G[uid]'");
 				$htime = dgmdate($_G['timestamp'], 'H');
 				if($qiandaodb){
 					$_SESSION['signtime'] = $qiandaodb['time'];
+					$_SESSION['signuid'] = $_G['uid'] ;
+					
 					if($qiandaodb['time'] < $tdtime){
 						if($var['timeopen']) {
 							if(!($htime < $var['stime']) && !($htime > $var['ftime'])) dheader('Location: plugin.php?id=dsu_paulsign:sign');

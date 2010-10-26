@@ -2,6 +2,8 @@
 /*
 	dsu_paulsign Main By shy9000[DSU.CC] 2010-09-10
 */
+@session_start();
+
 define('IN_dsu_paulsign', '1');
 require_once DISCUZ_ROOT.'./data/plugindata/dsu_paulsign.lang.php';
 if(function_exists('date_default_timezone_set'))@date_default_timezone_set("Asia/Shanghai");
@@ -303,6 +305,8 @@ if($_G['gp_operation'] == 'zong' || $_G['gp_operation'] == 'month' || $_G['gp_op
 			}
 		}
 	$_SESSION['signtime'] = $_G['timestamp'];
+	$_SESSION['signuid'] = $_G['uid'];
+	
 	if($num ==0) {
 		if($stats['todayq'] > $stats['highestq']) DB::query("UPDATE ".DB::table('dsu_paulsignset')." SET highestq='$stats[todayq]' WHERE id='1'");
 		DB::query("UPDATE ".DB::table('dsu_paulsignset')." SET yesterdayq='$stats[todayq]',todayq=1 WHERE id='1'");
@@ -362,5 +366,13 @@ $navigation = $lang['name'];
 $navtitle = "$navigation";
 $signBuild = '&copy; Shy9000[DSU Team]<br>Ver 2.2 Final'; 
 $signadd = 'http://www.dsu.cc/thread-27298-1-1.html';
+
+if ( isset($qiandaodb['time']) && ($qiandaodb['time'] >= $tdtime) )
+{
+	$_SESSION['signtime'] = $_G['timestamp'];
+	$_SESSION['signuid'] = $_G['uid'] ;
+}
+
+
 include template('dsu_paulsign:sign');
 ?>
