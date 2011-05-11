@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <root>
 	<item id="Title"><![CDATA[Discuz! Plugin]]></item>
-	<item id="Version"><![CDATA[X1.5RC]]></item>
-	<item id="Time"><![CDATA[2010-09-14 10:38]]></item>
-	<item id="From"><![CDATA[Discuz! Board (http://www.local.test/bbs/x15rcutf8/)]]></item>
+	<item id="Version"><![CDATA[X2RC]]></item>
+	<item id="Time"><![CDATA[2011-05-11 13:50]]></item>
+	<item id="From"><![CDATA[Discuz! Board (http://www.local.test/bbs/x2rcutf8/)]]></item>
 	<item id="Data">
 		<item id="plugin">
 			<item id="available"><![CDATA[0]]></item>
@@ -30,6 +30,6 @@
 				</item>
 			</item>
 		</item>
-		<item id="version"><![CDATA[X1.5RC]]></item>
+		<item id="version"><![CDATA[X2RC]]></item>
 	</item>
 </root>
