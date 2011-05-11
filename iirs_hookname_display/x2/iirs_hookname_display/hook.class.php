@@ -63,6 +63,12 @@ class plugin_{$this->plugin_id}{
 	function global_xxx(){
 		//write some code
 	}
+	
+	//X2RC新增：deletethread() 函数执行时调用；
+	//用于在主题删除前后嵌入自己的功能，此函数将在 deletethread() 中被调用 2 次（check & delete）
+	function deletethread(\$param){
+		//write some code
+	}
 }
 
 //脚本嵌入点类

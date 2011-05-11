@@ -1,7 +1,13 @@
 <!--{block return}-->
 <div>
-	注意：在X2 RC测试有效，不保证X2系列的版本也能生成正确的钩子类名和钩子方法（又称“子方法名”）。
-	<br />
+	注意：<br />
+	本脚本为非官方人员开发的非官方程序，在X2 RC测试有效，不保证X2系列的版本也能生成正确的钩子类名和钩子方法（又称“子方法名”）；<br />
+	并且页面嵌入点随时有可能发生变化，比如X2正式版将存在全局嵌入点deletepost()；<br />
+	<strong><a href="http://dev.discuz.org/wiki/index.php?title=%E9%A1%B5%E9%9D%A2%E5%B5%8C%E5%85%A5%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91" target="_blank">所以请自行到DZ wiki进行查看 （官方原话：“动态和嵌入点请随时关注wiki”）</a>。</strong>
+</div>
+
+<div>
+<br />
 	[和X1.5相同]在X2 BETA/RC中，如果变量GLOBALS['_G']['basescript']和常量CURSCRIPT不相同，钩子类名则以前者为准；
 	<br />
 	[和X1.5不同]变量GLOBALS['_G']['basescript']或者常量CURSCRIPT为“home”时，有特殊判定：
@@ -48,7 +54,7 @@
 
 
 <div>
-	以下内容摘抄自《Discuz! X 插件开发手册 X2 Release 20110322》（<a href="http://dev.discuz.org/wiki" target="_blank">现已更改为DZ wiki</a>）：<br /><br />
+	以下内容摘抄自《Discuz! X 插件开发手册 X2 Release 20110322》（<a href="http://dev.discuz.org/wiki/" target="_blank">现已更改为DZ wiki</a>）：<br /><br />
 开始编写一个新插件，请首先打开 config/config_global.php 文件，在文件结尾添加以下代码开启插件设计者模式。<br />
 <pre>
 _config['plugindeveloper'] = 1;   //请自行添加美元符号，使其成为变量
