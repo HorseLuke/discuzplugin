@@ -83,7 +83,7 @@ if(isset($_GET['showcache']) && 1 == $_GET['showcache']){
 
 
 if(UC_API_FUNC == 'uc_api_mysql' && UC_OPEN_SIMULATE_CHECK == true){
-	error_reporting(E_ALL);
+	//error_reporting(E_ALL);
 	echo '直接操作UCenter结果（等同于调用函数uc_app_ls）:<br />';
 	require_once UC_ROOT.'lib/db.class.php';
 	require_once UC_ROOT.'model/base.php';
