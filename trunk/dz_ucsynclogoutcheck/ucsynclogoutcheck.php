@@ -13,7 +13,7 @@ require_once './include/common.inc.php';
 require_once DISCUZ_ROOT.'./uc_client/client.php';
 
 //当开启此检查选项为true时，若ucenter和dz/dx装在同一个数据库，则同时进行uc模拟运行，以检测深层问题
-define('UC_OPEN_SIMULATE_CHECK', false);
+define('UC_OPEN_SIMULATE_CHECK', true);
 
 $data = array();
 
@@ -60,12 +60,28 @@ if($allowsynlogin){
 }
 
 echo '<hr />';
+
+//读取缓存文件
+if(isset($_GET['showcache']) && 1 == $_GET['showcache']){
+	echo '<hr />';
+	$cachefile = DISCUZ_ROOT.'./uc_client/data/cache/apps.php';
+	if(is_file($cachefile)){
+		echo '存储在DZ的同步登录缓存文件在：'. $cachefile. '。缓存内容为：<br />';
+		echo file_get_contents($cachefile);
+	}else{
+		echo $cachefile. '文件不存在';
+	}
+	echo '<hr />';
+}
+
+
 if(UC_API_FUNC == 'uc_api_mysql' && UC_OPEN_SIMULATE_CHECK == true){
-	error_reporting(E_ALL);
-	echo 'TRY TO FETCH uc_app_ls by UCENTER SIMULATE:<br />';
-	include_once UC_ROOT.'./lib/db.class.php';
-	include_once UC_ROOT.'./model/base.php';
-	include_once UC_ROOT."./control/app.php";
+	//error_reporting(E_ALL);
+	echo '直接操作UCenter结果（等同于调用函数uc_app_ls）:<br />';
+	require_once UC_ROOT.'lib/db.class.php';
+	require_once UC_ROOT.'model/base.php';
+	require_once UC_ROOT.'control/app.php';
+	
 	$ctrApp = new appcontrol();
 	$args = uc_addslashes(array(), 1, TRUE);
 	$action = 'onls';
@@ -74,8 +90,12 @@ if(UC_API_FUNC == 'uc_api_mysql' && UC_OPEN_SIMULATE_CHECK == true){
 	
 	echo '<hr />';
 	
-	echo 'TRY TO FETCH uc_app_ls by UCENTER DATABASE:<br />';
-	$dbInst = new ucclient_db();
+	echo '直接连接数据库操作模拟uc_app_ls结果:<br />';
+	if(class_exists('db')){
+		$dbInst = new db();
+	}elseif(class_exists('ucclient_db')){
+		$dbInst = new ucclient_db();
+	}
 	$dbInst->connect(UC_DBHOST, UC_DBUSER, UC_DBPW, '', UC_DBCHARSET, UC_DBCONNECT, UC_DBTABLEPRE);
 	$sql = "SELECT * FROM ".UC_DBTABLEPRE."applications";
 	echo $sql. '<br />';
@@ -87,5 +107,4 @@ if(UC_API_FUNC == 'uc_api_mysql' && UC_OPEN_SIMULATE_CHECK == true){
 	}
 	echo nl2br(var_export($arr, true));
 	
-	echo '<br />END OF NATIVE SIMULATION';
 }
