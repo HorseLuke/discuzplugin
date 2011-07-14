@@ -5,6 +5,9 @@
  * @version $Id$
  * @author Horse Luke<horseluke@126.com>
  */
+ob_start();
+header("Content-type: text/html; charset=utf-8"); 
+
 require_once './include/common.inc.php';
 
 require_once DISCUZ_ROOT.'./uc_client/client.php';
@@ -14,9 +17,11 @@ define('UC_OPEN_SIMULATE_CHECK', false);
 
 $data = array();
 
-echo 'UC CONNECT TYPE: '. UC_API_FUNC. '<br />';
+echo 'DZ config.inc.php中，UCenter地址（常量UC_API）: '. UC_API. '<br />';
 
-echo 'The Dz UC_APPID is: '. UC_APPID. '<br />';
+echo 'DZ config.inc.php中，UCenter连接类型（常量UC_API_FUNC）: '. UC_API_FUNC. '<br />';
+
+echo 'DZ config.inc.php中，DZ在UCenter的APPID（常量UC_APPID）: '. UC_APPID. '<br />';
 
 echo '<hr />';
 
@@ -25,12 +30,12 @@ $uc_allowsynlogin = isset($ucapparray[UC_APPID]['synlogin']) ? $ucapparray[UC_AP
 $appsynlogins = 0;
 foreach($ucapparray as $apparray) {
 	if($apparray['appid'] != UC_APPID) {
-		echo 'OTHER APP DATA: APP ID: '. $apparray['appid']. '; APP TYPE: '. $apparray['type']. '; APP NAME: '. $apparray['name']. '; Sync Setting: '. (int)$apparray['synlogin']. '<br />';
+		echo '挂载UCenter下的其它APP数据: APP ID: '. $apparray['appid']. '; APP TYPE: '. $apparray['type']. '; APP NAME: '. $apparray['name']. '; Sync Setting: '. (int)$apparray['synlogin']. '<br />';
 		if(!empty($apparray['synlogin'])) {
 			$appsynlogins = 1;
 		}
 	}else{
-		echo 'DZ APP DATA: APP ID: '. $apparray['appid']. '; APP TYPE: '. $apparray['type']. '; APP NAME: '. $apparray['name']. '; Sync Setting: '. (int)$apparray['synlogin']. '<br />';
+		echo '挂载UCenter下的Discuz数据: APP ID: '. $apparray['appid']. '; APP TYPE: '. $apparray['type']. '; APP NAME: '. $apparray['name']. '; Sync Setting: '. (int)$apparray['synlogin']. '<br />';
 	}
 }
 $data['allowsynlogin'] = isset($ucapparray[UC_APPID]['synlogin']) ? $ucapparray[UC_APPID]['synlogin'] : 1;
@@ -38,20 +43,20 @@ $data['allowsynlogin'] = $data['allowsynlogin'] && $appsynlogins ? 1 : 0;
 
 echo '<hr />';
 
-echo 'Sync setting of Dz in Ucenter is: '. (int)$uc_allowsynlogin. '<br />';
-echo 'detect sync setting of other apps in Ucenter is: '. (int)$appsynlogins. '<br />';
-echo 'Calculate the Sync setting in Dz Local is: '. (int)$data['allowsynlogin']. '<br />';
+echo 'UCenter中所挂载的DZ，其设置的同步登录值是: '. (int)$uc_allowsynlogin. '<br />';
+echo 'UCenter中除了DZ以外，是否有任意一个APP设置了同步登录: '. (int)$appsynlogins. '<br />';
+echo '<b>根据以上两个结果，DZ本地应该设定的同步登录为: '. (int)$data['allowsynlogin']. '</b><br />';
 echo '<hr />';
 
-echo 'Sync setting in Dz Local (variable $allowsynlogin) is: '. (int)$allowsynlogin. '<br />';
+echo '<b>实际在DZ本地的同步登录值(变量$allowsynlogin)为: '. (int)$allowsynlogin. '</b><br />';
 echo '<hr />';
 
 if($allowsynlogin){
 	$data = uc_user_synlogout();
-	echo 'the uc_user_synlogout() data is: '. htmlspecialchars($data);;
+	echo '运行uc_user_synlogout()得到的script值: '. htmlspecialchars($data);;
 	
 }else{
-	echo 'Can not run uc_user_synlogout() because variable $allowsynlogin in dz is not true or 1';
+	echo '由于变量$allowsynlogin不为true或者1，故不能运行uc_user_synlogout()，也即无法运行同步登录或者同步退出';
 }
 
 echo '<hr />';
