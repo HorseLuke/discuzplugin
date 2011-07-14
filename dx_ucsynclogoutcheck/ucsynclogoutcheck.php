@@ -8,20 +8,27 @@
 ob_start();
 header("Content-type: text/html; charset=utf-8"); 
 
-require_once './include/common.inc.php';
+define('APPTYPEID', 999999);
+define('CURSCRIPT', 'homedsfaasdfsda');
 
-require_once DISCUZ_ROOT.'./uc_client/client.php';
+require_once dirname(__FILE__).'/source/class/class_core.php';
+$discuz = & discuz_core::instance();
+$discuz->init();
+
+
+loaducenter();
+
 
 //当开启此检查选项为true时，若ucenter和dz/dx装在同一个数据库，则同时进行uc模拟运行，以检测深层问题
 define('UC_OPEN_SIMULATE_CHECK', true);
 
 $data = array();
 
-echo 'DZ config.inc.php中，UCenter地址（常量UC_API）: '. UC_API. '<br />';
+echo 'DX config/config_ucenter.php中，UCenter地址（常量UC_API）: '. UC_API. '<br />';
 
-echo 'DZ config.inc.php中，UCenter连接类型（常量UC_API_FUNC）: '. UC_API_FUNC. '<br />';
+echo 'DX config/config_ucenter.php中，UCenter连接类型（常量UC_API_FUNC）: '. UC_API_FUNC. '<br />';
 
-echo 'DZ config.inc.php中，DZ在UCenter的APPID（常量UC_APPID）: '. UC_APPID. '<br />';
+echo 'DX config/config_ucenter.php中，DX在UCenter的APPID（常量UC_APPID）: '. UC_APPID. '<br />';
 
 echo '<hr />';
 
@@ -35,7 +42,7 @@ foreach($ucapparray as $apparray) {
 			$appsynlogins = 1;
 		}
 	}else{
-		echo '挂载UCenter下的Discuz数据: APP ID: '. $apparray['appid']. '; APP TYPE: '. $apparray['type']. '; APP NAME: '. $apparray['name']. '; Sync Setting: '. (int)$apparray['synlogin']. '<br />';
+		echo '挂载UCenter下的DiscuzX数据: APP ID: '. $apparray['appid']. '; APP TYPE: '. $apparray['type']. '; APP NAME: '. $apparray['name']. '; Sync Setting: '. (int)$apparray['synlogin']. '<br />';
 	}
 }
 $data['allowsynlogin'] = isset($ucapparray[UC_APPID]['synlogin']) ? $ucapparray[UC_APPID]['synlogin'] : 1;
@@ -43,20 +50,20 @@ $data['allowsynlogin'] = $data['allowsynlogin'] && $appsynlogins ? 1 : 0;
 
 echo '<hr />';
 
-echo 'UCenter中所挂载的DZ，其设置的同步登录值是: '. (int)$uc_allowsynlogin. '<br />';
-echo 'UCenter中除了DZ以外，是否有任意一个APP设置了同步登录: '. (int)$appsynlogins. '<br />';
-echo '<b>根据以上两个结果，DZ本地应该设定的同步登录为: '. (int)$data['allowsynlogin']. '</b><br />';
+echo 'UCenter中所挂载的DX，其设置的同步登录值是: '. (int)$uc_allowsynlogin. '<br />';
+echo 'UCenter中除了DX以外，是否有任意一个APP设置了同步登录: '. (int)$appsynlogins. '<br />';
+echo '<b>根据以上两个结果，DX本地应该设定的同步登录为: '. (int)$data['allowsynlogin']. '</b><br />';
 echo '<hr />';
 
-echo '<b>实际在DZ本地的同步登录值(变量$allowsynlogin)为: '. (int)$allowsynlogin. '</b><br />';
+echo '<b>实际在DX本地的同步登录值(变量$_G[\'setting\'][\'allowsynlogin\'])为: '. (int)$_G['setting']['allowsynlogin']. '</b><br />';
 echo '<hr />';
 
-if($allowsynlogin){
+if($_G['setting']['allowsynlogin']){
 	$data = uc_user_synlogout();
 	echo '运行uc_user_synlogout()得到的script值: '. htmlspecialchars($data);;
 	
 }else{
-	echo '由于变量$allowsynlogin不为true或者1，故不能运行uc_user_synlogout()，也即无法运行同步登录或者同步退出';
+	echo '由于变量$_G[\'setting\'][\'allowsynlogin\']不为true或者1，故不能运行uc_user_synlogout()，也即无法运行同步登录或者同步退出';
 }
 
 echo '<hr />';
@@ -76,7 +83,7 @@ if(isset($_GET['showcache']) && 1 == $_GET['showcache']){
 
 
 if(UC_API_FUNC == 'uc_api_mysql' && UC_OPEN_SIMULATE_CHECK == true){
-	//error_reporting(E_ALL);
+	error_reporting(E_ALL);
 	echo '直接操作UCenter结果（等同于调用函数uc_app_ls）:<br />';
 	require_once UC_ROOT.'lib/db.class.php';
 	require_once UC_ROOT.'model/base.php';
