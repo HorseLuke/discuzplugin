@@ -5,7 +5,12 @@
 本文档用于指导DZ/DX无法通过UCenter进行同步登录问题的排查，[dz_dx_ucsynclogoutcheck 配套检查脚本可在此下载。]
 
 = 可能原因和对策 =
-==1、UCenter缓存或者DZ/DX缓存在后台刷新缓存无效==
+==[KB2000715-3]Discuz!/Discuz!X在UCenter中并没有启用同步登录==
+查看方法：
+  # 管理员登录UCenter->应用列表->编辑DZ/DX应用->查看是否启动同步登录
+  # 设置完毕后，请重刷UCenter缓存+DZ/DX缓存
+
+==[KB2000715-1]UCenter缓存或者DZ/DX缓存在后台刷新缓存无效==
 一般表现为无法输出指定的同步登录/退出脚本，或者出现“Access Denied For Agent Changed”
 
 此情况由于文件权限造成的，需要删除如下缓存文件（若无指定，为了完整重建缓存，请全部删除下面罗列的目录下所有后缀为php的缓存文件）：
@@ -20,7 +25,7 @@
      # [Discuz!X目录]/data/sysdata/`*`.php
 
 
-==2、DZ/DX连接的数据库和UCenter连接的数据库并不一致==
+==[KB2000715-2]DZ/DX连接的数据库和UCenter连接的数据库并不一致==
 一般表现为无法输出指定的同步登录/退出脚本，或者出现DZ/DX缓存的同步登录缓存文件（[DZ/DX目录]/uc_client/data/cache/apps.php）和使用uc_app_ls()列出的挂载应用对比不一致。
 
 此情况需要检查DZ/DX的UCenter配置文件，是否和UCenter给出的配置一致。
