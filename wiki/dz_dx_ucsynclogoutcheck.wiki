@@ -1,0 +1,16 @@
+#summary 在DZ/DX检查UCenter同步登录是否正常的脚本说明
+
+= 简介 =
+本脚本用于检测uc同步登录是否正常（调用的是uc_user_synlogout接口）
+
+目前有[http://discuzplugin-hl.googlecode.com/svn/trunk/dz_ucsynclogoutcheck/ DZ]和[http://discuzplugin-hl.googlecode.com/svn/trunk/dx_ucsynclogoutcheck/ DX]两个分支
+
+
+= 使用方法 =
+
+上传复制ucsynclogoutcheck.php到论坛根目录，然后运行。
+
+如果在URL后面增加参数showcache=1，则读取存储在DZ/DX的同步登录缓存文件:[DZ/DX目录]/uc_client/data/cache/apps.php
+
+= 其它 =
+[uc_sync_problem_check_tips DZ/DX无法通过UCenter进行同步登录的可能原因和对策]
