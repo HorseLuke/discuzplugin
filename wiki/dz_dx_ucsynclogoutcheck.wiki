@@ -5,6 +5,7 @@
 
 目前有[http://discuzplugin-hl.googlecode.com/svn/trunk/dz_ucsynclogoutcheck/ DZ]和[http://discuzplugin-hl.googlecode.com/svn/trunk/dx_ucsynclogoutcheck/ DX]两个分支
 
+下载地址[http://code.google.com/p/discuzplugin-hl/downloads/detail?name=dz_dx_ucsynclogoutcheck_r181.zip 请点击这里]。
 
 = 使用方法 =
 
