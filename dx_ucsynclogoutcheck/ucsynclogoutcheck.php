@@ -73,7 +73,7 @@ if(isset($_GET['showcache']) && 1 == $_GET['showcache']){
 	echo '<hr />';
 	$cachefile = DISCUZ_ROOT.'./uc_client/data/cache/apps.php';
 	if(is_file($cachefile)){
-		echo '存储在DZ的同步登录缓存文件在：'. $cachefile. '。缓存内容为：<br />';
+		echo '存储在DX的同步登录缓存文件在：'. $cachefile. '。缓存内容为：<br />';
 		echo file_get_contents($cachefile);
 	}else{
 		echo $cachefile. '文件不存在';
