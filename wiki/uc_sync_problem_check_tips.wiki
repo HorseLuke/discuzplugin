@@ -1,6 +1,10 @@
 #summary DZ/DX无法通过UCenter进行同步登录的可能原因和对策
 #labels Featured
 
+= 简介 =
+本文档用于指导DZ/DX无法通过UCenter进行同步登录问题的排查，[dz_dx_ucsynclogoutcheck 配套检查脚本可在此下载。]
+
+= 可能原因和对策 =
 ==1、UCenter缓存或者DZ/DX缓存在后台刷新缓存无效==
 一般表现为无法输出指定的同步登录/退出脚本，或者出现“Access Denied For Agent Changed”
 
