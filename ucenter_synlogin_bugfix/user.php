@@ -32,11 +32,30 @@ class usercontrol extends base {
 	function onsynlogin() {
 		$this->init_input();
 		$uid = $this->input('uid');
+		
+		/*
+			当前，许多应用在cookies set并登录后，才调集uc同步登录接口；
+			但是该接口却将调该接口的app同步登录也一并输出，从而可能造成混乱，也无形中消耗了资源；
+			本修复主要用于此问题
+			同步退出也有此问题，暂时不修复（可参考本修复示例代码）
+		*/
+		//bug fix (1)- 20111102
+		$forcecurrentapp = $this->input('forcecurrentapp');   //预留参数，是否仍和以前的uc行为保持一致？
+		$current_appid = getgpc('appid', 'P');
+		//bug fix (1)- 20111102
+
 		if($this->app['synlogin']) {
 			if($this->user = $_ENV['user']->get_user_by_uid($uid)) {
 				$synstr = '';
 				foreach($this->cache['apps'] as $appid => $app) {
 					if($app['synlogin']) {
+						
+						//bug fix (2)- 20111102
+						if($forcecurrentapp != 1 && $current_appid == $appid){
+							continue;
+						}
+						//bug fix (2)- 20111102						
+						
 						$synstr .= '<script type="text/javascript" src="'.$app['url'].'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogin&username='.$this->user['username'].'&uid='.$this->user['uid'].'&password='.$this->user['password']."&time=".$this->time, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
 						if(is_array($app['extra']['extraurl'])) foreach($app['extra']['extraurl'] as $extraurl) {
 							$synstr .= '<script type="text/javascript" src="'.$extraurl.'/api/'.$app['apifilename'].'?time='.$this->time.'&code='.urlencode($this->authcode('action=synlogin&username='.$this->user['username'].'&uid='.$this->user['uid'].'&password='.$this->user['password']."&time=".$this->time, 'ENCODE', $app['authkey'])).'" reload="1"></script>';
