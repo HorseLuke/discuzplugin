@@ -77,12 +77,14 @@ Licensed under the Apache License, Version 2.0 (the "License")
 
 普通下载方式
 
-具体的下载地址和详细的安装使用说明书请到wiki页面处查看：http://code.google.com/p/discuzplugin-hl/w/list
+具体的下载地址和详细的安装使用说明书请到wiki页面处查看：https://github.com/HorseLuke/discuzplugin/tree/master/originWiki
 
 若对该插件有任何安装使用上的问题，请在wiki页面上或者插件下载帖子里面留言（在dz留言的请pm一下我），我会尽快回答。
+
 svn下载方式
 
 请到source页面处查看svn地址，所有的插件都存放在trunk目录下。大部分插件不包含任何安装使用说明书，仅提供插件文件。
+
 其它说明
 
-我在Discuz!发布的hack非插件形式修改帖及其它类型的帖子链接：http://code.google.com/p/discuzplugin-hl/wiki/dzhacklink 
+我在Discuz!发布的hack非插件形式修改帖及其它类型的帖子链接：https://github.com/HorseLuke/discuzplugin/blob/master/originWiki/dzhacklink.wiki
