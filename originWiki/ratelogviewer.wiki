@@ -1,0 +1,9 @@
+#summary 评分记录查看器－ratelogviewer及旧版本旧版本“我的评分记录－myrateview”下载地址
+
+
+= Details =
+
+评分记录查看器－ratelogviewer下载地址
+for 6.x：http://www.discuz.net/thread-1017279-1-1.html
+
+旧版本－myrateview（我的评分记录）也是在上面的链接下载

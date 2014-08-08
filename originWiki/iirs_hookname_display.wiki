@@ -1,0 +1,12 @@
+#summary 面向开发者的插件：钩子类名和方法提示 FOR X1.5RC
+
+
+= Details =
+
+FOR X1.5RC 、 X1.5
+
+安装方法：将文件夹iirs_hookname_display放到source/plugin文件夹下。开启后即可在页面底部看到开发提示。
+
+下载地址：http://www.discuz.net/thread-1885845-1-1.html
+
+http://www.discuz.net/data/attachment/forum/201009/14/113335s34oiol8vmkkimla.jpg.thumb.jpg

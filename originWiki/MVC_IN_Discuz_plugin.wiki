@@ -1,0 +1,11 @@
+#summary MVC架构在Discuz!插件开发的应用
+
+
+= Details =
+
+MVC架构在Discuz!插件开发的应用。发表于 2009-11-14 19:26
+
+下载地址:
+  * http://discuzplugin-hl.googlecode.com/svn/trunk/doc/MVC_IN_Discuz_plugin.ppt
+  * http://www.freediscuz.net/bbs/thread-5591-1-2.html
+  * http://bbs.7dps.com/thread-3676-1-1.html

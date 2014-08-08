@@ -1,0 +1,19 @@
+#summary [开发者工具]Discuz SQL执行语句调试文件。现发布两个版本：简单显示版本、简单写入日志版本
+
+= Introduction =
+
+本Debug文件将收集discuz 运行时sql语句并按照设置进行对应的记录处理。
+
+推荐使用简单写入日志版本，使用方法请查看里面附带的修改说明书。
+
+
+= Details =
+
+简单显示版本:
+  * 下载地址：http://www.freediscuz.net/bbs/thread-5198-1-1.html
+
+简单写入日志版本*（推荐）*:
+  * 下载地址（推荐第一个）：
+   ## Google Code下载（带修改说明书）：http://code.google.com/p/discuzplugin-hl/downloads/detail?name=DiscuzSQLDebug_SimpleToHTMLLog.zip&can=2&q=#makechanges
+   ## http://www.freediscuz.net/bbs/thread-5198-1-1.html
+   ## http://www.discuz.net/viewthread.php?tid=1337965

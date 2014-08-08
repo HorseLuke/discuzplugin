@@ -1,0 +1,11 @@
+#summary 更改发贴人到指定帐户changeposter下载地址
+
+= Introduction =
+
+主要介绍其下载地址
+
+
+= Details =
+更改发贴人到指定帐户changeposter下载地址：
+for 6.x版本：http://www.discuz.net/thread-1078272-1-1.html
+for 7版本：http://www.discuz.net/thread-1199954-1-1.html

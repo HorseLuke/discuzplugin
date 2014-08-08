@@ -1,0 +1,19 @@
+#summary “会员查看其他用户主题和回复”插件下载地址
+
+
+= Details =
+
+该插件原模型来源于Discuz! 5.x/6.0 Minispace的一个子功能（同时也是Discuz! 7.2即将重返的功能）：会员可以查看其他用户的主题和回复。
+
+对于用户而言，此功能能更快捷地及时了解该人信息；而对于管理员而言，则方便其及时找出广告ID的帖子进行针对性的删除和移动。
+
+本插件同时支持Ajax和非Ajax读取。
+
+for 7.0版本请到这里下载：http://www.discuz.net/viewthread.php?tid=1481646
+
+for 7.1版本请到这里下载：http://www.discuz.net/thread-1480699-1-1.html
+
+本插件采取MVC架构开发。关于MVC架构在Discuz!下的开发经验，请到下面的任意一个链接下载ppt和查看讨论：
+  # http://bbs.7dps.com/thread-3676-1-1.html
+  # http://www.freediscuz.net/bbs/viewthread.php?tid=5591
+  # 繁体：http://www.alan888.com/Discuz/viewthread.php?tid=176766

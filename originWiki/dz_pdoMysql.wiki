@@ -1,0 +1,22 @@
+#summary [开发者工具]针对Discuz! 6.1F和7.2的PDO连接Mysql数据库类
+#labels Featured
+
+= 简介 =
+针对Discuz! 6.1F和7.2的PDO连接Mysql数据库类。其它版本尚未尝试，理论上可用。
+
+= 开发原因 =
+  # 这种方式连接数据库可能慢，但稳定得多，不容易让数据库在高峰期间死掉。（不过这点只是听几个人说过，还待自己实战测试）
+  # 由于PHP 6可能只支持PDO连接方式，所以未雨绸缪一下。
+
+当然，普通站长们短期内不需要关心~ 
+
+
+
+= 链接 =
+普通下载方法和讨论:
+  * http://www.phpchina.com/bbs/thread-169738-1-1.html
+  * http://www.freediscuz.net/bbs/thread-5659-1-1.html
+  * http://www.alan888.com/Discuz/thread-178006-1-1.html
+
+svn下载方法:
+  * http://discuzplugin-hl.googlecode.com/svn/trunk/dz_pdoMysql/

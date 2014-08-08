@@ -1,0 +1,28 @@
+#summary [开发者工具]Inter Error错误调试类For Discuz!
+#labels Featured
+
+= Detail =
+
+本debug工具为改进本人的一个错误debug类而来。
+
+由于DZ本身运行时有大量的NOTICE错误（这是dz的编写习惯导致），因此本次发布的debug工具为适应dz版（屏蔽NOTICE错误版本）。
+
+[http://horseluke-code.googlecode.com/svn/trunk/InterFramework/Lib/Inter/Error.php 如果需要原版，请使用这个链接的文件]
+
+请注意：
+  # 不是所有错误都是系统漏洞，有些错误本身并不会引起系统错误，只是在检查时候的“依例通知”；然而有些错误则需要引起开发者们的警觉。具体发现，请自行摸索～
+  # 本debug文件仅适合PHP5.0及以上版本。
+  # *本文件仅允许开发者在本地调试使用，非必要情况下，严禁使用于生产环境（比如正在运营的网站）！*
+  # 本人不承担任何因使用及误用而导致任何不良后果的责任！
+  # *请多多查看日志记录文件，并及时做好删除操作。*
+  # 由于屏蔽notice错误，所以在日志中不会记录变量不存在的错误。如有需要，请自行下载原版，然后对日志分析进行统计学分析，以找出问题。友情提醒：此时的log文件将异常大，请最好将日志记录存放在由ramdisk虚拟出来的内存盘
+
+
+
+= Download =
+
+下载地址
+  * http://www.freediscuz.net/bbs/thread-5742-1-1.html
+  * http://www.discuz.net/viewthread.php?tid=1575565
+
+svn里面也有更新。

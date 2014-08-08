@@ -1,0 +1,45 @@
+#summary DZ/DX无法通过UCenter进行同步登录的可能原因和对策
+#labels Featured
+
+= 简介 =
+本文档用于指导DZ/DX无法通过UCenter进行同步登录问题的排查，[dz_dx_ucsynclogoutcheck 配套检查脚本可在此下载。]
+
+= 可能原因和对策 =
+==Discuz!/Discuz!X在UCenter中并没有启用同步登录==
+一般表现为在登录或者退出时，根本不输出的同步登录/退出脚本。
+
+排查方法：
+  # 管理员登录UCenter->应用列表->编辑DZ/DX应用->查看是否启动同步登录
+  # 设置完毕后，请重刷UCenter缓存+DZ/DX缓存
+
+==UCenter缓存或者DZ/DX缓存在后台刷新缓存无效（即更新失败）==
+一般表现为无法输出指定的同步登录/退出脚本，或者出现“Access Denied For Agent Changed”，并且即使在UCenter+DZ/DX后台刷新缓存都是如此。
+
+此情况由于文件权限造成的，需要删除如下缓存文件（若无指定，为了完整重建缓存，请全部删除下面罗列的目录下所有后缀为php的缓存文件）：
+  # UCenter需要删除的缓存文件：
+     # [UCenter目录]/data/cache/`*`.php
+  # Discuz!需要删除的缓存文件：
+     # [Discuz!目录]/uc_client/data/cache/`*`.php
+     # [Discuz!目录]/forumdata/cache/`*`.php
+  # Discuz!X需要删除的缓存文件：
+     # [Discuz!X目录]/uc_client/data/cache/`*`.php
+     # [Discuz!X目录]/data/cache/`*`.php
+     # [Discuz!X目录]/data/sysdata/`*`.php
+
+
+==DZ/DX连接的数据库和UCenter连接的数据库并不一致==
+除了出现“UCenter缓存或者DZ/DX缓存在后台刷新缓存无效（即更新失败）”所描述故障之外，还有可能出现DZ/DX缓存的同步登录缓存文件（[DZ/DX目录]/uc_client/data/cache/apps.php）和使用uc_app_ls()列出的挂载应用对比不一致。
+
+此情况需要检查DZ/DX的UCenter配置文件，是否和UCenter给出的配置一致。
+
+DZ/DX有关UCenter的配置文件：
+  # [Discuz!目录]/config.inc.php
+  # [Discuz!X目录]/config/config_ucenter.php
+
+UCenter给出的配置查看：
+  # 管理员登录UCenter->应用列表->编辑DZ/DX应用->拉到最下面的“应用的 UCenter 配置信息”
+  # 如果无法看到，请以创始人身份登录
+
+*如果出现这种情况，千万不要贸然随便更换任意一方（DZ或者UC）的配置文件，切换到另一方的数据库，因为这样做可能会导致用户数据丢失！*
+
+正确的做法是，先查看并评估两个库出现的差异，然后再慎重思考以那个库为准、是否需要进行数据合并（如果有能力）、并慎重评估切换所带来的用户丢失风险，再进行下一步的操作。如果本身已经挂载了多个应用却出现这种情况时，则更加如此!
